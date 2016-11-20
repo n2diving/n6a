@@ -1,0 +1,2 @@
+class ReviewCriterium < ApplicationRecord
+end

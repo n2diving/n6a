@@ -1,0 +1,1 @@
+json.partial! "employee_teams/employee_team", employee_team: @employee_team
