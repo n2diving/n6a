@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_review: one
+  general_notes: MyText
+  pros: MyText
+  cons: MyText
+
+two:
+  user_review: two
+  general_notes: MyText
+  pros: MyText
+  cons: MyText

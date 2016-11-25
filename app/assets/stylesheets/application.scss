@@ -1,3 +1,14 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "toastr";
+
+
+body {
+  //padding-top: 70px; //allow for bootstrap navbar static
+}
+
+.navbar-brand {
+  img {
+    height: 100%;
+  }
+}
