@@ -9,3 +9,15 @@ two:
   team_name: MyString
   start_date: 2016-11-24 18:40:13
   end_date: 2016-11-24 18:40:13
+
+# == Schema Information
+#
+# Table name: teams
+#
+#  id         :integer          not null, primary key
+#  team_name  :string
+#  start_date :datetime
+#  end_date   :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#

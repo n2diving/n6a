@@ -1,26 +1,27 @@
-<h2>Log in</h2>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="row">
+      <%= image_tag "N6A_EmbraceThePace_3.jpg", class: "mainpage-logo block" %>
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+        <h2 class="margin-bottom-md text-center">log in</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <%= f.email_field :email, class: "form-control margin-bottom-md", autofocus: true, placeholder: "email" %>
+          <%= f.password_field :password, class: "form-control margin-bottom-md", autocomplete: "off", placeholder: "password" %>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+          <%# if devise_mapping.rememberable? -%>
+            <%#= f.check_box :remember_me %>
+            <%#= f.label :remember_me %>
+          <%# end -%>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+          <%= f.submit "log in", class: "btn btn-primary btn-center" %>
+        <% end %>
+
+        <div class="text-center">
+          <%= render "devise/shared/links" %>
+        </div>
+
+      </div>
     </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

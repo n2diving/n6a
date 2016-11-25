@@ -1,6 +1,11 @@
 @import "bootstrap-sprockets";
+@import "mixins/bootstrap_variables";
 @import "bootstrap";
+@import "mixins/bootstrap_overrides";
 @import "toastr";
+@import "mixins/browser_overrides";
+@import "mixins/text_styling";
+@import "mixins/utilities";
 
 
 body {
@@ -11,4 +16,12 @@ body {
   img {
     height: 100%;
   }
+}
+
+.mainpage-logo {
+  width: 100%;
+  max-width: 45rem;
+  clear: both;
+  margin: 0 auto 2rem auto;
+  padding: 1rem;
 }
