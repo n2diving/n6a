@@ -18,6 +18,8 @@
 #  start_date             :datetime
 #  is_current             :boolean          default(TRUE)
 #  title                  :string
+#  first_name             :string
+#  last_name              :string
 #
 # Indexes
 #
@@ -33,8 +35,8 @@ class User < ApplicationRecord
 
 
 
-  def team
-    EmployeeTeam.where(user_id: current_user)
+  def full_name
+    return self.first_name.downcase + ' ' + self.last_name.downcase
   end
 
 end

@@ -37,6 +37,7 @@ gem 'devise'
 
 gem 'toastr-rails'
 gem 'font-awesome-rails'
+gem "chartkick"
 
 
 group :development, :test do

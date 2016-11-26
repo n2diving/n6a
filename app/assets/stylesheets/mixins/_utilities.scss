@@ -18,6 +18,26 @@
   margin-bottom: ceil($line-height-computed * 3);
 }
 
+.margin-right-xs {
+  margin-right: ceil($line-height-computed / 4);
+}
+
+.margin-right-sm {
+  margin-right: ceil($line-height-computed / 2);
+}
+
+.margin-right-md {
+  margin-right: $line-height-computed;
+}
+
+.margin-right-lg {
+  margin-right: ceil($line-height-computed * 2);
+}
+
+.margin-right-xl {
+  margin-bottom: ceil($line-height-computed * 3);
+}
+
 .block {
   display: block;
 }
