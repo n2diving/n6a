@@ -12,9 +12,18 @@
 //
 //= require jquery
 //= require bootstrap-sprockets
+//= require bootstrap-datepicker
 //= require toastr
 //= require jquery_ujs
 //= require turbolinks
 //= require Chart.bundle
 //= require chartkick
 //= require_tree .
+
+$(document).ready(function() {
+  $('.month_datepicker').datepicker({
+    format: "mm/yyyy",
+    startView: "year",
+    minViewMode: "months"
+  });
+});

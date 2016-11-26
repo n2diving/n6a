@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
+<h1>review criteria</h1>
 
-<h1>Review Criteria</h1>
-
-<table>
+<table class="table table-striped table-hover table-bordered">
   <thead>
     <tr>
       <th>Name</th>
@@ -18,8 +16,8 @@
       <tr>
         <td><%= review_criterium.name %></td>
         <td><%= review_criterium.scale %></td>
-        <td><%= review_criterium.start_date %></td>
-        <td><%= review_criterium.end_date %></td>
+        <td><%= review_criterium.start_date.strftime("%B %Y") %></td>
+        <td><%= review_criterium.end_date.strftime("%B %Y") %></td>
         <td><%= link_to 'Show', review_criterium %></td>
         <td><%= link_to 'Edit', edit_review_criterium_path(review_criterium) %></td>
         <td><%= link_to 'Destroy', review_criterium, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -30,4 +28,6 @@
 
 <br>
 
-<%= link_to 'New Review Criterium', new_review_criterium_path %>
+<%= link_to new_review_criterium_path , class: "text-primary" do %>
+  <i class="fa fa-plus"></i> new review criterium
+<% end %>

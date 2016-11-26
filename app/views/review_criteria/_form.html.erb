@@ -11,32 +11,12 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+  <%= f.text_field :name, autofocus: true, class: "form-control margin-bottom-md", placeholder: "criteria label" %>
+  <%= f.number_field :scale_min, class: "form-control margin-bottom-md", placeholder: "scale low end (min)" %>
+  <%= f.number_field :scale_max, class: "form-control margin-bottom-md", placeholder: "scale high end (max)" %>
+  <%= f.text_field :start_date, class: "month_datepicker form-control margin-bottom-md", placeholder: "effective start date" %>
+  <%= f.text_field :end_date, class: "month_datepicker form-control margin-bottom-md", placeholder: "effective end date" %>
 
-  <div class="field">
-    <%= f.label :scale_min %>
-    <%= f.number_field :scale_min %>
-  </div>
+  <%= f.submit "save", class: "btn btn-primary btn-center" %>
 
-  <div class="field">
-    <%= f.label :scale_max %>
-    <%= f.number_field :scale_max %>
-  </div>
-
-  <div class="field">
-    <%= f.label :start_date %>
-    <%= f.datetime_select :start_date %>
-  </div>
-
-  <div class="field">
-    <%= f.label :end_date %>
-    <%= f.datetime_select :end_date %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

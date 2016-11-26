@@ -28,7 +28,7 @@ class ReviewCriteriaController < ApplicationController
 
     respond_to do |format|
       if @review_criterium.save
-        format.html { redirect_to @review_criterium, notice: 'Review criterium was successfully created.' }
+        format.html { redirect_to review_criteria_path, notice: 'Review criterium was successfully created.' }
         format.json { render :show, status: :created, location: @review_criterium }
       else
         format.html { render :new }
@@ -69,6 +69,6 @@ class ReviewCriteriaController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def review_criterium_params
-      params.require(:review_criterium).permit(:name, :scale, :start_date, :end_date)
+      params.require(:review_criterium).permit(:name, :scale_min, :scale_max, :start_date, :end_date)
     end
 end

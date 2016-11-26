@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @months = I18n.t("date.month_names").drop(0)
   end
 
   # GET /users/new

@@ -14,4 +14,8 @@
 #
 
 class ReviewCriterium < ApplicationRecord
+
+  def scale
+    self.scale_min.to_s + ' - ' + self.scale_max.to_s
+  end
 end

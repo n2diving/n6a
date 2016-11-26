@@ -37,7 +37,8 @@ gem 'devise'
 
 gem 'toastr-rails'
 gem 'font-awesome-rails'
-gem "chartkick"
+gem 'chartkick'
+gem 'bootstrap-datepicker-rails'
 
 
 group :development, :test do
@@ -47,6 +48,7 @@ group :development, :test do
   gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'rb-readline'
 
 end
 
