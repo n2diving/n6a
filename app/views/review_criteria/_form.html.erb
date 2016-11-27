@@ -12,6 +12,8 @@
   <% end %>
 
   <%= f.text_field :name, autofocus: true, class: "form-control margin-bottom-md", placeholder: "criteria label" %>
+  <%= f.text_field :short_name, autofocus: true, class: "form-control margin-bottom-md", placeholder: "display name" %>
+  <%= f.text_area :evaluation_criteria, autofocus: true, class: "form-control margin-bottom-md", placeholder: "evaluation criteria" %>
   <%= f.number_field :scale_min, class: "form-control margin-bottom-md", placeholder: "scale low end (min)" %>
   <%= f.number_field :scale_max, class: "form-control margin-bottom-md", placeholder: "scale high end (max)" %>
   <%= f.text_field :start_date, class: "month_datepicker form-control margin-bottom-md", placeholder: "effective start date" %>

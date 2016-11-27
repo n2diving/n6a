@@ -10,6 +10,7 @@
 #  updated_at         :datetime         not null
 #  rated_by_user_id   :integer
 #  notes_allowed      :boolean          default(FALSE)
+#  rate_period        :date
 #
 # Indexes
 #

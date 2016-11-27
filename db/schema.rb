@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161126050324) do
+ActiveRecord::Schema.define(version: 20161126233006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,9 +32,11 @@ ActiveRecord::Schema.define(version: 20161126050324) do
     t.integer  "scale_max"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.boolean  "notes_allowed", default: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.boolean  "notes_allowed",       default: false
+    t.string   "short_name"
+    t.text     "evaluation_criteria"
   end
 
   create_table "review_notes", force: :cascade do |t|
@@ -63,6 +65,7 @@ ActiveRecord::Schema.define(version: 20161126050324) do
     t.datetime "updated_at",                         null: false
     t.integer  "rated_by_user_id"
     t.boolean  "notes_allowed",      default: false
+    t.date     "rate_period"
     t.index ["review_criteria_id"], name: "index_user_reviews_on_review_criteria_id", using: :btree
     t.index ["user_id"], name: "index_user_reviews_on_user_id", using: :btree
   end

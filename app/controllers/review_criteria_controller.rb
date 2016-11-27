@@ -69,6 +69,6 @@ class ReviewCriteriaController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def review_criterium_params
-      params.require(:review_criterium).permit(:name, :scale_min, :scale_max, :start_date, :end_date)
+      params.require(:review_criterium).permit(:name, :scale_min, :scale_max, :start_date, :end_date, :short_name, :evaluation_criteria)
     end
 end

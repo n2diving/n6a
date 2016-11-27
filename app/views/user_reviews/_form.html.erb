@@ -1,0 +1,25 @@
+<%= form_for(user_review) do |f| %>
+  <% if user_review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user_review.errors.count, "error") %> prohibited this user_review from being saved:</h2>
+
+      <ul>
+      <% user_review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.text_field :rate_period, class: "month_datepicker form-control margin-bottom-md", placeholder: "rating period" %>
+  <%= f.select :review_criteria_id, ReviewCriterium.all.collect { |r| [ r.name, r.id ] }, { include_blank: "select criteria" }, class: "form-control margin-bottom-md" %>
+  <%= f.select :user_id, User.all.collect { |u| [ u.full_name, u.id ] }, { include_blank: "employee name" }, class: "form-control margin-bottom-md" %>
+  <%= f.number_field :rating, class: "form-control margin-bottom-md", placeholder: "rating"%>
+  <%= f.check_box :notes_allowed, { class: "" }, true, false %>
+  <%= f.label :notes_allowed, "response allowed?", { class: "checkbox-inline" } %>
+
+
+  <%= f.hidden_field :rated_by_user_id, value: current_user.id %>
+  <%= f.submit "save", class: "btn btn-primary btn-center" %>
+
+<% end %>

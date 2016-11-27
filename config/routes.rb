@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :teams
   resources :employee_teams
   resources :review_criteria
+  resources :user_reviews
 
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -1,0 +1,27 @@
+<h1>employee reviews</h1>
+
+<table class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>employee name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_reviews.each do |user_review| %>
+      <tr>
+        <td><%= user_review.user.full_name %></td>
+        <td><%= link_to 'Show', user_review %></td>
+        <td><%= link_to 'Edit', edit_user_review_path(user_review) %></td>
+        <td><%= link_to 'Destroy', user_review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to new_user_review_path , class: "text-primary" do %>
+  <i class="fa fa-plus"></i> new employee review
+<% end %>

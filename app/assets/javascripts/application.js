@@ -24,6 +24,7 @@ $(document).ready(function() {
   $('.month_datepicker').datepicker({
     format: "mm/yyyy",
     startView: "year",
-    minViewMode: "months"
+    minViewMode: "months",
+    defaultDate: new Date()
   });
 });
