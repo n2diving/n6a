@@ -1,10 +1,10 @@
-<%= form_for(review_criterium) do |f| %>
-  <% if review_criterium.errors.any? %>
+<%= form_for(review_criteria) do |f| %>
+  <% if review_criteria.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(review_criterium.errors.count, "error") %> prohibited this review_criterium from being saved:</h2>
+      <h2><%= pluralize(review_criteria.errors.count, "error") %> prohibited this review_criteria from being saved:</h2>
 
       <ul>
-      <% review_criterium.errors.full_messages.each do |message| %>
+      <% review_criteria.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

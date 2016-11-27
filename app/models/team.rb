@@ -11,4 +11,6 @@
 #
 
 class Team < ApplicationRecord
+  has_many :employee_teams
+  has_many :users, through: :employee_teams, dependent: destroy
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161126233006) do
+ActiveRecord::Schema.define(version: 20161127071219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20161126233006) do
     t.integer  "rated_by_user_id"
     t.boolean  "notes_allowed",      default: false
     t.date     "rate_period"
+    t.boolean  "is_team",            default: false
     t.index ["review_criteria_id"], name: "index_user_reviews_on_review_criteria_id", using: :btree
     t.index ["user_id"], name: "index_user_reviews_on_user_id", using: :btree
   end

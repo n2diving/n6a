@@ -23,8 +23,9 @@
 $(document).ready(function() {
   $('.month_datepicker').datepicker({
     format: "mm/yyyy",
+    altFormat: "yyyy-MM-dd",
     startView: "year",
     minViewMode: "months",
-    defaultDate: new Date()
+    //defaultDate: new Date()
   });
 });

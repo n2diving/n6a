@@ -38,6 +38,7 @@ gem 'devise'
 gem 'toastr-rails'
 gem 'font-awesome-rails'
 gem 'chartkick'
+gem 'groupdate'
 gem 'bootstrap-datepicker-rails'
 
 

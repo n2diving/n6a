@@ -11,10 +11,13 @@
     </div>
   <% end %>
 
-  <%= f.text_field :rate_period, class: "month_datepicker form-control margin-bottom-md", placeholder: "rating period" %>
-  <%= f.select :review_criteria_id, ReviewCriterium.all.collect { |r| [ r.name, r.id ] }, { include_blank: "select criteria" }, class: "form-control margin-bottom-md" %>
+  <%= f.select :rate_period, options_for_rate_period, { prompt: 'select rate period' }, class: "form-control margin-bottom-md" %>
+  <%= f.select :review_criteria_id, ReviewCriteria.all.order(:name).collect { |r| [ r.name, r.id ] }, { include_blank: "select criteria" }, class: "form-control margin-bottom-md" %>
   <%= f.select :user_id, User.all.collect { |u| [ u.full_name, u.id ] }, { include_blank: "employee name" }, class: "form-control margin-bottom-md" %>
   <%= f.number_field :rating, class: "form-control margin-bottom-md", placeholder: "rating"%>
+  <%= f.check_box :is_team, { class: "" }, true, false %>
+  <%= f.label :is_team, "team rating?", { class: "checkbox-inline" } %>
+  <br>
   <%= f.check_box :notes_allowed, { class: "" }, true, false %>
   <%= f.label :notes_allowed, "response allowed?", { class: "checkbox-inline" } %>
 

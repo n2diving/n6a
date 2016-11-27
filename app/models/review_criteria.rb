@@ -15,10 +15,14 @@
 #  evaluation_criteria :text
 #
 
-class ReviewCriterium < ApplicationRecord
+class ReviewCriteria < ApplicationRecord
   has_many :user_reviews
 
   def scale
     self.scale_min.to_s + ' - ' + self.scale_max.to_s
+  end
+
+  def find_by_name(name)
+    self.where(name: name).first
   end
 end

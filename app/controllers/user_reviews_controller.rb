@@ -28,7 +28,7 @@ class UserReviewsController < ApplicationController
 
     respond_to do |format|
       if @user_review.save
-        format.html { redirect_to @user_review, notice: 'User review was successfully created.' }
+        format.html { redirect_to user_reviews_path, notice: 'User review was successfully created.' }
         format.json { render :show, status: :created, location: @user_review }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class UserReviewsController < ApplicationController
   def update
     respond_to do |format|
       if @user_review.update(user_review_params)
-        format.html { redirect_to @user_review, notice: 'User review was successfully updated.' }
+        format.html { redirect_to user_reviews_path, notice: 'User review was successfully updated.' }
         format.json { render :show, status: :ok, location: @user_review }
       else
         format.html { render :edit }
@@ -69,6 +69,6 @@ class UserReviewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_review_params
-      params.require(:user_review).permit(:review_criteria_id, :user_id, :rated_by_user_id, :notes_allowed, :rate_period)
+      params.require(:user_review).permit(:review_criteria_id, :user_id, :rated_by_user_id, :notes_allowed, :rate_period, :rating, :is_team)
     end
 end

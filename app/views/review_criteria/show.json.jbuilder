@@ -1,1 +1,1 @@
-json.partial! "review_criteria/review_criterium", review_criterium: @review_criterium
+json.partial! "review_criteria/review_criteria", review_criteria: @review_criteria

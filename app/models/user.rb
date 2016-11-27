@@ -33,6 +33,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :user_reviews
+  has_many :employee_teams
+  has_many :teams, through: :employee_teams, dependent: :destroy
 
 
   def full_name

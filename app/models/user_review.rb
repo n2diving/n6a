@@ -11,6 +11,7 @@
 #  rated_by_user_id   :integer
 #  notes_allowed      :boolean          default(FALSE)
 #  rate_period        :date
+#  is_team            :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -26,4 +27,23 @@
 class UserReview < ApplicationRecord
   belongs_to :review_criteria
   belongs_to :user
+
+  validates_uniqueness_of :rate_period, { scope: [ :user_id, :review_criteria_id ] }
+  before_save :normalize_date
+
+
+  def normalize_date
+    self.rate_period = self.rate_period.end_of_month
+  end
+
+  def user_review_rows(columns, user_id, rate_period)
+    @review_rows = {}
+    columns.each_with_index do |one_column, i|
+      user_review = UserReview.all.where(review_criteria_id: one_column[1], user_id: user_id, rate_period: rate_period.end_of_month).first
+      @review_rows[i] = []
+      @review_rows[i] << (user_review.nil? ? '' : user_review.rating)
+    end
+    @review_rows
+  end
+
 end
