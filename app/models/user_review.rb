@@ -28,7 +28,7 @@ class UserReview < ApplicationRecord
   belongs_to :review_criteria
   belongs_to :user
 
-  validates_uniqueness_of :rate_period, { scope: [ :user_id, :review_criteria_id ] }
+  validates_uniqueness_of :rate_period, { scope: [ :user_id, :review_criteria_id ], message: "-- A review for this criteria and rate period has already been submitted for this employee." }
   before_save :normalize_date
 
 

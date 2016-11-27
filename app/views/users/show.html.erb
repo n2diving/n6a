@@ -4,7 +4,9 @@
 
     <div class="row margin-bottom-lg">
       <div class="col-xs-12">
-        <%= line_chart [{ name: "rating", data: @user_reviews.map{|ur| [ur.rate_period.strftime("%B %Y"), ur.rating ] } }] %>
+        <%#= review_chart_results(@user_reviews) %>
+        <!--<hr>-->
+        <%= line_chart review_chart_results(@user_reviews) %>
       </div>
     </div>
 
@@ -12,11 +14,11 @@
       <thead>
       <tr>
         <th>month</th>
-        <% headers = ReviewCriteria.order(:name).pluck(:name, :id) %>
+        <th class="text-center">average</th>
+        <% headers = ReviewCriteria.order(:name).pluck(:short_name, :id) %>
         <% headers.each do |criteria| %>
-          <th><%= criteria[0] %></th>
+          <th class="text-center"><%= criteria[0] %></th>
         <% end %>
-        <th class="text-center">actions</th>
       </tr>
       </thead>
 
@@ -24,24 +26,18 @@
         <%# @user_reviews.each do |user_review| %>
           <%# headers.each do |criteria| %>
             <%# review = @user_reviews.where(review_criteria_id: criteria[1]).first %>
-          <%= @rate_periods.each do |one_month| %>
-            <% user_review = @user_reviews.where(rate_period: one_month.to_datetime.end_of_month).first %>
+          <% @rate_periods.each do |one_month| %>
+            <% reviews =  @user_reviews.where(rate_period: one_month.to_datetime.end_of_month) %>
+             <% average = reviews.pluck(:rating) %>
+            <% user_review = reviews.first %>
             <%#= user_review.inspect %>
             <% unless user_review.blank? %>
               <tr>
                 <td><%= one_month %></td>
-                <%= user_review.user_review_rows(headers, user_review.user.id, one_month.to_datetime.end_of_month).each do |one_row| %>
-                  <td><%= one_row[1].first %></td>
-                  <!--<td colspan="5"></td>-->
+                <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
+                <% user_review.user_review_rows(headers, user_review.user.id, one_month.to_datetime.end_of_month).each do |one_row| %>
+                  <td class="text-center"><%= one_row[1].first %></td>
                 <% end %>
-                <td class="text-center">
-                  <%= link_to edit_user_review_path(user_review), class: "margin-right-sm" do %>
-                    <i class="fa fa-cog text-primary"></i>
-                  <% end %>
-                  <%= link_to current_user, method: :delete, data: { confirm: 'Are you sure?' } do %>
-                    <i class="fa fa-trash text-danger"></i>
-                  <% end %>
-                </td>
               </tr>
             <% end %>
           <% end%>
