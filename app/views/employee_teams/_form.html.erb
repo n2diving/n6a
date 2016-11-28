@@ -11,22 +11,15 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :user_id %>
-    <%= f.text_field :user_id %>
-  </div>
+    <%= f.collection_select :user_id, User.all, :id, :full_name, { include_blank: "select user" }, class: "form-control margin-bottom-md", autofocus: true %>
+    <%= f.collection_select :team_id, Team.all, :id, :team_name, { include_blank: "select team" }, class: "form-control margin-bottom-md" %>
 
-  <div class="field">
-    <%= f.label :team_lead %>
-    <%= f.check_box :team_lead %>
-  </div>
+    <%= f.check_box :team_lead, { class: "" }, true, false %>
+    <%= f.label :team_lead, "team lead?", { class: "checkbox-inline" } %>
+    <br>
+    <%= f.check_box :supervisor, { class: "" }, true, false %>
+    <%= f.label :supervisor, "supervisor?", { class: "checkbox-inline" } %>
 
-  <div class="field">
-    <%= f.label :supervisor %>
-    <%= f.check_box :supervisor %>
-  </div>
+    <%= f.submit "save", class: "btn btn-primary btn-center" %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

@@ -11,22 +11,9 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :team_name %>
-    <%= f.text_field :team_name %>
-  </div>
+  <%= f.text_field :team_name, autofocus: true, class: "form-control margin-bottom-md", placeholder: "team name" %>
+  <%= f.date_field :start_date, class: "form-control margin-bottom-md", placeholder: "effective start date" %>
+  <%= f.date_field :end_date, placeholder: "effective end date",  class: "form-control margin-bottom-md" %>
 
-  <div class="field">
-    <%= f.label :start_date %>
-    <%= f.datetime_select :start_date %>
-  </div>
-
-  <div class="field">
-    <%= f.label :end_date %>
-    <%= f.datetime_select :end_date %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%= f.submit "save", class: "btn btn-primary btn-center" %>
 <% end %>

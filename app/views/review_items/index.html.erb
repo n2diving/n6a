@@ -1,18 +1,15 @@
-<p id="notice"><%= notice %></p>
+<h1>review items</h1>
 
-<h1>Review Items</h1>
-
-<table>
+<table class="table table-striped table-hover table-bordered">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Display name</th>
-      <th>Evaluation criteria</th>
-      <th>Scale min</th>
-      <th>Scale max</th>
-      <th>Start date</th>
-      <th>Response allowed</th>
-      <th colspan="3"></th>
+      <th>name</th>
+      <th>display name</th>
+      <th>evaluation criteria</th>
+      <th>scale</th>
+      <th>start date</th>
+      <th>response allowed?</th>
+      <th class="text-center">actions</th>
     </tr>
   </thead>
 
@@ -22,13 +19,18 @@
         <td><%= review_item.name %></td>
         <td><%= review_item.display_name %></td>
         <td><%= review_item.evaluation_criteria %></td>
-        <td><%= review_item.scale_min %></td>
-        <td><%= review_item.scale_max %></td>
+        <td><%= review_item.scale %>
         <td><%= review_item.start_date %></td>
-        <td><%= review_item.response_allowed %></td>
-        <td><%= link_to 'Show', review_item %></td>
-        <td><%= link_to 'Edit', edit_review_item_path(review_item) %></td>
-        <td><%= link_to 'Destroy', review_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= review_item.response_allowed ? 'yes' : 'no' %></td>
+
+        <td class="text-center">
+          <%= link_to edit_review_item_path(review_item), class: "margin-right-sm" do %>
+            <i class="fa fa-cog text-primary"></i>
+          <% end %>
+          <%= link_to review_item, method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <i class="fa fa-trash text-danger"></i>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -36,4 +38,6 @@
 
 <br>
 
-<%= link_to 'New Review Item', new_review_item_path %>
+<%= link_to new_review_item_path , class: "text-primary" do %>
+  <i class="fa fa-plus"></i> new review item
+<% end %>

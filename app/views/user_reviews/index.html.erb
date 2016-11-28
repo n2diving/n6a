@@ -6,9 +6,9 @@
       <th>employee name</th>
       <th>title</th>
       <th>review criteria</th>
-      <th>rating</th>
-      <th>rate period</th>
-      <th colspan="3"></th>
+      <th class="text-center">rating</th>
+      <th class="text-center">rate period</th>
+      <th class="text-center">actions</th>
     </tr>
   </thead>
 
@@ -18,11 +18,18 @@
         <td><%= link_to user_review.user.full_name, user_review.user %></td>
         <td><%= user_review.user.title %></td>
         <td><%= user_review.review_item.name %></td>
-        <td><%= user_review.rating %></td>
-        <td><%= user_review.rate_period %></td>
-        <td><%= link_to 'Show', user_review %></td>
-        <td><%= link_to 'Edit', edit_user_review_path(user_review) %></td>
-        <td><%= link_to 'Destroy', user_review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="text-center"><%= user_review.rating %></td>
+        <td class="text-center"><%= user_review.rate_period %></td>
+
+        <td class="text-center">
+          <%= link_to edit_user_review_path(user_review), class: "margin-right-sm" do %>
+            <i class="fa fa-cog text-primary"></i>
+          <% end %>
+          <%= link_to user_review, method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <i class="fa fa-trash text-danger"></i>
+          <% end %>
+        </td>
+
       </tr>
     <% end %>
   </tbody>

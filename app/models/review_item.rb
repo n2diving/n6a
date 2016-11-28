@@ -1,5 +1,9 @@
 class ReviewItem < ApplicationRecord
   has_many :user_reviews
+
+  def scale
+    self.scale_min.to_s + ' - ' + self.scale_max.to_s
+  end
 end
 
 # == Schema Information
