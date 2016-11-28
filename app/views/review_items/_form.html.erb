@@ -1,0 +1,30 @@
+<%= form_for(review_item) do |f| %>
+  <% if review_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(review_item.errors.count, "error") %> prohibited this review_item from being saved:</h2>
+
+      <ul>
+      <% review_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.text_field :name, autofocus: true, class: "form-control margin-bottom-md", placeholder: "criteria label" %>
+  <%= f.text_field :display_name, class: "form-control margin-bottom-md", placeholder: "display name" %>
+  <%= f.text_area :evaluation_criteria, class: "form-control margin-bottom-md", placeholder: "evaluation criteria" %>
+  <%= f.number_field :scale_min, class: "form-control margin-bottom-md", placeholder: "scale low end (min)" %>
+  <%= f.number_field :scale_max, class: "form-control margin-bottom-md", placeholder: "scale high end (max)" %>
+  <%= f.date_field :start_date, class: "form-control margin-bottom-md", placeholder: "effective start date" %>
+  <%= f.date_field :end_date, class: "form-control margin-bottom-md", placeholder: "effective end date" %>
+
+  <%= f.check_box :response_allowed, { class: "" }, true, false %>
+  <%= f.label :response_allowed, "response allowed?", { class: "checkbox-inline" } %>
+  <br>
+  <%= f.check_box :is_team, { class: "" }, true, false %>
+  <%= f.label :is_team, "team criteria?", { class: "checkbox-inline" } %>
+
+  <%= f.submit "save", class: "btn btn-primary btn-center" %>
+
+<% end %>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @review_item.name %>
+</p>
+
+<p>
+  <strong>Display name:</strong>
+  <%= @review_item.display_name %>
+</p>
+
+<p>
+  <strong>Evaluation criteria:</strong>
+  <%= @review_item.evaluation_criteria %>
+</p>
+
+<p>
+  <strong>Scale min:</strong>
+  <%= @review_item.scale_min %>
+</p>
+
+<p>
+  <strong>Scale max:</strong>
+  <%= @review_item.scale_max %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @review_item.start_date %>
+</p>
+
+<p>
+  <strong>Response allowed:</strong>
+  <%= @review_item.response_allowed %>
+</p>
+
+<%= link_to 'Edit', edit_review_item_path(@review_item) %> |
+<%= link_to 'Back', review_items_path %>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Review Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Display name</th>
+      <th>Evaluation criteria</th>
+      <th>Scale min</th>
+      <th>Scale max</th>
+      <th>Start date</th>
+      <th>Response allowed</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @review_items.each do |review_item| %>
+      <tr>
+        <td><%= review_item.name %></td>
+        <td><%= review_item.display_name %></td>
+        <td><%= review_item.evaluation_criteria %></td>
+        <td><%= review_item.scale_min %></td>
+        <td><%= review_item.scale_max %></td>
+        <td><%= review_item.start_date %></td>
+        <td><%= review_item.response_allowed %></td>
+        <td><%= link_to 'Show', review_item %></td>
+        <td><%= link_to 'Edit', edit_review_item_path(review_item) %></td>
+        <td><%= link_to 'Destroy', review_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Review Item', new_review_item_path %>

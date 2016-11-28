@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  display_name: MyString
+  evaluation_criteria: MyText
+  scale_min: 1
+  scale_max: 1
+  start_date: 2016-11-27
+  response_allowed: false
+
+two:
+  name: MyString
+  display_name: MyString
+  evaluation_criteria: MyText
+  scale_min: 1
+  scale_max: 1
+  start_date: 2016-11-27
+  response_allowed: false

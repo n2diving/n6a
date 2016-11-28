@@ -1,0 +1,1 @@
+json.partial! "review_items/review_item", review_item: @review_item

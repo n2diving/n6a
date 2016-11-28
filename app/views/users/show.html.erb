@@ -15,7 +15,7 @@
       <tr>
         <th>month</th>
         <th class="text-center">average</th>
-        <% headers = ReviewCriteria.order(:name).pluck(:short_name, :id) %>
+        <% headers = ReviewItem.order(:name).pluck(:display_name, :id) %>
         <% headers.each do |criteria| %>
           <th class="text-center"><%= criteria[0] %></th>
         <% end %>

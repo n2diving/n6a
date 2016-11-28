@@ -1,1 +1,0 @@
-json.array! @review_criteria, partial: 'review_criteria/review_criteria', as: :review_criteria

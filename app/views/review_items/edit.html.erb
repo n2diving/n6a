@@ -3,11 +3,12 @@
     <div class="row">
       <%= image_tag "N6A_EmbraceThePace_3.jpg", class: "mainpage-logo block" %>
       <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-        <h2>new review criterium</h2>
+        <h2>editing review item</h2>
 
-        <%= render 'form', review_criteria: @review_criteria %>
+        <%= render 'form', review_item: @review_item %>
 
-        <%= link_to 'Back', review_criteria_path %>
+        <%= link_to 'Show', @review_item %> |
+        <%= link_to 'Back', review_items_path %>
       </div>
     </div>
   </div>
