@@ -24,7 +24,7 @@ class EmployeeTeam < ApplicationRecord
   belongs_to :user
   belongs_to :team
 
-  validates_uniqueness :team_lead, { scope: :team_id }
+  validates_uniqueness_of :team_lead, { scope: :team_id }
 
   def is_team_lead(user_id)
     self.where(user_id: user_id, team_lead: true).first
