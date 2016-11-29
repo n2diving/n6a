@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:update, :destroy]
 
   # GET /users
   # GET /users.json
@@ -10,7 +10,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user_reviews = current_user.user_reviews
+    @user = User.find(params[:id])
+    @user_reviews = @user.user_reviews
     @rate_periods = UserReview.all.pluck(:rate_period).uniq.sort.map{ |x| x.strftime("%B %Y") }
     @months = I18n.t("date.month_names").drop(0)
   end
@@ -22,12 +23,20 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @user = User.find(params[:id])
   end
 
   # POST /users
   # POST /users.json
   def create
     @user = User.new(user_params)
+
+    #TODO this needs to be deleted/handled with UI or different function
+    if @user.password.nil?
+      generated_password = Devise.friendly_token.first(8)
+      @user.password = generated_password
+      @user.password_confirmation = @user.password
+    end
 
     respond_to do |format|
       if @user.save
@@ -73,6 +82,6 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       # params.fetch(:user, {})
-      params.require(:user).permit(:first_name, :last_name, :title, :is_current, :start_date)
+      params.require(:user).permit(:first_name, :last_name, :title, :is_current, :start_date, :email)
     end
 end
