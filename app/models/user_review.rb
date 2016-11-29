@@ -32,7 +32,11 @@ class UserReview < ApplicationRecord
 
 
   def normalize_date
-    self.rate_period = self.rate_period.end_of_month
+    if self.review_item.is_weekly
+      self.rate_period = self.rate_period.end_of_week
+    else
+      self.rate_period = self.rate_period.end_of_month
+    end
   end
 
   def user_review_rows(columns, user_id, rate_period)

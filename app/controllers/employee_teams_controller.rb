@@ -28,7 +28,7 @@ class EmployeeTeamsController < ApplicationController
 
     respond_to do |format|
       if @employee_team.save
-        format.html { redirect_to @employee_team, notice: 'Employee team was successfully created.' }
+        format.html { redirect_to employee_teams_url, notice: 'Employee team was successfully created.' }
         format.json { render :show, status: :created, location: @employee_team }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class EmployeeTeamsController < ApplicationController
   def update
     respond_to do |format|
       if @employee_team.update(employee_team_params)
-        format.html { redirect_to @employee_team, notice: 'Employee team was successfully updated.' }
+        format.html { redirect_to employee_teams_url, notice: 'Employee team was successfully updated.' }
         format.json { render :show, status: :ok, location: @employee_team }
       else
         format.html { render :edit }
@@ -69,6 +69,6 @@ class EmployeeTeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_team_params
-      params.require(:employee_team).permit(:user_id, :team_lead, :supervisor, :team_id)
+      params.require(:employee_team).permit(:user_id, :team_lead, :team_id)
     end
 end

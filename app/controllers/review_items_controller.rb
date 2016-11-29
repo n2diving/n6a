@@ -28,7 +28,7 @@ class ReviewItemsController < ApplicationController
 
     respond_to do |format|
       if @review_item.save
-        format.html { redirect_to @review_item, notice: 'Review item was successfully created.' }
+        format.html { redirect_to review_items_url, notice: 'Review item was successfully created.' }
         format.json { render :show, status: :created, location: @review_item }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ReviewItemsController < ApplicationController
   def update
     respond_to do |format|
       if @review_item.update(review_item_params)
-        format.html { redirect_to @review_item, notice: 'Review item was successfully updated.' }
+        format.html { redirect_to review_items_url, notice: 'Review item was successfully updated.' }
         format.json { render :show, status: :ok, location: @review_item }
       else
         format.html { render :edit }
@@ -69,6 +69,6 @@ class ReviewItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def review_item_params
-      params.require(:review_item).permit(:name, :display_name, :evaluation_criteria, :scale_min, :scale_max, :start_date,:end_date, :response_allowed, :is_team)
+      params.require(:review_item).permit(:name, :display_name, :evaluation_criteria, :scale_min, :scale_max, :start_date,:end_date, :response_allowed, :is_team, :is_weekly)
     end
 end

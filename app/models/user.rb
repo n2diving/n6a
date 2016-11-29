@@ -20,6 +20,8 @@
 #  title                  :string
 #  first_name             :string
 #  last_name              :string
+#  is_officer             :boolean          default(FALSE)
+#  is_admin               :boolean          default(FALSE)
 #
 # Indexes
 #

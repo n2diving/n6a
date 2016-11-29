@@ -9,6 +9,7 @@
       <th>scale</th>
       <th>start date</th>
       <th>response allowed?</th>
+      <th>is weekly?</th>
       <th class="text-center">actions</th>
     </tr>
   </thead>
@@ -22,6 +23,7 @@
         <td><%= review_item.scale %>
         <td><%= review_item.start_date %></td>
         <td><%= review_item.response_allowed ? 'yes' : 'no' %></td>
+        <td><%= review_item.is_weekly ? 'yes' : 'no' %></td>
 
         <td class="text-center">
           <%= link_to edit_review_item_path(review_item), class: "margin-right-sm" do %>

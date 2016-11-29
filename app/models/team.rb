@@ -14,4 +14,9 @@ class Team < ApplicationRecord
   has_many :employee_teams
   has_many :users, through: :employee_teams
   # , dependent: destroy
+
+  def team_lead
+    User.find(self.employee_teams.where(team_lead: true).first.user_id)
+  end
+
 end

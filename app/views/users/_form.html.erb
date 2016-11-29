@@ -14,7 +14,7 @@
   <%= f.text_field :first_name, autofocus: true, class: "form-control margin-bottom-md", placeholder: "first name"%>
   <%= f.text_field :last_name, class: "form-control margin-bottom-md", placeholder: "last name"%>
   <%= f.email_field :email, class: "form-control margin-bottom-md", placeholder: "email"%>
-  <%= f.text_field :title, class: "form-control margin-bottom-md", placeholder: "title"%>
+  <%= f.select(:title, [['employee', 'employee'], ['team lead', 'team lead'], ['officer', 'officer']], {}, class: "form-control margin-bottom-md", placeholder: "title" )%>
 
   <%= f.submit "save", class: "btn btn-primary btn-center" %>
 

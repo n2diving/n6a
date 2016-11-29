@@ -4,8 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
-#  team_lead  :boolean
-#  supervisor :boolean
+#  team_lead  :boolean          default(FALSE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  team_id    :integer
@@ -24,4 +23,10 @@
 class EmployeeTeam < ApplicationRecord
   belongs_to :user
   belongs_to :team
+
+  validates_uniqueness :team_lead, { scope: :team_id }
+
+  def is_team_lead(user_id)
+    self.where(user_id: user_id, team_lead: true).first
+  end
 end

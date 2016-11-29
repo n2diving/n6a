@@ -24,6 +24,9 @@
   <br>
   <%= f.check_box :is_team, { class: "" }, true, false %>
   <%= f.label :is_team, "team criteria?", { class: "checkbox-inline" } %>
+  <br>
+  <%= f.check_box :is_weekly, { class: "" }, true, false %>
+  <%= f.label :is_weekly, "weekly review item?", { class: "checkbox-inline" } %>
 
   <%= f.submit "save", class: "btn btn-primary btn-center" %>
 
