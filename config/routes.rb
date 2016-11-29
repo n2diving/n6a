@@ -21,14 +21,16 @@ Rails.application.routes.draw do
   root 'users#index'
 
 
-  get    '/users(.:format)',                                 to: 'users#index',            as: :users
-  post   '/users(.:format)',                                 to: 'users#create'
-  get    '/users/new(.:format)',                             to: 'users#new',              as: :new_user
-  get    '/users/:id/edit(.:format)',                        to: 'users#edit',             as: :edit_user
-  get    '/users/:id(.:format)',                             to: 'users#show',             as: :user
-  patch  '/users/:id(.:format)',                             to: 'users#update'
-  put    '/users/:id(.:format)',                             to: 'users#update'
-  delete '/users/:id(.:format)',                             to: 'users#destroy'
+  get    '/users(.:format)',           to: 'users#index',            as: :users
+  post   '/users(.:format)',           to: 'users#create'
+  get    '/users/new(.:format)',       to: 'users#new',              as: :new_user
+  get    '/users/:id/edit(.:format)',  to: 'users#edit',             as: :edit_user
+  get    '/users/:id(.:format)',       to: 'users#show',             as: :user
+  patch  '/users/:id(.:format)',       to: 'users#update'
+  put    '/users/:id(.:format)',       to: 'users#update'
+  delete '/users/:id(.:format)',       to: 'users#destroy'
+  get   '/new_employee_rating',        to: 'users#new_employee_rating'
+  patch   '/employee_rating',      to: 'users#employee_rating',     as: :employee_rating
 
 
   # get    '/review_criteria(.:format)',                                 to: 'review_criteria#index',            as: :review_criterias

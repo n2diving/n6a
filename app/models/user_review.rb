@@ -12,6 +12,8 @@
 #  notes_allowed    :boolean          default(FALSE)
 #  rate_period      :date
 #  is_team          :boolean          default(FALSE)
+#  pros             :text
+#  cons             :text
 #
 # Indexes
 #
