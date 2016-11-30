@@ -47,4 +47,17 @@ class User < ApplicationRecord
     return self.first_name.downcase + ' ' + self.last_name.downcase
   end
 
+  def team_average(team, rate_period)
+    teammates = EmployeeTeam.where(team_id: team.id).pluck(:user_id)
+
+    list = UserReview.where(rate_period: rate_period).where.not(rating: nil)
+    ratings = []
+    teammates.each do |one_teammate|
+      list.where(user_id: one_teammate).each do |one_user_review|
+        ratings << one_user_review.rating
+      end
+    end
+    (ratings.reduce(&:+) / ratings.count) if !ratings.blank?
+  end
+
 end

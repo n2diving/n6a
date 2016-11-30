@@ -52,13 +52,4 @@ class UserReview < ApplicationRecord
     @review_rows
   end
 
-  def team_reviews(team, review_item, rate_period)
-    teammates = EmmployeeTeam.where(team_id: team.id)
-
-    teammates.each do |one_employee|
-      UserReview.create(user_id: one_employee.user_id, review_item_id: review_item.id, is_team: true, notes_allowed: true)
-    end
-
-  end
-
 end
