@@ -22,7 +22,7 @@ module UsersHelper
     team_dataset = []
     employee_dataset = []
 
-    unless rate_periods.nil?
+    unless rate_periods.nil? || team.nil?
       rate_periods.each do |one_period|
         employee_ratings = UserReview.where(user_id: user.id, rate_period: one_period).where.not(rating: nil).pluck(:rating)
         unless employee_ratings.blank?
