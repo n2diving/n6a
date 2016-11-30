@@ -27,7 +27,7 @@
           <%# headers.each do |criteria| %>
             <%# review = @user_reviews.where(review_criteria_id: criteria[1]).first %>
           <% @rate_periods.each do |one_month| %>
-            <% reviews =  @user_reviews.where(rate_period: one_month.to_datetime.end_of_month) %>
+            <% reviews =  @user_reviews.where(rate_period: one_month.to_datetime.end_of_month).where.not(rating: nil) %>
              <% average = reviews.pluck(:rating) %>
             <% user_review = reviews.first %>
             <%#= user_review.inspect %>

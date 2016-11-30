@@ -6,7 +6,7 @@ module UsersHelper
     list.each do |one_review_item_id|
       dataset = []
       name = nil
-      user_reviews.where(review_item_id: one_review_item_id).each do |one_review|
+      user_reviews.where(review_item_id: one_review_item_id).where.not(rating: nil).each do |one_review|
         name = one_review.review_item.display_name
         dataset << [one_review.rate_period.strftime("%B %Y"), one_review.rating]
       end

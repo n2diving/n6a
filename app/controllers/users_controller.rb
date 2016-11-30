@@ -72,6 +72,7 @@ class UsersController < ApplicationController
   end
 
   def new_employee_rating
+    #TODO NEED TO FIX THIS, dynamic link coming from employee page?
     @user = User.find 2
     @review_items = ReviewItem.order(:name).where(is_team: false, is_weekly: false)
   end
@@ -80,7 +81,7 @@ class UsersController < ApplicationController
     user = User.find(params[:user][:id])
 
     respond_to do |format|
-      if user.update!(user_params)
+      if user.update(user_params)
         format.html { redirect_to user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
