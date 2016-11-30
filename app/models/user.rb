@@ -40,7 +40,7 @@ class User < ApplicationRecord
   has_many :employee_teams
   has_many :teams, through: :employee_teams, dependent: :destroy
 
-  accepts_nested_attributes_for :user_reviews, reject_if: proc { |a| a['pros'].blank? }
+  accepts_nested_attributes_for :user_reviews, reject_if: proc { |a| a["notes"].blank? && a["pros"].blank? }
 
 
   def full_name
