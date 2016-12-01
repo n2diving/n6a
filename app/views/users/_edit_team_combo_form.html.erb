@@ -35,7 +35,7 @@
       <% if current_user.teams.first.try(:team_lead) %>
         <div class="row">
           <div class="col-xs-12">
-            <%= text_area_tag "user_review[response_notes]", placeholder: "response notes", class: "form-control margin-bottom-md" %>
+            <%= text_area_tag "user_review[response_notes]", "", placeholder: "response notes", class: "form-control margin-bottom-md" %>
           </div>
         </div>
       <% end %>
