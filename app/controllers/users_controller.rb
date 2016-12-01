@@ -91,6 +91,14 @@ class UsersController < ApplicationController
     @review_items = ReviewItem.order(:name).where(is_team: false, is_weekly: false)
   end
 
+  def update_all
+    params['user'].keys.each do |id|
+      @user = User.find(id.to_i)
+      @user.update_attributes(params['user'][id])
+    end
+    redirect_to(users_url)
+  end
+
   def employee_rating
     user = User.find(params[:user][:id])
 

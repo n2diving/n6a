@@ -8,7 +8,7 @@
         <div class="col-xs-12">
           <%= select_tag :team_id, options_for_select(Team.all.collect { |t| [ t.team_name, t.id ] }), include_blank: "team name", class: "form-control margin-bottom-sm", required: true %>
 
-          <%= select_tag :user_review, options_for_select(options_for_rate_period), include_blank: "select rate period", class: "form-control margin-bottom-md", id: "rate_period", onchange: "javascript:location.href=#{}" %>
+          <%= select_tag :user_review, options_for_select(options_for_rate_period), include_blank: "select rate period", class: "form-control margin-bottom-md", id: "rate_period" %>
         </div>
       </div>
 

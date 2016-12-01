@@ -10,6 +10,11 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
+    if current_user.is_admin
+      @users = User.all
+    elsif current_user.teams.first.team_lead
+      @users = User.joins(:employee_teams).where("employee_teams.team_id = ? ", current_user.teams.first.id)
+    end
     @team_reviews = @team.user_reviews
     @team_reviews_pending = @team_reviews.where(rate_period: (Date.today -1.month).end_of_month, is_team: true)
     @user_reviews_pending = @team_reviews.where(rate_period: (Date.today -1.month).end_of_month, is_team: false)
