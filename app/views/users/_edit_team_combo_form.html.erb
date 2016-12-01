@@ -32,11 +32,13 @@
           <%= review_form.hidden_field :is_team, value: true %>
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <%= text_area_tag "user_review[response_notes]", {}, class: "form-control margin-bottom-md", placeholder: "response notes"%>
+      <% if current_user.teams.first.try(:team_lead) %>
+        <div class="row">
+          <div class="col-xs-12">
+            <%= text_area_tag "user_review[response_notes]", placeholder: "response notes", class: "form-control margin-bottom-md" %>
           </div>
         </div>
+      <% end %>
     <% end %>
     <hr>
   <% end %>
