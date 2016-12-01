@@ -27,3 +27,10 @@ body {
   margin: 0 auto 2rem auto;
   padding: 1rem;
 }
+
+table.sortable thead {
+  background-color:#eee;
+  color:#666666;
+  font-weight: bold;
+  cursor: default;
+}

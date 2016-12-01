@@ -27,37 +27,44 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-            <% if current_user && current_user.id == 1 %>
-                <li>
-                  <%= link_to 'users', users_path %>
-                </li>
-                <li>
-                  <%= link_to 'teams', teams_path %>
-                </li>
-                <li>
-                  <%= link_to 'employee teams', employee_teams_path %>
-                </li>
-                <li>
-                  <%= link_to 'review items', review_items_path %>
-                </li>
-                <li>
-                  <%= link_to 'user reviews', user_reviews_path %>
-                </li>
-                <li>
-                  <%= link_to 'user review combo form', new_employee_rating_path %>
-                </li>
-                <li>
-                  <%= link_to 'team review combo form', new_team_rating_path %>
-                </li>
+          <% if current_user %>
+            <% if current_user.is_officer? || (current_user.id == 1) %>
+              <li>
+                <%= link_to 'employees', users_path %>
+              </li>
+              <li>
+                <%= link_to 'teams', teams_path %>
+              </li>
+              <li>
+                <%= link_to 'employee team setup', employee_teams_path %>
+              </li>
+              <li>
+                <%= link_to 'form setup', review_items_path %>
+              </li>
+              <li>
+                <%= link_to 'review employees', new_employee_rating_path %>
+              </li>
+              <li>
+                <%= link_to 'review teams', new_team_rating_path %>
+              </li>
             <% end %>
-              <% if current_user %>
-                <li>
-                  <%= link_to destroy_user_session_path, method: :delete do %>
-                    <!--<i class="fa fa-sign-out"></i> -->
-                    log out
-                  <% end %>
-                </li>
-            <% end%>
+            <% if current_user.id == 1 %>
+              <li>
+                <%= link_to 'user reviews', user_reviews_path %>
+              </li>
+            <% end %>
+            <% if current_user.teams.first.team_lead %>
+              <li>
+                <%= link_to 'my team', team_path(current_user.teams.first) %>
+              </li>
+            <% end %>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete do %>
+                <!--<i class="fa fa-sign-out"></i> -->
+                log out
+              <% end %>
+            </li>
+          <% end%>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

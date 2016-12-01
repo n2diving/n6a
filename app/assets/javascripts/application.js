@@ -18,7 +18,8 @@
 //= require turbolinks
 //= require Chart.bundle
 //= require chartkick
-//= require_tree .
+//= require sortable
+// = require_tree .
 
 $(document).ready(function() {
   $('.month_datepicker').datepicker({

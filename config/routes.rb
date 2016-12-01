@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     end
   end
 
-  root 'users#index'
+  root 'users#show'
 
 
   get    '/users(.:format)',           to: 'users#index',            as: :users

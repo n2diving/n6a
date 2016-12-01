@@ -41,6 +41,7 @@ gem 'font-awesome-rails'
 gem 'chartkick'
 gem 'groupdate'
 gem 'bootstrap-datepicker-rails'
+# gem 'sortable-rails', '~> 0.0.2', github: 'scttdavs/sortable-rails'
 
 
 group :development, :test do
