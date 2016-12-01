@@ -9,6 +9,9 @@
           <th>team</th>
           <th>email</th>
           <th>title</th>
+          <% if current_user.teams.first.try(:team_lead) %>
+            <th class="text-center">new review</th>
+          <% end %>
           <% if current_user.is_admin %>
             <th class="text-center">actions</th>
           <% end %>
@@ -24,7 +27,7 @@
             <td><%= user.title %></td>
             <% if current_user.teams.first.try(:team_lead) %>
               <td>
-                <%= link_to new_employee_rating_path(user.id) , class: "text-primary pull-right margin-top-md" do %>
+                <%= link_to new_employee_rating_path(user.id) , class: "text-primary" do %>
                 <i class="fa fa-plus"></i> new employee review
                 <% end %>
               </td>
