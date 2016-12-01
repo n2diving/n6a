@@ -22,6 +22,13 @@
             <td><%= user.teams.blank? ? '' : (link_to user.teams.first.team_name, user.teams.first) %></td>
             <td><%= user.email %></td>
             <td><%= user.title %></td>
+            <% if current_user.teams.first.try(:team_lead) %>
+              <td>
+                <%= link_to new_employee_rating_path(@user.id) , class: "text-primary pull-right margin-top-md" do %>
+                <i class="fa fa-plus"></i> new employee review
+                <% end %>
+              </td>
+            <% end %>
             <% if current_user.is_admin %>
               <td class="text-center">
                 <%= link_to edit_user_path(user), class: "margin-right-sm" do %>

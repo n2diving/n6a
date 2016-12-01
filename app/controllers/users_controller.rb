@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :show, :update, :destroy, :new_employee_rating, :edit_employee_rating, :edit_team_rating]
+  before_action :set_user, only: [:edit, :show, :update, :destroy, :edit_employee_rating, :new_employee_rating, :edit_team_rating]
 
   # GET /users
   # GET /users.json
