@@ -53,7 +53,7 @@
                 <%= link_to 'user reviews', user_reviews_path %>
               </li>
             <% end %>
-            <% if current_user.try(:teams).first.team_lead %>
+            <% if current_user.teams.first.try(:team_lead) %>
               <li>
                 <%= link_to 'my team', team_path(current_user.teams.first) %>
               </li>
