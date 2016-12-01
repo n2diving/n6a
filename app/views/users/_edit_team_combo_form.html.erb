@@ -27,7 +27,7 @@
       <div class="row">
         <div class="col-xs-12">
           <%= review_form.text_area :notes, class: "form-control margin-bottom-md", placeholder: "notes"%>
-          <%= review_form.select :rating, (review_item.scale_min..review_item.scale_max), { include_blank: "rating" }, class: "form-control margin-bottom-sm" %>
+          <%= review_form.select :rating, (user.review_item.scale_min..user.review_item.scale_max), { include_blank: "rating" }, class: "form-control margin-bottom-sm" %>
           <%= review_form.hidden_field :rated_by_user_id, value: current_user.id %>
           <%= review_form.hidden_field :is_team, value: true %>
         </div>
