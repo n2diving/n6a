@@ -1,42 +1,46 @@
-<h1>employee reviews</h1>
+<div class="row">
+  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <h1>employee reviews</h1>
 
-<table class="table table-striped table-hover table-bordered sortable">
-  <thead>
-    <tr>
-      <th>employee name</th>
-      <th>title</th>
-      <th>review criteria</th>
-      <th class="text-center">rating</th>
-      <th class="text-center">rate period</th>
-      <th class="text-center">actions</th>
-    </tr>
-  </thead>
+    <table class="table table-striped table-hover table-bordered sortable">
+      <thead>
+        <tr>
+          <th>employee name</th>
+          <th>title</th>
+          <th>review criteria</th>
+          <th class="text-center">rating</th>
+          <th class="text-center">rate period</th>
+          <th class="text-center">actions</th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @user_reviews.each do |user_review| %>
-      <tr>
-        <td><%= link_to user_review.user.full_name, user_review.user %></td>
-        <td><%= user_review.user.title %></td>
-        <td><%= user_review.review_item.name %></td>
-        <td class="text-center"><%= user_review.rating %></td>
-        <td class="text-center"><%= user_review.rate_period %></td>
+      <tbody>
+        <% @user_reviews.each do |user_review| %>
+          <tr>
+            <td><%= link_to user_review.user.full_name, user_review.user %></td>
+            <td><%= user_review.user.title %></td>
+            <td><%= user_review.review_item.name %></td>
+            <td class="text-center"><%= user_review.rating %></td>
+            <td class="text-center"><%= user_review.rate_period %></td>
 
-        <td class="text-center">
-          <%= link_to edit_user_review_path(user_review), class: "margin-right-sm" do %>
-            <i class="fa fa-cog text-primary"></i>
-          <% end %>
-          <%= link_to user_review, method: :delete, data: { confirm: 'Are you sure?' } do %>
-            <i class="fa fa-trash text-danger"></i>
-          <% end %>
-        </td>
+            <td class="text-center">
+              <%= link_to edit_user_review_path(user_review), class: "margin-right-sm" do %>
+                <i class="fa fa-cog text-primary"></i>
+              <% end %>
+              <%= link_to user_review, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <i class="fa fa-trash text-danger"></i>
+              <% end %>
+            </td>
 
-      </tr>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <%= link_to new_user_review_path , class: "text-primary" do %>
+      <i class="fa fa-plus"></i> new employee review
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to new_user_review_path , class: "text-primary" do %>
-  <i class="fa fa-plus"></i> new employee review
-<% end %>
+  </div>
+</div>

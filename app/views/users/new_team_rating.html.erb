@@ -8,7 +8,7 @@
         <div class="col-xs-12">
           <%= select_tag :team_id, options_for_select(Team.all.collect { |t| [ t.team_name, t.id ] }), include_blank: "team name", class: "form-control margin-bottom-sm", required: true %>
 
-          <%= select_tag :rate_period, options_for_select(options_for_rate_period), include_blank: "select rate period", class: "form-control margin-bottom-md", id: "rate_period" %>
+          <%= select_tag :user_review, options_for_select(options_for_rate_period), include_blank: "select rate period", class: "form-control margin-bottom-md", id: "rate_period", onchange: "javascript:location.href=#{}" %>
         </div>
       </div>
 
@@ -31,6 +31,7 @@
               <%= review_form.text_area :notes, class: "form-control margin-bottom-md", placeholder: "notes"%>
               <%= review_form.select :rating, (review_item.scale_min..review_item.scale_max), { include_blank: "rating" }, class: "form-control margin-bottom-sm" %>
               <%= review_form.hidden_field :rated_by_user_id, value: current_user.id %>
+              <%= review_form.hidden_field :is_team, value: true %>
             </div>
           </div>
         <% end%>

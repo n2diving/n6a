@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   devise_scope :user do
     authenticated :user do
-      root 'users#index', as: :authenticated_root
+      root 'users#show', as: :authenticated_root
     end
 
     unauthenticated do
@@ -30,8 +30,10 @@ Rails.application.routes.draw do
   put    '/users/:id(.:format)',       to: 'users#update'
   delete '/users/:id(.:format)',       to: 'users#destroy'
   get   '/new_employee_rating',        to: 'users#new_employee_rating',     as: :new_employee_rating
+  get   '/edit_employee_rating/(.:id)',            to: 'users#edit_employee_rating',     as: :edit_employee_rating
   patch   '/employee_rating',      to: 'users#employee_rating',     as: :employee_rating
   get   '/new_team_rating',            to: 'users#new_team_rating',     as: :new_team_rating
+  get   '/edit_team_rating/:id(.:format)',            to: 'users#edit_team_rating',     as: :edit_team_rating
   patch   '/team_rating',      to: 'users#team_rating',     as: :team_rating
 
 

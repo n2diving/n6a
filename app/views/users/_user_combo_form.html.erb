@@ -1,0 +1,60 @@
+<%= form_for :user, url: employee_rating_path, method: :patch do |one_review| %>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <%= one_review.select :id, User.all.collect { |u| [ u.full_name, u.id ] }, { include_blank: "employee name" }, class: "form-control margin-bottom-sm" %>
+
+      <%= select_tag :rate_period, options_for_select(options_for_rate_period), include_blank: "select rate period", class: "form-control margin-bottom-md", id: "rate_period" %>
+    </div>
+  </div>
+
+  <hr>
+
+  <% @review_items.each do |review_item| %>
+    <%= one_review.fields_for :user_reviews, @user.user_reviews.build do |review_form| %>
+      <div class="row">
+        <div class="col-xs-12">
+          <%#= review_form.select :rate_period, options_for_rate_period, { prompt: 'select rate period' }, class: "form-control margin-bottom-md" %>
+          <h4 class="text-primary"><%= review_item.name %></h4>
+          <p><%= review_item.evaluation_criteria %></p>
+          <%= review_form.hidden_field :review_item_id, value: review_item.id %>
+          <%= review_form.hidden_field :rate_period, class: "rate_period" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <%= review_form.text_area :pros, class: "form-control margin-bottom-md", placeholder: "pros"%>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <%= review_form.text_area :cons, class: "form-control margin-bottom-md", placeholder: "cons"%>
+        </div>
+        <div class="col-xs-12">
+          <% if current_user.is_admin %>
+            <%= review_form.select :rating, (review_item.scale_min..review_item.scale_max), { include_blank: "rating" }, class: "form-control margin-bottom-sm" %>
+          <% end %>
+
+          <%#= review_form.number_field :rating, class: "form-control margin-bottom-md", placeholder: "rating"%>
+          <%= review_form.hidden_field :rated_by_user_id, value: current_user.id %>
+        </div>
+      </div>
+    <% end%>
+    <hr>
+  <% end%>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <%= one_review.submit "save", class: "btn btn-primary btn-center" %>
+    </div>
+  </div>
+
+<% end %>
+
+<script>
+  $('#rate_period').on('change', function() {
+    var period = this.value;
+    $(".rate_period").each(function(){
+      this.value = period;
+    });
+  });
+</script>

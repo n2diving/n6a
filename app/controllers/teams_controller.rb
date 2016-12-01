@@ -11,6 +11,8 @@ class TeamsController < ApplicationController
   # GET /teams/1.json
   def show
     @team_reviews = @team.user_reviews
+    @team_reviews_pending = @team_reviews.where(rate_period: (Date.today -1.month).end_of_month, is_team: true)
+    @user_reviews_pending = @team_reviews.where(rate_period: (Date.today -1.month).end_of_month, is_team: false)
     @rate_periods = UserReview.all.pluck(:rate_period).uniq.sort.map{ |x| x.strftime("%B %Y") }
   end
 

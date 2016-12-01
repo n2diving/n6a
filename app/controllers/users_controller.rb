@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :show, :update, :destroy]
+  before_action :set_user, only: [:edit, :show, :update, :destroy, :new_employee_rating, :edit_employee_rating, :edit_team_rating]
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.all.order(:last_name)
   end
 
   # GET /users/1
@@ -72,8 +72,22 @@ class UsersController < ApplicationController
   end
 
   def new_employee_rating
-    #TODO NEED TO FIX THIS, dynamic link coming from employee page?
-    @user = User.find 2
+    @user_review = UserReview.new
+    if current_user.is_admin?
+      @users = User.all.order(:last_name)
+    else
+      @users = User.joins(:employee_teams).where("employee_teams.team_id = ?", current_user.teams.first.id).order(:last_name)
+    end
+    @review_items = ReviewItem.order(:name).where(is_team: false, is_weekly: false)
+  end
+
+  def edit_employee_rating
+    @user_reviews = @user.user_reviews.where(rate_period: (Date.today - 1.month).end_of_month)
+    if current_user.is_admin?
+      @users = User.all.order(:last_name)
+    else
+      @users = User.joins(:employee_teams).where("employee_teams.team_id = ?", current_user.teams.first.id).order(:last_name)
+    end
     @review_items = ReviewItem.order(:name).where(is_team: false, is_weekly: false)
   end
 
@@ -92,7 +106,12 @@ class UsersController < ApplicationController
   end
 
   def new_team_rating
-    @user = User.new || User.find(params[:id])
+    @user = User.new
+    @review_items = ReviewItem.order(:name).where(is_team: true, is_weekly: false)
+  end
+
+  def edit_team_rating
+    @user = User.find(params[:id])
     @review_items = ReviewItem.order(:name).where(is_team: true, is_weekly: false)
   end
 
@@ -133,7 +152,8 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      id = (params[:id]) || current_user.id
+      @user = User.find(id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

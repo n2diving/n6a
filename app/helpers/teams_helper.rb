@@ -14,22 +14,57 @@ module TeamsHelper
     @results.sort_by! { |results| results[:name] }
   end
 
-  def team_review_other_teams_chart_results
-    rate_periods = UserReview.all.pluck(:rate_period).uniq.sort
+  # def team_review_other_teams_chart_results
+  #   rate_periods = UserReview.all.pluck(:rate_period).uniq.sort
+  #   @teams = Team.all
+  #
+  #   @results = []
+  #   unless rate_periods.nil?
+  #     dataset = []
+  #     name = nil
+  #     results = []
+  #     @teams.each do |one_team|
+  #       rate_periods.each do |one_review_period|
+  #
+  #         # rating_list = UserReview.where(user_id: [one_team.users.pluck(:id)], rate_period: one_review_period).where.not(rating: nil).pluck(:rating)
+  #         # if rating_list.empty? || (rating_list == [nil])
+  #         #   results = nil
+  #         # else
+  #         #   results = (rating_list.reduce(&:+) / rating_list.count)
+  #         # end
+  #
+  #         results = [1,2,3,4]
+  #
+  #         dataset << [one_review_period.strftime("%B %Y"), results.sample ]
+  #       end
+  #         name = one_team.team_name
+  #     end
+  #       @results << { name: name, data: dataset }
+  #   end
+  #   # @results.sort_by! { |results| results[:name] }
+  #   @results
+  # end
 
+  def team_review_other_teams_chart_results
     @results = []
-    unless rate_periods.nil?
+    rate_periods = UserReview.all.pluck(:rate_period).uniq.sort
+    @teams = Team.all
+
+
+    @teams.each do |one_team|
       dataset = []
-      name = nil
-      Team.all.each do |one_team|
-        rate_periods.each do |one_review_period|
-          name = one_team.team_name
-          dataset << [one_review_period.strftime("%B %Y"), one_team.team_average_by_period(one_review_period)]
+      rate_periods.each do |one_period|
+
+        rating_list = UserReview.where(user_id: [one_team.users.pluck(:id)], rate_period: one_period).where.not(rating: nil).pluck(:rating)
+        if rating_list.empty? || (rating_list == [nil])
+          results = nil
+        else
+          results = (rating_list.reduce(&:+) / rating_list.count)
         end
-        @results << { name: name, data: dataset }
+        dataset << [one_period.strftime("%B %Y"), results ]
       end
-      @results.sort_by! { |results| results[:name] }
+      @results << { name: one_team.team_name, data: dataset }
     end
-    @results
+    @results.sort_by! { |results| results[:name] }
   end
 end

@@ -6,10 +6,12 @@
       </div>
       <div class="col-xs-6">
         <% if current_user.is_admin || current_user.teams.first.team_lead %>
-          <%= link_to new_user_review_path , class: "text-primary pull-right margin-top-md" do %>
+          <%= link_to new_employee_rating_path , class: "text-primary pull-right margin-top-md" do %>
             <i class="fa fa-plus"></i> new employee review
           <% end %>
-        <% end %>
+          <%#= select_tag :rate_period, options_for_select(options_for_rate_period), include_blank: "select rate period", class: "form-control margin-bottom-md", id: "rate_period" %>
+
+      <% end %>
       </div>
     </div>
 
@@ -20,7 +22,7 @@
         <%= line_chart review_chart_results(@team_reviews) %>
       </div>
       <div class="col-xs-6">
-        <%#= review_team_chart_results(@team) %>
+        <%#= team_review_other_teams_chart_results %>
         <!--<hr>-->
         <%= line_chart team_review_other_teams_chart_results %>
       </div>
@@ -61,7 +63,8 @@
       </tbody>
     </table>
 
-    <%= link_to 'Edit', edit_team_path(@team) %> |
-    <%= link_to 'Back', teams_path %>
+    <%#= link_to 'Edit', edit_team_path(@team) %>
+    <!--|-->
+    <%#= link_to 'Back', teams_path %>
   </div>
 </div>

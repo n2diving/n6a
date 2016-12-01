@@ -21,8 +21,8 @@ class Team < ApplicationRecord
     User.find(self.employee_teams.where(team_lead: true).first.user_id)
   end
 
-  def team_average_by_period(rate_period)
 
+  def team_average_by_period(rate_period)
     teammates = self.user_reviews.pluck(:user_id).uniq
 
     list = UserReview.where(rate_period: rate_period).where.not(rating: nil)
@@ -32,6 +32,7 @@ class Team < ApplicationRecord
         ratings << one_user_review.rating
       end
     end
+    p ratings
     (ratings.reduce(&:+) / ratings.count) if !ratings.blank?
   end
 
