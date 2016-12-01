@@ -4,7 +4,7 @@ class UserReviewsController < ApplicationController
   # GET /user_reviews
   # GET /user_reviews.json
   def index
-    @user_reviews = UserReview.all
+    @user_reviews = UserReview.all.order(:rate_period).page(params[:page])
   end
 
   # GET /user_reviews/1

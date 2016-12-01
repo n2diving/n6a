@@ -41,8 +41,7 @@ gem 'font-awesome-rails'
 gem 'chartkick'
 gem 'groupdate'
 gem 'bootstrap-datepicker-rails'
-# gem 'sortable-rails', '~> 0.0.2', github: 'scttdavs/sortable-rails'
-
+gem 'kaminari'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
