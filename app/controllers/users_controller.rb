@@ -167,6 +167,6 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       # params.fetch(:user, {})
-      params.require(:user).permit(:first_name, :last_name, :title, :is_current, :start_date, :email, :is_officer, :is_admin, user_reviews_attributes: [:id, :review_item_id, :rated_by_user_id, :notes_allowed, :rate_period, :rating, :is_team, :pros, :cons, :notes])
+      params.require(:user).permit(:first_name, :last_name, :title, :is_current, :start_date, :email, :is_officer, :is_admin, :password, user_reviews_attributes: [:id, :review_item_id, :rated_by_user_id, :notes_allowed, :rate_period, :rating, :is_team, :pros, :cons, :notes])
     end
 end

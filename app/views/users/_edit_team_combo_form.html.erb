@@ -1,0 +1,51 @@
+<%= form_for :user, url: update_all_path, method: :put do  %>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <%#= one_review.select :id, @users.collect { |u| [ u.full_name, u.id ] }, { include_blank: "employee name", selected: @user_reviews.first.user_id }, class: "form-control margin-bottom-sm" %>
+
+      <%#= select_tag :rate_period, options_for_select(options_for_rate_period), include_blank: "select rate period", selected: @user_reviews.first.rate_period, class: "form-control margin-bottom-md", id: "rate_period" %>
+    </div>
+  </div>
+
+  <hr>
+
+
+  <% @user.user_reviews.where(rate_period: (Date.today - 1.month).end_of_month, is_team: true).order("user_reviews.review_item_id").each do |user| %>
+    <%# @review_items.each do |review_item| %>
+    <%= fields_for "user_reviews[]", user do |review_form| %>
+      <div class="row">
+        <div class="col-xs-12">
+          <%#= review_form.select :rate_period, options_for_rate_period, { prompt: 'select rate period' }, class: "form-control margin-bottom-md" %>
+          <h4 class="text-primary"><%= user.review_item.name %></h4>
+          <p><%= user.review_item.evaluation_criteria %></p>
+          <%= review_form.hidden_field :review_item_id, value: user.review_item.id %>
+          <%= review_form.hidden_field :rate_period, class: "rate_period" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <%= review_form.text_area :notes, class: "form-control margin-bottom-md", placeholder: "notes"%>
+          <%= review_form.select :rating, (review_item.scale_min..review_item.scale_max), { include_blank: "rating" }, class: "form-control margin-bottom-sm" %>
+          <%= review_form.hidden_field :rated_by_user_id, value: current_user.id %>
+          <%= review_form.hidden_field :is_team, value: true %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <%= review_form.text_area "user_review[response_notes]", class: "form-control margin-bottom-md", placeholder: "response notes"%>
+          </div>
+        </div>
+    <% end %>
+    <hr>
+  <% end %>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <%= submit_tag "save", class: "btn btn-primary btn-center" %>
+    </div>
+  </div>
+
+<% end %>
+

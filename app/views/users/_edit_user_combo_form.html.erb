@@ -11,7 +11,7 @@
   <hr>
 
 
-  <% @user.user_reviews.where(rate_period: (Date.today - 1.month).end_of_month).order("user_reviews.review_item_id").each do |user| %>
+  <% @user.user_reviews.where(rate_period: (Date.today - 1.month).end_of_month, is_team: false).order("user_reviews.review_item_id").each do |user| %>
     <%# @review_items.each do |review_item| %>
       <%= fields_for "user_reviews[]", user do |review_form| %>
         <div class="row">
