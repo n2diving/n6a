@@ -52,4 +52,17 @@ class UserReview < ApplicationRecord
     @review_rows
   end
 
+  def team_review_rows(columns, team_id, rate_period)
+    @review_rows = {}
+    team = Team.find(team_id)
+    teammates = team.users.pluck(:id)
+
+    columns.each_with_index do |one_column, i|
+      user_review = UserReview.all.where(review_item_id: one_column[1], user_id: user_id, rate_period: rate_period.end_of_month).first
+      @review_rows[i] = []
+      @review_rows[i] << (user_review.nil? ? '' : user_review.rating)
+    end
+    @review_rows
+  end
+
 end
