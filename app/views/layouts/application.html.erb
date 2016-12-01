@@ -55,6 +55,9 @@
             <% end %>
             <% if current_user.teams.first.try(:team_lead) %>
               <li>
+                <%= link_to 'employees', users_path %>
+              </li>
+              <li>
                 <%= link_to 'my team', team_path(current_user.teams.first) %>
               </li>
             <% end %>
