@@ -37,7 +37,9 @@
       </tbody>
     </table>
 
-    <br>
+    <%= paginate @user_reviews, theme: "twitter-bootstrap-3" %>
+
+    <div class="margin-bottom-xl"></div>
 
     <%= link_to new_user_review_path , class: "text-primary" do %>
       <i class="fa fa-plus"></i> new employee review
