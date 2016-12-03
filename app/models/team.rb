@@ -18,7 +18,7 @@ class Team < ApplicationRecord
 
 
   def team_lead
-    User.find(self.employee_teams.where(team_lead: true).first.user_id)
+    User.where(id: self.employee_teams.where(team_lead: true).first.try(:user_id)).first
   end
 
 
