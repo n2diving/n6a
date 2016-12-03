@@ -18,7 +18,7 @@
 //= require turbolinks
 //= require Chart.bundle
 //= require chartkick
-//= require sortable
+//= require sortable.js
 // = require_tree .
 
 $(document).ready(function() {
