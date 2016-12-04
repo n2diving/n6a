@@ -4,14 +4,16 @@
 
     <div class="row margin-bottom-lg">
       <div class="col-xs-6">
-        <%#= review_chart_results(@user_reviews) %>
-        <!--<hr>-->
-        <%= line_chart review_chart_results(@user_reviews) %>
+        <% results1 = review_chart_results(@user_reviews) %>
+        <% unless results1.blank? %>
+          <%= line_chart results1 %>
+        <% end %>
       </div>
       <div class="col-xs-6">
-        <%#= review_team_chart_results(@user) %>
-        <!--<hr>-->
-        <%= line_chart review_team_chart_results(@user) %>
+        <% results2 = review_team_chart_results(@user) %>
+        <% unless results2.blank? %>
+          <%= line_chart results2 %>
+        <% end %>
       </div>
     </div>
 
@@ -28,25 +30,28 @@
       </thead>
 
       <tbody>
-        <%# @user_reviews.each do |user_review| %>
-          <%# headers.each do |criteria| %>
-            <%# review = @user_reviews.where(review_criteria_id: criteria[1]).first %>
-          <% @rate_periods.each do |one_month| %>
-            <% reviews =  @user_reviews.where(rate_period: one_month.to_datetime.end_of_month).where.not(rating: nil) %>
-             <% average = reviews.pluck(:rating) %>
-            <% user_review = reviews.first %>
-            <%#= user_review.inspect %>
-            <% unless user_review.blank? %>
-              <tr>
-                <td><%= one_month %></td>
-                <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
-                <% user_review.user_review_rows(headers, user_review.user.id, one_month.to_datetime.end_of_month).each do |one_row| %>
-                  <td class="text-center"><%= one_row[1].first %></td>
-                <% end %>
-              </tr>
-            <% end %>
-          <% end%>
-        <%# end %>
+        <% nope = false %>
+        <% @rate_periods.each do |one_month| %>
+          <% reviews =  @user_reviews.where(rate_period: one_month.to_datetime.end_of_month).where.not(rating: nil) %>
+          <% nope = true if reviews.any? %>
+          <% average = reviews.pluck(:rating) %>
+          <% user_review = reviews.first %>
+          <%#= user_review.inspect %>
+          <% unless user_review.blank? %>
+            <tr>
+              <td><%= one_month %></td>
+              <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
+              <% user_review.user_review_rows(headers, user_review.user.id, one_month.to_datetime.end_of_month).each do |one_row| %>
+                <td class="text-center"><%= one_row[1].first %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        <% end %>
+        <% if nope == false %>
+          <tr>
+            <td colspan="15"><em>There are no reviews to display for this employee.</em></td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
 
