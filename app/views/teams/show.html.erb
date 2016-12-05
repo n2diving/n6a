@@ -1,3 +1,4 @@
+<% month = params[:rate_period] %>
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class="row">
@@ -34,11 +35,18 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-xs-12">
+        <%= select_tag :rate_period, options_for_select(options_for_rate_period, month.blank? ? ((Date.today - 1.month).end_of_month) : month.to_date.end_of_month), include_blank: "select rate period", class: "form-control margin-bottom-md", id: "rate_period" %>
+      </div>
+    </div>
+
     <table class="table table-striped table-hover table-bordered sortable">
       <thead>
       <tr>
+        <th>employee</th>
         <th>month</th>
-        <th class="text-center">average</th>
+        <!--<th class="text-center">average</th>-->
         <% headers = ReviewItem.order(:name).pluck(:display_name, :id) %>
         <% headers.each do |criteria| %>
           <th class="text-center"><%= criteria[0] %></th>
@@ -50,20 +58,18 @@
       <%# @team_reviews.each do |team_review| %>
       <%# headers.each do |criteria| %>
       <%# review = @team_reviews.where(review_criteria_id: criteria[1]).first %>
-      <% @rate_periods.each do |one_month| %>
-        <% reviews =  @team_reviews.where(rate_period: one_month.to_datetime.end_of_month).where.not(rating: nil) %>
-        <% average = reviews.pluck(:rating) %>
-        <% team_review = reviews.first %>
-        <%#= team_review.inspect %>
-        <% unless team_review.blank? %>
+      <% teammates = teammates(current_user.id) %>
+      <% teammates.each do |one_teammember| %>
+        <% rate_period = month.try(:to_date) || (Date.today - 1.month) %>
           <tr>
-            <td><%= one_month %></td>
-            <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
-            <% team_review.team_review_rows(headers, @team.id, one_month.to_datetime.end_of_month).each do |one_row| %>
+            <td><%= link_to one_teammember.full_name, one_teammember %></td>
+            <td><%= rate_period.strftime("%B %Y") %></td>
+            <!--<td class="text-center"><%#= (average.reduce(:+) / average.size.to_f).round(2) %></td>-->
+            <% one_teammember.team_user_review_rows(headers, (rate_period)).each do |one_row| %>
               <td class="text-center"><%= one_row[1].first %></td>
             <% end %>
           </tr>
-        <% end %>
+        <%# end %>
       <% end%>
       <%# end %>
       </tbody>
@@ -74,3 +80,15 @@
     <%#= link_to 'Back', teams_path %>
   </div>
 </div>
+
+<script>
+  $(function(){
+    $('select').on('change', function () {
+      var url = $(this).val();
+      if (url) {
+        window.location = "?rate_period="+url.split('%')[0];
+      }
+      return false;
+    });
+  });
+</script>

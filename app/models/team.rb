@@ -21,7 +21,6 @@ class Team < ApplicationRecord
     User.where(id: self.employee_teams.where(team_lead: true).first.try(:user_id)).first
   end
 
-
   def team_average_by_period(rate_period)
     teammates = self.user_reviews.pluck(:user_id).uniq
 

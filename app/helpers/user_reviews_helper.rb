@@ -1,7 +1,7 @@
 module UserReviewsHelper
 
   def options_for_rate_period
-    start_month = Time.now.end_of_month
+    start_month = Date.today.end_of_month
     options = []
     i = 0
     12.times do
