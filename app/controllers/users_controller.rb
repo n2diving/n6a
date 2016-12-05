@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :show, :update, :destroy, :edit_employee_rating, :new_employee_rating, :edit_team_rating]
+  before_action :set_user, only: [:edit, :show, :update, :destroy, :new_employee_rating, :edit_team_rating]
 
   # GET /users
   # GET /users.json
@@ -82,13 +82,16 @@ class UsersController < ApplicationController
   end
 
   def edit_employee_rating
-    @user_reviews = @user.user_reviews.where(rate_period: (Date.today - 1.month).end_of_month)
-    if current_user.is_admin?
-      @users = User.all.order(:last_name)
-    else
-      @users = User.joins(:employee_teams).where("employee_teams.team_id = ?", current_user.teams.first.id).order(:last_name)
-    end
-    @review_items = ReviewItem.order(:name).where(is_team: false, is_weekly: false)
+    @user = User.where(id: params[:id])
+    month = params[:rate_period].blank? ? ((Date.today - 1.month).end_of_month) : params[:rate_period].to_date.end_of_month
+
+    @user_reviews = @user.first.user_reviews.where(rate_period: month, rating: nil)
+    # if current_user.is_admin?
+    #   @users = User.all.order(:last_name)
+    # else
+    #   @users = User.joins(:employee_teams).where("employee_teams.team_id = ?", current_user.teams.first.id).order(:last_name)
+    # end
+    # @review_items = ReviewItem.order(:name).where(is_team: false, is_weekly: false)
   end
 
   def update_all
@@ -155,6 +158,11 @@ class UsersController < ApplicationController
         format.json { render json: 'something went wrong', status: :unprocessable_entity }
       end
     end
+  end
+
+  def employees_with_pending_reviews
+    @user_reviews = UserReview.order(:rate_period).where(rating: nil).page(params[:page])
+    @review_items = ReviewItem.order(:name).where(is_team: true, is_weekly: false)
   end
 
   private

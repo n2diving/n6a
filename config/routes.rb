@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get   '/new_team_rating',            to: 'users#new_team_rating',     as: :new_team_rating
   get   '/edit_team_rating/:id(.:format)',            to: 'users#edit_team_rating',     as: :edit_team_rating
   patch   '/team_rating',      to: 'users#team_rating',     as: :team_rating
+  get   '/employees_with_pending_reviews',            to: 'users#employees_with_pending_reviews',     as: :employees_with_pending_reviews
 
 
   # get    '/review_criteria(.:format)',                                 to: 'review_criteria#index',            as: :review_criterias

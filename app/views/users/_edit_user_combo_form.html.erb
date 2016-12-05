@@ -10,40 +10,48 @@
 
   <hr>
 
+  <%# @occurrences_submitted.each do |occurrence| %>
+    <%#= one_request.fields_for :occurrences, occurrence do |occurrence_form| %>
 
-  <% @user.user_reviews.where(rate_period: (Date.today - 1.month).end_of_month, is_team: false).order("user_reviews.review_item_id").each do |user| %>
-    <%# @review_items.each do |review_item| %>
-      <%= fields_for "user_reviews[]", user do |review_form| %>
-        <div class="row">
-          <div class="col-xs-12">
-            <%#= review_form.select :rate_period, options_for_rate_period, { prompt: 'select rate period' }, class: "form-control margin-bottom-md" %>
-            <h4 class="text-primary"><%= user.review_item.name %></h4>
-            <p><%= user.review_item.evaluation_criteria %></p>
-            <%= review_form.hidden_field :review_item_id, value: user.review_item.id %>
-            <%= review_form.hidden_field :rate_period, class: "rate_period" %>
+  <% @user.each do |user| %>
+    <% if @user_reviews.any? %>
+      <% @user_reviews.each do |one_review| %>
+        <%= fields_for :user_reviews, one_review do |review_form| %>
+          <div class="row">
+            <div class="col-xs-12">
+              <%#= review_form.select :rate_period, options_for_rate_period, { prompt: 'select rate period' }, class: "form-control margin-bottom-md" %>
+              <h4 class="text-primary"><%= one_review.review_item.name %></h4>
+              <p><%= one_review.review_item.evaluation_criteria %></p>
+              <%#= review_form.hidden_field :review_item_id, value: one_review.review_item.id %>
+              <%#= review_form.hidden_field :rate_period, class: "rate_period" %>
+            </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-xs-12 col-sm-6">
-            <%= review_form.text_area :pros, class: "form-control margin-bottom-md", placeholder: "pros"%>
-          </div>
-          <div class="col-xs-12 col-sm-6">
-            <%= review_form.text_area :cons, class: "form-control margin-bottom-md", placeholder: "cons"%>
-          </div>
-          <div class="col-xs-12">
-            <% if current_user.is_admin %>
-              <%= review_form.select :rating, (user.review_item.scale_min..user.review_item.scale_max), { include_blank: "rating" }, class: "form-control margin-bottom-sm" %>
-            <% end %>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6">
+              <%= review_form.text_area :pros, class: "form-control margin-bottom-md", placeholder: "pros"%>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+              <%= review_form.text_area :cons, class: "form-control margin-bottom-md", placeholder: "cons"%>
+            </div>
+            <div class="col-xs-12">
+              <% if current_user.is_admin %>
+                <%= review_form.select :rating, (user.review_item.scale_min..user.review_item.scale_max), { include_blank: "rating" }, class: "form-control margin-bottom-sm" %>
+              <% end %>
 
 
-            <%#= review_form.number_field :rating, class: "form-control margin-bottom-md", placeholder: "rating"%>
-            <%= review_form.hidden_field :rated_by_user_id, value: current_user.id %>
+              <%#= review_form.number_field :rating, class: "form-control margin-bottom-md", placeholder: "rating"%>
+              <%= review_form.hidden_field :rated_by_user_id, value: current_user.id %>
+            </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
-    <%# end%>
+    <% else %>
+      <p>There are no reviews available for this employee during this period.</p>
+    <% end %>
+
     <hr>
+
   <% end%>
 
   <div class="row">

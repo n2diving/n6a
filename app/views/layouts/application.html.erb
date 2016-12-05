@@ -44,6 +44,9 @@
               <li>
                 <%= link_to 'review teams', new_team_rating_path %>
               </li>
+              <li>
+                <%= link_to 'rate employees', employees_with_pending_reviews_path %>
+              </li>
             <% end %>
             <% if current_user.id == 1 %>
               <li>
