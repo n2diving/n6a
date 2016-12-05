@@ -39,10 +39,12 @@ module TeamsHelper
 
   def teammates(team_lead_user_id)
 
-    team = EmployeeTeam.where(user_id: team_lead_user_id).first.team
-    user_ids = EmployeeTeam.where(team_id: team.id).pluck(:user_id)
+    team = EmployeeTeam.where(user_id: team_lead_user_id).first.try(:team)
+    if team
+      user_ids = EmployeeTeam.where(team_id: team.id).pluck(:user_id)
+    end
 
-    User.where(id: [user_ids])
+      User.where(id: [user_ids])
   end
 
 end
