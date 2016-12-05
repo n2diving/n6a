@@ -10,14 +10,14 @@
           <%= link_to new_team_rating_path , class: "text-primary pull-right margin-top-md" do %>
             <i class="fa fa-plus"></i> new team review
           <% end %>
-          <%= select_tag :id, options_for_select(@users.collect{ |u| [u.full_name, u.id] }), include_blank: "edit user reviews", onchange: "javascript:location.href = '/edit_employee_rating/' + this.value;", class: "form-control margin-bottom-md"  %>
+          <%#= select_tag :id, options_for_select(@users.collect{ |u| [u.full_name, u.id] }), include_blank: "edit user reviews", onchange: "javascript:location.href = '/edit_employee_rating/' + this.value;", class: "form-control margin-bottom-md"  %>
         <% end %>
-        <% if current_user.teams.first.try(:team_lead) %>
+        <%# if current_user.teams.first.try(:team_lead) %>
           <%#= link_to new_employee_rating_path , class: "text-primary pull-right margin-top-md" do %>
             <!--<i class="fa fa-plus"></i> new employee review-->
           <%# end %>
-          <%= select_tag :id, options_for_select(@users.collect{ |u| [u.full_name, u.id] }), include_blank: "edit team rating", onchange: "javascript:location.href = '/edit_team_rating/' + this.value;", class: "form-control margin-bottom-md"  %>
-        <% end %>
+          <%#= select_tag :id, options_for_select(@users.collect{ |u| [u.full_name, u.id] }), include_blank: "edit team rating", onchange: "javascript:location.href = '/edit_team_rating/' + this.value;", class: "form-control margin-bottom-md"  %>
+        <%# end %>
 
       </div>
     </div>
