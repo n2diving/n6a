@@ -161,7 +161,7 @@ class UsersController < ApplicationController
   end
 
   def employees_with_pending_reviews
-    @user_reviews = UserReview.order(:rate_period).where(rating: nil).page(params[:page])
+    @user_reviews = UserReview.order(:rate_period).where(rating: nil)
     @review_items = ReviewItem.order(:name).where(is_team: true, is_weekly: false)
   end
 
