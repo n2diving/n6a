@@ -55,18 +55,24 @@
       </thead>
 
       <tbody>
-      <% teammates = teammates(current_user.id) %>
-      <% teammates.each do |one_teammember| %>
-        <% rate_period = month.try(:to_date) || (Date.today - 1.month) %>
-        <tr>
-          <td><%= link_to one_teammember.full_name, one_teammember %></td>
-          <td><%= rate_period.strftime("%B %Y") %></td>
-          <!--<td class="text-center"><%#= (average.reduce(:+) / average.size.to_f).round(2) %></td>-->
-          <% one_teammember.team_user_review_rows(headers, (rate_period)).each do |one_row| %>
-            <td class="text-center"><%= one_row[1].first %></td>
-          <% end %>
-        </tr>
-      <% end%>
+        <% teammates = teammates(@team.id) %>
+        <% if teammates.any? %>
+          <% teammates.each do |one_teammember| %>
+            <% rate_period = month.try(:to_date) || (Date.today - 1.month) %>
+            <tr>
+              <td><%= link_to one_teammember.full_name, one_teammember %></td>
+              <td><%= rate_period.strftime("%B %Y") %></td>
+              <!--<td class="text-center"><%#= (average.reduce(:+) / average.size.to_f).round(2) %></td>-->
+              <% one_teammember.team_user_review_rows(headers, (rate_period)).each do |one_row| %>
+                <td class="text-center"><%= one_row[1].first %></td>
+              <% end %>
+            </tr>
+          <% end%>
+        <% else %>
+          <tr>
+            <td colspan="15"><em>There are no team members to display for this team.</em></td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
 

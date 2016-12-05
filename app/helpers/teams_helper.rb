@@ -37,14 +37,9 @@ module TeamsHelper
     @results.sort_by! { |results| results[:name] }
   end
 
-  def teammates(team_lead_user_id)
-
-    team = EmployeeTeam.where(user_id: team_lead_user_id).first.try(:team)
-    if team
-      user_ids = EmployeeTeam.where(team_id: team.id).pluck(:user_id)
-    end
-
-      User.where(id: [user_ids])
+  def teammates(team_id)
+    user_ids = EmployeeTeam.where(team_id: team_id).pluck(:user_id)
+    User.where(id: [user_ids])
   end
 
 end
