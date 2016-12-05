@@ -85,7 +85,7 @@ class UsersController < ApplicationController
     @user = User.where(id: params[:id])
     month = params[:rate_period].blank? ? ((Date.today - 1.month).end_of_month) : params[:rate_period].to_date.end_of_month
 
-    @user_reviews = @user.first.user_reviews.where(rate_period: month, rating: nil)
+    @user_reviews = @user.first.user_reviews.where(rate_period: month, rating: nil).joins(:review_item).where('review_items.is_team = false')
     # if current_user.is_admin?
     #   @users = User.all.order(:last_name)
     # else
@@ -117,13 +117,20 @@ class UsersController < ApplicationController
   end
 
   def new_team_rating
-    @user = User.new
+    if params[:team_id]
+      team = Team.find(params[:team_id])
+      @user = User.joins(:employee_teams).where('employee_teams.team_id = ?', team.id).first
+    else
+      @user = User.new
+    end
     @review_items = ReviewItem.order(:name).where(is_team: true, is_weekly: false)
   end
 
   def edit_team_rating
-    @user = User.find(params[:id])
-    @review_items = ReviewItem.order(:name).where(is_team: true, is_weekly: false)
+    @user = User.where(id: params[:id])
+    month = params[:rate_period].blank? ? ((Date.today - 1.month).end_of_month) : params[:rate_period].to_date.end_of_month
+
+    @user_reviews = @user.first.user_reviews.where(rate_period: month, rating: nil).joins(:review_item).where('review_items.is_team = true')
   end
 
   def team_rating
@@ -161,7 +168,7 @@ class UsersController < ApplicationController
   end
 
   def employees_with_pending_reviews
-    @user_reviews = UserReview.order(:rate_period).where(rating: nil)
+    @user_reviews = UserReview.order(:rate_period).where(rating: nil).joins(:review_item).where('review_items.is_team is false')
     @review_items = ReviewItem.order(:name).where(is_team: true, is_weekly: false)
   end
 

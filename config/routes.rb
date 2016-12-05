@@ -39,6 +39,10 @@ Rails.application.routes.draw do
   get   '/employees_with_pending_reviews',            to: 'users#employees_with_pending_reviews',     as: :employees_with_pending_reviews
 
 
+  get   '/teams_needing_response_notes',            to: 'teams#teams_needing_response_notes',     as: :teams_needing_response_notes
+
+
+
   # get    '/review_criteria(.:format)',                                 to: 'review_criteria#index',            as: :review_criterias
   # post   '/review_criteria(.:format)',                                 to: 'review_criteria#create'
   # get    '/review_criteria/new(.:format)',                             to: 'review_criteria#new',              as: :new_review_criteria

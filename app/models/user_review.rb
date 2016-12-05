@@ -32,6 +32,7 @@ class UserReview < ApplicationRecord
 
   validates_uniqueness_of :rate_period, { scope: [ :user_id, :review_item_id ], message: "-- review has already been scored for this month." }
   before_save :normalize_date
+  after_create :employee_team_reviews
 
 
   def normalize_date
@@ -63,6 +64,26 @@ class UserReview < ApplicationRecord
       @review_rows[i] << (user_review.nil? ? '' : user_review.rating)
     end
     @review_rows
+  end
+
+  def employee_team_reviews
+    if (self.review_item.is_team == true)
+      team = self.user.teams.first
+      teammates = EmployeeTeam.where(team_id: team.id).where.not(user_id: self.user_id)
+      teammates.each do |one_teammate_employee_team_record|
+        user = User.find(one_teammate_employee_team_record.user_id)
+        user_reviews = user.user_reviews.where(rate_period: self.rate_period, review_item_id: self.review_item_id)
+        if user_reviews.blank?
+          UserReview.create(
+            revier_item_id: self.review_item_id,
+            user_id: one_teammate_employee_team_record.user_id,
+            rating: self.rating,
+            rate_period: self.rate_period,
+            is_team: true
+          )
+        end
+      end
+    end
   end
 
 end

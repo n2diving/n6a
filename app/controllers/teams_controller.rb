@@ -71,6 +71,13 @@ class TeamsController < ApplicationController
     end
   end
 
+  def teams_needing_response_notes
+
+    @user_reviews = UserReview.order(:rate_period).where(rating: nil).joins(:review_item).where('review_items.is_team is true')
+
+    @review_items = ReviewItem.order(:name).where(is_team: true, is_weekly: false)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_team

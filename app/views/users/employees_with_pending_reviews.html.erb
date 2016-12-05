@@ -33,7 +33,7 @@
               <td class="text-center"><%= rate_period.strftime("%B %Y") %></td>
 
               <td class="text-center">
-                <%= link_to edit_employee_rating_path(user, rate_period: rate_period), class: "margin-right-sm" do %>
+                <%= link_to edit_employee_rating_path(user, rate_period: rate_period) do %>
                   <i class="fa fa-edit text-primary"></i> edit employee ratings
                 <% end %>
                 <%#= link_to user_review, method: :delete, data: { confirm: 'Are you sure?' } do %>
