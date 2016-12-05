@@ -2,22 +2,25 @@
 
   <div class="row">
     <div class="col-xs-12">
+      <h4 class="text-primary"><%= @user.first.full_name + ", " + params[:rate_period].to_date.strftime("%B %Y")  %></h4>
+
       <%#= one_review.select :id, @users.collect { |u| [ u.full_name, u.id ] }, { include_blank: "employee name", selected: @user_reviews.first.user_id }, class: "form-control margin-bottom-sm" %>
 
       <%#= select_tag :rate_period, options_for_select(options_for_rate_period), include_blank: "select rate period", selected: @user_reviews.first.rate_period, class: "form-control margin-bottom-md", id: "rate_period" %>
     </div>
   </div>
 
-  <hr>
+  <hr class="margin-none">
 
   <%# @occurrences_submitted.each do |occurrence| %>
     <%#= one_request.fields_for :occurrences, occurrence do |occurrence_form| %>
 
   <% @user.each do |user| %>
     <% if @user_reviews.any? %>
+
       <% @user_reviews.each do |one_review| %>
         <%= fields_for :user_reviews, one_review do |review_form| %>
-          <div class="row">
+          <div class="row margin-top-md">
             <div class="col-xs-12">
               <%#= review_form.select :rate_period, options_for_rate_period, { prompt: 'select rate period' }, class: "form-control margin-bottom-md" %>
               <h4 class="text-primary"><%= one_review.review_item.name %></h4>
