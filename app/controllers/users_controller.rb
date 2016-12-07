@@ -83,10 +83,10 @@ class UsersController < ApplicationController
   end
 
   def edit_employee_rating
-    @user = User.where(id: params[:id])
+    @user = User.find(params[:id])
     month = params[:rate_period].blank? ? ((Date.today - 1.month).end_of_month) : params[:rate_period].to_date.end_of_month
 
-    @user_reviews = @user.first.user_reviews.where(rate_period: month, rating: nil).joins(:review_item).where('review_items.is_team = false')
+    @user_reviews = @user.user_reviews.where(rate_period: month, rating: nil).joins(:review_item).where('review_items.is_team = false')
     # if current_user.is_admin?
     #   @users = User.all.order(:last_name)
     # else
@@ -96,11 +96,23 @@ class UsersController < ApplicationController
   end
 
   def update_all
-    params[:id].keys.each do |id|
-      @user = User.find(id.to_i)
-      @user.update_attributes(params['user'][id])
+    begin
+      @user = User.find(params[:user][:id].to_i)
+
+      params[:user_reviews].keys.each do |one_review|
+        user_review = UserReview.find(one_review)
+        user_review.update_attributes(
+          pros: params[:user_reviews][one_review][:pros],
+          cons: params[:user_reviews][one_review][:cons],
+          rating: params[:user_reviews][one_review][:rating],
+          rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id]
+        )
+      end
+      redirect_to users_url, notice: "Employee Review has been updated."
+    rescue => e
+      redirect_to back, notice: e.inspect
     end
-    redirect_to(users_url)
+
   end
 
   def employee_rating
@@ -117,11 +129,12 @@ class UsersController < ApplicationController
           cons: params[:user_reviews][one_review][:cons]
         )
       end
+      redirect_to user, notice: "Employee rating has been saved."
     rescue => e
-      flash[:notice] = e.inspect
+      redirect_to back, notice: e.inspect
     end
 
-    redirect_to user, notice: "Employee rating has been saved."
+    # redirect_to user
 
     # respond_to do |format|
     #   if user.update(user_params)
