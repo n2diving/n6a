@@ -31,8 +31,11 @@ Rails.application.routes.draw do
   delete '/users/:id(.:format)',       to: 'users#destroy'
   get   '/new_employee_rating/:id(.:format)',        to: 'users#new_employee_rating',     as: :new_employee_rating
   get   '/edit_employee_rating/:id(.:format)',  to: 'users#edit_employee_rating',     as: :edit_employee_rating
-  patch   '/employee_rating',          to: 'users#employee_rating',     as: :employee_rating
+  post   '/employee_rating',          to: 'users#employee_rating',     as: :employee_rating
+  patch   '/employee_rating',          to: 'users#employee_rating'
   patch   '/update_all',              to: 'users#update_all',     as: :update_all
+  put   '/update_all',              to: 'users#update_all'
+  post   '/update_all',              to: 'users#update_all'
   get   '/new_team_rating',            to: 'users#new_team_rating',     as: :new_team_rating
   get   '/edit_team_rating/:id(.:format)',            to: 'users#edit_team_rating',     as: :edit_team_rating
   patch   '/team_rating',      to: 'users#team_rating',     as: :team_rating

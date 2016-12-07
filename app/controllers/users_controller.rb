@@ -72,6 +72,7 @@ class UsersController < ApplicationController
   end
 
   def new_employee_rating
+    @user = User.where(id: params[:id])
     @user_review = UserReview.new
     if current_user.is_admin?
       @users = User.all.order(:last_name)
@@ -95,7 +96,7 @@ class UsersController < ApplicationController
   end
 
   def update_all
-    params['user'].keys.each do |id|
+    params[:id].keys.each do |id|
       @user = User.find(id.to_i)
       @user.update_attributes(params['user'][id])
     end
@@ -103,17 +104,34 @@ class UsersController < ApplicationController
   end
 
   def employee_rating
-    user = User.find(params[:user][:id])
+    begin
+      user = User.find(params[:id])
 
-    respond_to do |format|
-      if user.update(user_params)
-        format.html { redirect_to user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: user.errors, status: :unprocessable_entity }
+      params[:user_reviews].keys.each do |one_review|
+
+        UserReview.create(
+          user_id: user.id,
+          review_item_id: params[:user_reviews][one_review][:review_item_id].split(">")[1].split("}")[0],
+          rate_period: params[:user_reviews][one_review][:rate_period],
+          pros: params[:user_reviews][one_review][:pros],
+          cons: params[:user_reviews][one_review][:cons]
+        )
       end
+    rescue => e
+      flash[:notice] = e.inspect
     end
+
+    redirect_to user, notice: "Employee rating has been saved."
+
+    # respond_to do |format|
+    #   if user.update(user_params)
+    #     format.html { redirect_to user, notice: 'User was successfully updated.' }
+    #     format.json { render :show, status: :ok, location: @user }
+    #   else
+    #     format.html { render :edit }
+    #     format.json { render json: user.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   def new_team_rating
@@ -181,7 +199,8 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
+      raise
       # params.fetch(:user, {})
-      params.require(:user).permit(:first_name, :last_name, :title, :is_current, :start_date, :email, :is_officer, :is_admin, :password, :password_confirmation, user_reviews_attributes: [:id, :review_item_id, :rated_by_user_id, :notes_allowed, :rate_period, :rating, :is_team, :pros, :cons, :notes])
+      params.require(:user).permit(:id, :first_name, :last_name, :title, :is_current, :start_date, :email, :is_officer, :is_admin, :password, :password_confirmation, :id, :review_item_id, :rated_by_user_id, :notes_allowed, :rate_period, :rating, :is_team, :pros, :cons, :notes,:user_reviews, user_reviews_attributes: [:id, :review_item_id, :rated_by_user_id, :notes_allowed, :rate_period, :rating, :is_team, :pros, :cons, :notes])
     end
 end
