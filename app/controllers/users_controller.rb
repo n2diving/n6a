@@ -211,14 +211,28 @@ class UsersController < ApplicationController
 
   def edit_team_rating
     @user = User.find(params[:id])
+
+    @reviews = UserReview.where(id: params[:reviews])
     team = @user.teams.first
     if team
       @teammates = EmployeeTeam.where(team_id: @user.employee_teams.pluck(:team_id).uniq)
     end
-    
+
     month = params[:rate_period].blank? ? ((Date.today - 1.month).end_of_month) : params[:rate_period].to_date.end_of_month
 
-    @user_reviews = UserReview.where(user_id: @teammates.pluck(:user_id), rate_period: month).joins(:review_item).where('review_items.is_team = true').left_outer_joins(:review_note).where(review_notes: { user_review_id: nil })
+    # @reviews = UserReview.where(user_id: EmployeeTeam.where(team_id: team.id, user_id: @teammates.pluck(:user_id)), is_team: true, rate_period: month).joins(:review_item).where('review_items.is_team = true').left_outer_joins(:review_note).where(review_notes: { user_review_id: nil })
+
+    @user_reviews = []
+
+    @reviews.pluck(:review_item_id).uniq.each do |one_review_item_id|
+      @user_reviews << @reviews.where(review_item_id: one_review_item_id).first
+    end
+    @user_reviews
+
+
+    # UserReview.where(user_id: EmployeeTeam.where(team_id: one_team.id, user_id: @user_reviews.pluck(:user_id)), is_team: true, rate_period: month)
+
+
 
     # @user_reviews = UserReview.joins(:review_item).where('review_items.is_team = true').left_outer_joins(:review_note).where(review_notes: { user_review_id: nil })
 

@@ -80,11 +80,11 @@ class TeamsController < ApplicationController
     @user_reviews = UserReview.joins(:review_item).where('review_items.is_team = true').left_outer_joins(:review_note).where(review_notes: { user_review_id: nil })
 
     @teams = Team.where(id: @user_reviews.joins(user: :employee_teams).pluck(:team_id).uniq)
-
+    
     @team_list = []
     @teams.each do |one_team|
 
-      if EmployeeTeam.where(team_id: one_team.id, user_id: @user_reviews.pluck(:user_id)).any?
+      if UserReview.where(user_id: EmployeeTeam.where(team_id: one_team.id, user_id: @user_reviews.pluck(:user_id)), is_team: true ).any?
         @team_list << one_team
       end
     end

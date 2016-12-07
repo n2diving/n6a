@@ -23,19 +23,22 @@
       <% rate_period_reviews = @user_reviews.where(rate_period: rate_period) %>
       <% if rate_period_reviews.any? %>
         <% @team_list.each do |one_team| %>
-          <tr>
-            <td><%= link_to one_team.team_name, one_team %></td>
-            <td class="text-center"><%= rate_period.strftime("%B %Y") %></td>
+          <% team_user_ids = EmployeeTeam.where(team_id: one_team.id).pluck(:user_id) %>
+          <% if !((rate_period_reviews.pluck(:user_id).uniq) & team_user_ids).empty? %>
+            <tr>
+              <td><%= link_to one_team.team_name, one_team %></td>
+              <td class="text-center"><%= rate_period.strftime("%B %Y") %></td>
 
-            <td class="text-center">
-              <%= link_to edit_team_rating_path(one_team.employee_teams.first.user_id, rate_period: rate_period) do %>
-                <i class="fa fa-edit text-primary"></i> add team response notes
-              <% end %>
-              <%#= link_to user_review, method: :delete, data: { confirm: 'Are you sure?' } do %>
-              <!--<i class="fa fa-trash text-danger"></i>-->
-              <%# end %>
-            </td>
-          </tr>
+              <td class="text-center">
+                <%= link_to edit_team_rating_path(one_team.employee_teams.first.user_id, rate_period: rate_period, reviews: (rate_period_reviews.where(user_id: team_user_ids).pluck(:id)) ) do %>
+                  <i class="fa fa-edit text-primary"></i> add team response notes
+                <% end %>
+                <%#= link_to user_review, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <!--<i class="fa fa-trash text-danger"></i>-->
+                <%# end %>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
       <% else %>
         <tr>
