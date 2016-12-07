@@ -99,7 +99,7 @@ class UsersController < ApplicationController
   end
 
   def update_all
-      @user = User.find(params[:user][:id].to_i)
+    @user = User.find(params[:user][:id].to_i)
     begin
       params[:user_reviews].keys.each do |one_review|
         user_review = UserReview.find(one_review)
@@ -110,10 +110,57 @@ class UsersController < ApplicationController
           rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id]
         )
       end
-      redirect_to users_url, notice: "Employee Review has been updated."
+      redirect_to users_url, notice: "Employee review has been updated."
     rescue => e
       redirect_to back, notice: e.inspect
     end
+  end
+
+  def update_all_team
+
+
+    team = Team.find(params[:user][:team_id])
+
+    employee_ids = team.employee_teams.pluck(:user_id).uniq
+
+    # begin
+      employee_ids.each do |one_user_id|
+        params[:user_reviews].keys.each do |one_review|
+          user_review = UserReview.where(id: one_review)
+          if user_review.any?
+            user_review.first.update_attributes(
+              pros: params[:user_reviews][one_review][:pros],
+              cons: params[:user_reviews][one_review][:cons],
+              rating: params[:user_reviews][one_review][:rating],
+              rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id]
+            )
+            ReviewNote.create(
+              user_review_id: one_review,
+              general_notes: params[:general_notes]
+            )
+          else
+            user_review = UserReview.create(
+              user_id: one_user_id,
+              review_item_id: params[:user_reviews][one_review][:review_item_id].split(">")[1].split("}")[0],
+              rate_period: params[:user_reviews][one_review][:rate_period],
+              pros: params[:user_reviews][one_review][:notes],
+              rating: params[:user_reviews][one_review][:rating],
+              rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
+              is_team: true,
+              notes_allowed: true
+              )
+            user_review.review_note.create(
+              general_notes: params[:general_notes]
+            )
+          end
+
+        end
+      end
+
+      redirect_to team, notice: "Team rating has been saved."
+    # rescue => e
+    #   redirect_to back, notice: e.inspect
+    # end
 
   end
 
@@ -130,7 +177,8 @@ class UsersController < ApplicationController
           pros: params[:user_reviews][one_review][:pros],
           cons: params[:user_reviews][one_review][:cons],
           rating: params[:user_reviews][one_review][:rating],
-          rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id]
+          rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
+          is_team: true
         )
       end
       redirect_to user, notice: "Employee rating has been saved."
@@ -154,52 +202,79 @@ class UsersController < ApplicationController
   def new_team_rating
     if params[:team_id]
       team = Team.find(params[:team_id])
-      @user = User.joins(:employee_teams).where('employee_teams.team_id = ?', team.id).first
+      @user = [User.joins(:employee_teams).where('employee_teams.team_id = ?', team.id).first]
     else
-      @user = User.new
+      @user = [User.new]
     end
     @review_items = ReviewItem.order(:name).where(is_team: true, is_weekly: false)
   end
 
   def edit_team_rating
-    @user = User.where(id: params[:id])
+    @user = User.find(params[:id])
     month = params[:rate_period].blank? ? ((Date.today - 1.month).end_of_month) : params[:rate_period].to_date.end_of_month
 
-    @user_reviews = @user.first.user_reviews.where(rate_period: month, rating: nil).joins(:review_item).where('review_items.is_team = true')
+    @user_reviews = UserReview.joins(:review_item).where('review_items.is_team = true').left_outer_joins(:review_note).where(review_notes: { user_review_id: nil })
   end
 
   def team_rating
-    params_copy = user_params.dup
-
-    length = params_copy[:user_reviews_attributes].length
-    i = 0
-    if i < length
-      params_copy[:user_reviews_attributes]["#{i}"][:is_team] = true
-      i += 1
-    end
-
     team = Team.find(params[:team_id])
-    teammates = EmployeeTeam.where(team_id: team.id)
 
-    saved = nil
-    teammates.each do |one_team_member|
-      one_user = User.where(id: one_team_member.user_id).first
-      params_copy[:id] = one_user.id
-      if one_user.update!(params_copy)
-        saved = true
-      else
-        saved = false
+    employee_ids = team.employee_teams.pluck(:user_id).uniq
+
+    begin
+      employee_ids.each do |one_user_id|
+        params[:user_reviews].keys.each do |one_review|
+
+          UserReview.create(
+            user_id: one_user_id,
+            review_item_id: params[:user_reviews][one_review][:review_item_id].split(">")[1].split("}")[0],
+            rate_period: params[:user_reviews][one_review][:rate_period],
+            pros: params[:user_reviews][one_review][:notes],
+            rating: params[:user_reviews][one_review][:rating],
+            rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
+            is_team: true,
+            notes_allowed: true
+          )
+        end
       end
+
+      redirect_to team, notice: "Team rating has been saved."
+    rescue => e
+      redirect_to back, notice: e.inspect
     end
 
-    respond_to do |format|
-      if saved
-        format.html { redirect_to users_url, notice: 'team review was successfully updated.' }
-      else
-        format.html { render :edit }
-        format.json { render json: 'something went wrong', status: :unprocessable_entity }
-      end
-    end
+
+    # params_copy = user_params.dup
+    #
+    # length = params_copy[:user_reviews_attributes].length
+    # i = 0
+    # if i < length
+    #   params_copy[:user_reviews_attributes]["#{i}"][:is_team] = true
+    #   i += 1
+    # end
+    #
+    # team = Team.find(params[:team_id])
+    # teammates = EmployeeTeam.where(team_id: team.id)
+    #
+    # saved = nil
+    # teammates.each do |one_team_member|
+    #   one_user = User.where(id: one_team_member.user_id).first
+    #   params_copy[:id] = one_user.id
+    #   if one_user.update!(params_copy)
+    #     saved = true
+    #   else
+    #     saved = false
+    #   end
+    # end
+    #
+    # respond_to do |format|
+    #   if saved
+    #     format.html { redirect_to users_url, notice: 'team review was successfully updated.' }
+    #   else
+    #     format.html { render :edit }
+    #     format.json { render json: 'something went wrong', status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   def employees_with_pending_reviews

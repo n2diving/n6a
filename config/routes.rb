@@ -36,9 +36,13 @@ Rails.application.routes.draw do
   patch   '/update_all',              to: 'users#update_all',     as: :update_all
   put   '/update_all',              to: 'users#update_all'
   post   '/update_all',              to: 'users#update_all'
+  patch   '/update_all_team',              to: 'users#update_all_team',     as: :update_all_team
+  put   '/update_all_team',              to: 'users#update_all_team'
+  post   '/update_all_team',              to: 'users#update_all_team'
   get   '/new_team_rating',            to: 'users#new_team_rating',     as: :new_team_rating
   get   '/edit_team_rating/:id(.:format)',            to: 'users#edit_team_rating',     as: :edit_team_rating
   patch   '/team_rating',      to: 'users#team_rating',     as: :team_rating
+  post   '/team_rating',      to: 'users#team_rating'
   get   '/employees_with_pending_reviews',            to: 'users#employees_with_pending_reviews',     as: :employees_with_pending_reviews
 
 

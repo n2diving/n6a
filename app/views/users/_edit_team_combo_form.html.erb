@@ -1,8 +1,9 @@
-<% team = @user.first.try(:teams).first %>
+<% team = @user.try(:teams).first %>
 <% if team.blank? %>
   <p>There are no team ratings</p>
 <% else %>
-  <%= form_for :user, url: update_all_path, method: :put do  %>
+  <%= form_for @user, url: update_all_team_path do |one_user|  %>
+    <%= one_user.hidden_field :team_id, value: team.id %>
 
     <div class="row">
       <div class="col-xs-12">
@@ -16,11 +17,11 @@
     <hr>
 
 
-    <% @user.each do |user| %>
-      <% if @user_reviews.any? %>
+    <%#@user.each do |user| %>
+      <% if @user_reviews %>
 
         <% @user_reviews.each do |one_review| %>
-          <%= fields_for :user_reviews, one_review do |review_form| %>
+        <%= fields_for "user_reviews[]", one_review do |review_form| %>
             <div class="row margin-top-md">
               <div class="col-xs-12">
                 <%#= review_form.select :rate_period, options_for_rate_period, { prompt: 'select rate period' }, class: "form-control margin-bottom-md" %>
@@ -51,12 +52,19 @@
           <% end %>
         <% end %>
       <% else %>
-        <p>There are no reviews available for this employee during this period.</p>
+        <p>There are no response notes needed for teams during this period.</p>
       <% end %>
 
       <hr>
 
-    <% end%>
+      <% if current_user.teams.first.try(:team_lead) %>
+        <div class="row">
+          <div class="col-xs-12">
+            <%= text_area_tag :general_notes, "", placeholder: "response notes", class: "form-control margin-bottom-md" %>
+          </div>
+        </div>
+      <% end %>
+    <%# end%>
 
     <div class="row">
       <div class="col-xs-12">
@@ -66,13 +74,4 @@
 
   <% end %>
 
-<% end %>
-
-
-<% if current_user.teams.first.try(:team_lead) %>
-  <div class="row">
-    <div class="col-xs-12">
-      <%= text_area_tag "user_review[response_notes]", "", placeholder: "response notes", class: "form-control margin-bottom-md" %>
-    </div>
-  </div>
 <% end %>

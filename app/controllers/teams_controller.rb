@@ -73,9 +73,14 @@ class TeamsController < ApplicationController
 
   def teams_needing_response_notes
 
-    @user_reviews = UserReview.order(:rate_period).where(rating: nil).joins(:review_item).where('review_items.is_team is true')
+    # @user_reviews = UserReview.order(:rate_period).joins(:review_item).where('review_items.is_team is true')
 
     @review_items = ReviewItem.order(:name).where(is_team: true, is_weekly: false)
+
+    @user_reviews = UserReview.joins(:review_item).where('review_items.is_team = true').left_outer_joins(:review_note).where(review_notes: { user_review_id: nil })
+
+    @teams = Team.where(id: @user_reviews.joins(user: :employee_teams).pluck(:team_id).uniq)
+
   end
 
   private
