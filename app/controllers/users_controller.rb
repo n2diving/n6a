@@ -96,9 +96,8 @@ class UsersController < ApplicationController
   end
 
   def update_all
-    begin
       @user = User.find(params[:user][:id].to_i)
-
+    begin
       params[:user_reviews].keys.each do |one_review|
         user_review = UserReview.find(one_review)
         user_review.update_attributes(
@@ -126,7 +125,9 @@ class UsersController < ApplicationController
           review_item_id: params[:user_reviews][one_review][:review_item_id].split(">")[1].split("}")[0],
           rate_period: params[:user_reviews][one_review][:rate_period],
           pros: params[:user_reviews][one_review][:pros],
-          cons: params[:user_reviews][one_review][:cons]
+          cons: params[:user_reviews][one_review][:cons],
+          rating: params[:user_reviews][one_review][:rating],
+          rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id]
         )
       end
       redirect_to user, notice: "Employee rating has been saved."
@@ -212,7 +213,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      raise
       # params.fetch(:user, {})
       params.require(:user).permit(:id, :first_name, :last_name, :title, :is_current, :start_date, :email, :is_officer, :is_admin, :password, :password_confirmation, :id, :review_item_id, :rated_by_user_id, :notes_allowed, :rate_period, :rating, :is_team, :pros, :cons, :notes,:user_reviews, user_reviews_attributes: [:id, :review_item_id, :rated_by_user_id, :notes_allowed, :rate_period, :rating, :is_team, :pros, :cons, :notes])
     end
