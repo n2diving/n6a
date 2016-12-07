@@ -78,6 +78,9 @@ class UsersController < ApplicationController
       @users = User.all.order(:last_name)
     else
       @users = User.joins(:employee_teams).where("employee_teams.team_id = ?", current_user.teams.first.id).order(:last_name)
+      if !@users.pluck(:id).include? @user.first.id
+        flash[:notice] = "Please select an employee on your team."
+      end
     end
     @review_items = ReviewItem.order(:name).where(is_team: false, is_weekly: false)
   end

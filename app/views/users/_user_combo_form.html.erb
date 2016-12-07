@@ -2,7 +2,7 @@
 
   <div class="row">
     <div class="col-xs-12">
-      <%= select_tag :id, options_for_select( User.all.collect { |u| [ u.full_name, u.id ] }, params[:id]), include_blank: "employee name", class: "form-control margin-bottom-sm", required: true %>
+      <%= select_tag :id, options_for_select( @users.all.collect { |u| [ u.full_name, u.id ] }, params[:id]), include_blank: "employee name", class: "form-control margin-bottom-sm", required: true %>
 
       <%= select_tag :rate_period, options_for_select(options_for_rate_period), include_blank: "select rate period", class: "form-control margin-bottom-md", id: "rate_period", required: true %>
     </div>
