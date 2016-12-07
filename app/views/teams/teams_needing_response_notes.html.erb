@@ -22,7 +22,7 @@
       <% rate_period = month.try(:to_date) || (Date.today - 1.month) %>
       <% rate_period_reviews = @user_reviews.where(rate_period: rate_period) %>
       <% if rate_period_reviews.any? %>
-        <% @teams.each do |one_team| %>
+        <% @team_list.each do |one_team| %>
           <tr>
             <td><%= link_to one_team.team_name, one_team %></td>
             <td class="text-center"><%= rate_period.strftime("%B %Y") %></td>

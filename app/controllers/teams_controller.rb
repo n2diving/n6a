@@ -81,6 +81,14 @@ class TeamsController < ApplicationController
 
     @teams = Team.where(id: @user_reviews.joins(user: :employee_teams).pluck(:team_id).uniq)
 
+    @team_list = []
+    @teams.each do |one_team|
+
+      if EmployeeTeam.where(team_id: one_team.id, user_id: @user_reviews.pluck(:user_id)).any?
+        @team_list << one_team
+      end
+    end
+
   end
 
   private

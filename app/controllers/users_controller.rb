@@ -215,11 +215,8 @@ class UsersController < ApplicationController
     if team
       @teammates = EmployeeTeam.where(team_id: @user.employee_teams.pluck(:team_id).uniq)
     end
-
-
+    
     month = params[:rate_period].blank? ? ((Date.today - 1.month).end_of_month) : params[:rate_period].to_date.end_of_month
-
-
 
     @user_reviews = UserReview.where(user_id: @teammates.pluck(:user_id), rate_period: month).joins(:review_item).where('review_items.is_team = true').left_outer_joins(:review_note).where(review_notes: { user_review_id: nil })
 
