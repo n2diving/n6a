@@ -165,7 +165,7 @@ class UsersController < ApplicationController
 
         UserReview.create(
           user_id: user.id,
-          review_item_id: params[:user_reviews][one_review][:review_item_id].try(:split,">")[1].try(:split, "}")[0],
+          review_item_id: params[:user_reviews][one_review][:review_item_id],
           rate_period: params[:user_reviews][one_review][:rate_period],
           pros: params[:user_reviews][one_review][:pros],
           cons: params[:user_reviews][one_review][:cons],

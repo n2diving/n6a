@@ -19,7 +19,7 @@
             <%#= review_form.select :rate_period, options_for_rate_period, { prompt: 'select rate period' }, class: "form-control margin-bottom-md" %>
             <h4 class="text-primary"><%= review_item.name %></h4>
             <p><%= review_item.evaluation_criteria %></p>
-            <%= hidden_field_tag "user_reviews[#{i}][review_item_id]", value: review_item.id %>
+            <%= hidden_field_tag "user_reviews[#{i}][review_item_id]", review_item.id %>
             <%= hidden_field_tag "user_reviews[#{i}][rate_period]", '', class: "rate_period" %>
           </div>
         </div>
