@@ -11,7 +11,7 @@
           <th>scale</th>
           <th>start date</th>
           <th>response allowed?</th>
-          <% if current_user.is_admin %>
+          <% if current_user.is_officer? || (current_user.id == 1) %>
             <th class="text-center">actions</th>
           <% end %>
         </tr>
@@ -27,7 +27,7 @@
             <td><%= review_item.start_date.strftime("%B %Y") %></td>
             <td><%= review_item.response_allowed ? 'yes' : 'no' %></td>
 
-            <% if current_user.is_admin %>
+            <% if current_user.is_officer? || (current_user.id == 1) %>
               <td class="text-center">
                 <%= link_to edit_review_item_path(review_item), class: "margin-right-sm" do %>
                   <i class="fa fa-cog text-primary"></i>
