@@ -12,7 +12,7 @@
           <th>start date</th>
           <th>response allowed?</th>
           <% if current_user.is_officer? || (current_user.id == 1) %>
-            <th class="text-center">actions</th>
+            <th class="text-center no-sort">actions</th>
           <% end %>
         </tr>
       </thead>

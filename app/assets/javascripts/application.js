@@ -24,6 +24,7 @@
 
 
 $( document ).on('turbolinks:load', function() {
+
   $('.month_datepicker').datepicker({
     format: "mm/yyyy",
     altFormat: "yyyy-MM-dd",
@@ -37,4 +38,7 @@ $( document ).on('turbolinks:load', function() {
     "info":     false,
     "searching":   false
   });
+
+  $('.no-sort').removeClass('sorting');
+
 });
