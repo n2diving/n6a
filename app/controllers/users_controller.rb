@@ -165,7 +165,7 @@ class UsersController < ApplicationController
   end
 
   def employee_rating
-    begin
+    # begin
       user = User.find(params[:id])
 
       params[:user_reviews].keys.each do |one_review|
@@ -182,9 +182,9 @@ class UsersController < ApplicationController
         )
       end
       redirect_to user, notice: "Employee rating has been saved."
-    rescue => e
+    # rescue => e
       redirect_to back, notice: e.inspect
-    end
+    # end
 
     # redirect_to user
 

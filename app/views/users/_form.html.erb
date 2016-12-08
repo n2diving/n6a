@@ -19,7 +19,9 @@
     <%= f.password_field :password_confirmation, class: "form-control margin-bottom-md", placeholder: "confirm password"%>
   <% end %>
 
-  <%= f.select(:title, [['employee', 'employee'], ['team lead', 'team lead'], ['officer', 'officer']], {}, class: "form-control margin-bottom-md", placeholder: "title" )%>
+  <%= f.text_field :title, class: "form-control margin-bottom-md", placeholder: "employee title"%>
+
+  <%#= f.select(:title, [['employee', 'employee'], ['team lead', 'team lead'], ['officer', 'officer']], {}, class: "form-control margin-bottom-md", placeholder: "title" )%>
 
   <%= f.submit "save", class: "btn btn-primary btn-center" %>
 

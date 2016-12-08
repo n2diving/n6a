@@ -35,6 +35,6 @@ $( document ).on('turbolinks:load', function() {
   $('.datatable').DataTable({
     "paging":   false,
     "info":     false,
-    "search":   false
+    "searching":   false
   });
 });
