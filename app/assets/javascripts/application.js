@@ -15,18 +15,26 @@
 //= require bootstrap-datepicker
 //= require toastr
 //= require jquery_ujs
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require turbolinks
 //= require Chart.bundle
 //= require chartkick
-//= require sortable.js
 // = require_tree .
 
-$(document).ready(function() {
+
+$( document ).on('turbolinks:load', function() {
   $('.month_datepicker').datepicker({
     format: "mm/yyyy",
     altFormat: "yyyy-MM-dd",
     startView: "year",
     minViewMode: "months",
     //defaultDate: new Date()
+  });
+
+  $('.datatable').DataTable({
+    "paging":   false,
+    "info":     false,
+    "search":   false
   });
 });

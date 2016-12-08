@@ -8,6 +8,7 @@
 @import "mixins/browser_overrides";
 @import "mixins/text_styling";
 @import "mixins/utilities";
+@import "dataTables/jquery.dataTables";
 
 
 body {
@@ -28,11 +29,15 @@ body {
   padding: 1rem;
 }
 
-table.sortable thead {
-  background-color:#eee;
-  color:#666666;
+table.datatable thead {
+  background-color: #eee;
+  color: #666666;
+  border-color: grey;
   font-weight: bold;
   cursor: default;
+  th {
+    border-bottom: 2px solid lightgray;
+  }
 }
 
 //.chart-legend li span{
