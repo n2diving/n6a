@@ -134,7 +134,7 @@ class UsersController < ApplicationController
           else
             user_review = UserReview.create(
               user_id: one_user_id,
-              review_item_id: params[:user_reviews][one_review][:review_item_id].split(">")[1].split("}")[0],
+              review_item_id: params[:user_reviews][one_review][:review_item_id],
               rate_period: params[:user_reviews][one_review][:rate_period],
               pros: params[:user_reviews][one_review][:notes],
               rating: params[:user_reviews][one_review][:rating],
