@@ -4,7 +4,11 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all.order(:last_name)
+    if current_user.is_admin?
+      @users = User.all.order(:last_name)
+    elsif current_user.teams.first.try(:team_lead)
+      @users = User.joins(:employee_teams).where("employee_teams.team_id = ?", current_user.teams.first.id).order(:last_name)
+    end
   end
 
   # GET /users/1

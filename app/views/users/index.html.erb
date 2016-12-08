@@ -19,29 +19,35 @@
       </thead>
 
       <tbody>
-        <% @users.each do |user| %>
-          <tr>
-            <td><%= link_to user.full_name, user %></td>
-            <td><%= user.teams.blank? ? '' : (link_to user.teams.first.team_name, user.teams.first) %></td>
-            <td><%= user.email %></td>
-            <td><%= user.title %></td>
-            <% if current_user.teams.first.try(:team_lead) %>
-              <td class="text-center">
-                <%= link_to new_employee_rating_path(user.id) , class: "text-primary" do %>
-                <i class="fa fa-plus"></i> new employee review
+        <% if @users.any? %>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= link_to user.full_name, user %></td>
+              <td><%= user.teams.blank? ? '' : (link_to user.teams.first.team_name, user.teams.first) %></td>
+              <td><%= user.email %></td>
+              <td><%= user.title %></td>
+              <% if current_user.teams.first.try(:team_lead) %>
+                <td class="text-center">
+                  <%= link_to new_employee_rating_path(user.id) , class: "text-primary" do %>
+                  <i class="fa fa-plus"></i> new employee review
+                  <% end %>
+                </td>
+              <% end %>
+              <% if current_user.is_admin %>
+                <td class="text-center">
+                  <%= link_to edit_user_path(user), class: "margin-right-sm" do %>
+                    <i class="fa fa-cog text-primary"></i>
+                  <% end %>
+                  <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                    <i class="fa fa-trash text-danger"></i>
+                  <% end %>
                 <% end %>
               </td>
-            <% end %>
-            <% if current_user.is_admin %>
-              <td class="text-center">
-                <%= link_to edit_user_path(user), class: "margin-right-sm" do %>
-                  <i class="fa fa-cog text-primary"></i>
-                <% end %>
-                <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' } do %>
-                  <i class="fa fa-trash text-danger"></i>
-                <% end %>
-              <% end %>
-            </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="15"><em>There are no users to display for this access level.</em></td>
           </tr>
         <% end %>
       </tbody>
