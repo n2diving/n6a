@@ -183,7 +183,7 @@ class UsersController < ApplicationController
       end
       redirect_to user, notice: "Employee rating has been saved."
     # rescue => e
-      redirect_to back, notice: e.inspect
+    #   redirect_to back, notice: e.inspect
     # end
 
     # redirect_to user
