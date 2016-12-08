@@ -33,10 +33,15 @@ table.datatable thead {
   background-color: #fff;
   color: #666666;
   border-color: grey;
+  font-weight: normal;
   cursor: default;
   th {
     border-bottom: 2px solid lightgray;
   }
+
+}
+table.dataTable.no-footer {
+  border-bottom: none;
 }
 
 //.chart-legend li span{
