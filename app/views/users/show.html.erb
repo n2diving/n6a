@@ -2,7 +2,7 @@
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class="row">
       <div class="col-xs-6">
-        <h2 class="margin-bottom-md"><%= @user.full_name %></h2>
+        <h2 class="margin-bottom-lg"><%= @user.full_name %></h2>
       </div>
       <div class="col-xs-6">
         <% if current_user.is_admin || current_user.teams.first.try(:team_lead) %>
@@ -15,12 +15,14 @@
 
     <div class="row margin-bottom-lg">
       <div class="col-xs-6">
+        <div class="lead">General Performance</div>
         <% results1 = review_chart_results(@user_reviews) %>
         <% unless results1.blank? %>
           <%= line_chart results1 %>
         <% end %>
       </div>
       <div class="col-xs-6">
+        <div class="lead">Performance Compared to the Team</div>
         <% results2 = review_team_chart_results(@user) %>
         <% unless results2.blank? %>
           <%= line_chart results2 %>

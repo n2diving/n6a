@@ -3,7 +3,7 @@
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class="row">
       <div class="col-xs-6">
-        <h2 class="margin-bottom-md"><%= @team.team_name %></h2>
+        <h2 class="margin-bottom-lg"><%= @team.team_name %></h2>
       </div>
       <div class="col-xs-6">
         <% if current_user.is_admin %>
@@ -26,11 +26,13 @@
       <div class="col-xs-6">
         <%#= review_chart_results(@team_reviews) %>
         <!--<hr>-->
+        <div class="lead">Team Average Performance</div>
         <%= line_chart review_chart_results(@team_reviews) %>
       </div>
       <div class="col-xs-6">
         <%#= team_review_other_teams_chart_results %>
         <!--<hr>-->
+        <div class="lead">Team Competitive Performance</div>
         <%= line_chart team_review_other_teams_chart_results %>
       </div>
     </div>
