@@ -33,16 +33,13 @@
             </div>
 
             <div class="row">
-              <div class="col-xs-12 col-sm-6">
-                <%= review_form.text_area :pros, class: "form-control margin-bottom-md", placeholder: "pros"%>
-              </div>
-              <div class="col-xs-12 col-sm-6">
-                <%= review_form.text_area :cons, class: "form-control margin-bottom-md", placeholder: "cons"%>
+              <div class="col-xs-12">
+                <%= review_form.text_area :notes, class: "form-control margin-bottom-md", placeholder: "notes", disabled: true %>
               </div>
               <div class="col-xs-12">
-                <% if current_user.is_admin %>
-                  <%= review_form.select :rating, (one_review.review_item.scale_min..one_review.review_item.scale_max), { include_blank: "rating" }, class: "form-control margin-bottom-sm" %>
-                <% end %>
+                <%# if current_user.is_admin %>
+                  <%= review_form.select :rating, (one_review.review_item.scale_min..one_review.review_item.scale_max), { include_blank: "rating" }, class: "form-control margin-bottom-sm", disabled: true %>
+                <%# end %>
 
 
                 <%#= review_form.number_field :rating, class: "form-control margin-bottom-md", placeholder: "rating"%>
