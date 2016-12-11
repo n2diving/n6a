@@ -4,10 +4,13 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    if current_user.is_admin?
+    if current_user.is_admin? || current_user.is_officer
       @users = User.all.order(:last_name)
     elsif current_user.teams.first.try(:team_lead)
       @users = User.joins(:employee_teams).where("employee_teams.team_id = ?", current_user.teams.first.id).order(:last_name)
+    else
+      flash[:error] = "Sorry you don't have permission to view all employees."
+      redirect_to root
     end
   end
 
