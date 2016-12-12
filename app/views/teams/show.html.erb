@@ -1,4 +1,4 @@
-<% month = params[:rate_period] %>
+<% month = params[:rate_period] || ((Date.today - 1.month).end_of_month) %>
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class="row">
@@ -41,44 +41,13 @@
 
     <div class="row margin-bottom-lg">
       <div class="col-xs-12">
-        <%= select_tag :rate_period, options_for_select(options_for_rate_period, month.blank? ? ((Date.today - 1.month).end_of_month) : month.to_date.end_of_month), include_blank: "select rate period", class: "form-control", id: "rate_period" %>
+        <%= select_tag :rate_period, options_for_select(options_for_rate_period, month), include_blank: "select rate period", class: "form-control", id: "rate_period" %>
       </div>
     </div>
 
-    <div class="lead">Table 1</div>
-    <table class="table table-striped table-hover table-bordered">
-      <thead>
-      <tr>
-        <th>employee</th>
-        <th>month</th>
-        <th>6 month average</th>
-        <th>ytd average</th>
-      </tr>
-      </thead>
+    <%= render "teams/team_yearly_averages", month: month, teams: @team_list %>
 
-      <tbody>
-      <% teammates = teammates(@team.id) %>
-      <% if false #teammates.any? %>
-        <% teammates.each do |one_teammember| %>
-          <% rate_period = month.try(:to_date) || (Date.today - 1.month) %>
-          <tr>
-            <td><%= link_to one_teammember.full_name, one_teammember %></td>
-            <td><%= rate_period.strftime("%B %Y") %></td>
-            <!--<td class="text-center"><%#= (average.reduce(:+) / average.size.to_f).round(2) %></td>-->
-            <% one_teammember.team_user_review_rows(headers, (rate_period)).each do |one_row| %>
-              <td class="text-center"><%= one_row[1].first %></td>
-            <% end %>
-          </tr>
-        <% end%>
-      <% else %>
-        <tr>
-          <td colspan="15"><em>TBD</em></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-
-    <hr>
+    <hr class="margin-top-lg">
 
     <div class="lead">Table 2</div>
     <table class="table table-striped table-hover table-bordered datatable">
@@ -116,7 +85,7 @@
       </tbody>
     </table>
 
-    <hr>
+    <hr class="margin-top-lg">
 
     <div class="lead">Table 3</div>
     <table class="table table-striped table-hover table-bordered datatable">

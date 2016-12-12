@@ -30,6 +30,10 @@
       </div>
     </div>
 
+    <%= render "teams/team_yearly_averages", month: ((Date.today - 1.month).end_of_month), teams: @team_list %>
+
+    <hr>
+
     <table class="table table-striped table-hover table-bordered datatable">
       <thead>
       <tr>

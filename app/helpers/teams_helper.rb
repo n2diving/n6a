@@ -42,4 +42,12 @@ module TeamsHelper
     User.where(id: [user_ids])
   end
 
+  def team_averages(team_id, rate_period_start, rate_period_end)
+    # raise
+
+    review_list = UserReview.where('rate_period BETWEEN ? and ? OR rate_period = ? OR rate_period = ?', rate_period_start, rate_period_end, rate_period_start, rate_period_end).where.not(rating: nil).joins(user: { employee_teams: :team }).where('employee_teams.team_id = ?', team_id)
+
+    review_list.blank? ? 0 : (review_list.sum(:rating) / review_list.count.to_f).round(2)
+  end
+
 end
