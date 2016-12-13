@@ -90,6 +90,8 @@ class TeamsController < ApplicationController
 
     if !@user_reviews.nil?
       @teams = Team.where(id: @user_reviews.joins(user: :employee_teams).pluck(:team_id).uniq)
+    else
+      @teams = []
     end
     
     @team_list = []
