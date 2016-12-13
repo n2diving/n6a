@@ -88,15 +88,21 @@ class TeamsController < ApplicationController
       redirect_to :root
     end
 
-    @teams = Team.where(id: @user_reviews.joins(user: :employee_teams).pluck(:team_id).uniq)
+    if @user_reviews.any?
+      @teams = Team.where(id: @user_reviews.joins(user: :employee_teams).pluck(:team_id).uniq)
+    end
     
     @team_list = []
-    @teams.each do |one_team|
 
-      if UserReview.where(user_id: EmployeeTeam.where(team_id: one_team.id, user_id: @user_reviews.pluck(:user_id)), is_team: true ).any?
-        @team_list << one_team
+    if @teams.any?
+      @teams.each do |one_team|
+
+        if UserReview.where(user_id: EmployeeTeam.where(team_id: one_team.id, user_id: @user_reviews.pluck(:user_id)), is_team: true ).any?
+          @team_list << one_team
+        end
       end
     end
+    
 
   end
 
