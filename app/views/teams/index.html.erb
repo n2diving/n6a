@@ -6,7 +6,7 @@
       </div>
 
       <div class="col-xs-6">
-        <% if current_user.is_admin %>
+        <% if current_user.is_admin || current_user.is_officer? %>
           <%= link_to new_team_rating_path, class: "text-primary pull-right margin-top-sm" do %>
             <i class="fa fa-plus"></i> new team review
           <% end %>

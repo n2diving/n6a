@@ -12,7 +12,7 @@
           <% if current_user.id == current_user.teams.first.try(:team_lead) %>
             <th class="text-center">new review</th>
           <% end %>
-          <% if current_user.is_admin %>
+          <% if current_user.is_admin || current_user.is_officer? %>
             <th class="text-center no-sort">actions</th>
           <% end %>
         </tr>
@@ -33,7 +33,7 @@
                   <% end %>
                 </td>
               <% end %>
-              <% if current_user.is_admin %>
+              <% if current_user.is_admin || current_user.is_officer? %>
                 <td class="text-center">
                   <%= link_to edit_user_path(user), class: "margin-right-sm" do %>
                     <i class="fa fa-cog text-primary"></i>
