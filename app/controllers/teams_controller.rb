@@ -85,7 +85,7 @@ class TeamsController < ApplicationController
       @user_reviews = UserReview.joins(:review_item).where('review_items.is_team = true').left_outer_joins(:review_note).where(review_notes: { user_review_id: nil })
     else
       flash[:notice] = "Sorry you don't have access to this page."
-      redirecto_to root
+      redirect_to :root
     end
 
     @teams = Team.where(id: @user_reviews.joins(user: :employee_teams).pluck(:team_id).uniq)
