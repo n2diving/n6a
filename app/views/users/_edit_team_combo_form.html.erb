@@ -1,4 +1,5 @@
 <% team = @user.try(:teams).first %>
+<% team_lead = current_user.teams.first.try(:team_lead) %>
 <% if team.blank? %>
   <p>There are no team ratings</p>
 <% else %>
@@ -34,11 +35,11 @@
 
             <div class="row">
               <div class="col-xs-12">
-                <%= review_form.text_area :notes, class: "form-control margin-bottom-md", placeholder: "notes", disabled: true %>
+                <%= review_form.text_area :notes, class: "form-control margin-bottom-md", placeholder: "notes", disabled: team_lead %>
               </div>
               <div class="col-xs-12">
                 <%# if current_user.is_admin %>
-                  <%= review_form.select :rating, (one_review.review_item.scale_min..one_review.review_item.scale_max), { include_blank: "rating" }, class: "form-control margin-bottom-sm", disabled: true %>
+                  <%= review_form.select :rating, (one_review.review_item.scale_min..one_review.review_item.scale_max), { include_blank: "rating" }, class: "form-control margin-bottom-sm", disabled: team_lead %>
                 <%# end %>
 
 
@@ -54,10 +55,11 @@
 
       <hr>
 
-      <% if current_user.teams.first.try(:team_lead) %>
+      <% if team_lead %>
         <div class="row">
           <div class="col-xs-12">
-            <%= text_area_tag :general_notes, "", placeholder: "response notes", class: "form-control margin-bottom-md" %>
+            <% value = @user_reviews.first.review_note.nil? ? "response notes" : @user_reviews.first.review_note.general_notes  %>
+            <%= text_area_tag :general_notes, "", placeholder: value, class: "form-control margin-bottom-md", disabled: current_user.is_admin %>
           </div>
         </div>
       <% end %>

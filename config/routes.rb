@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   get   '/employees_with_pending_reviews',            to: 'users#employees_with_pending_reviews',     as: :employees_with_pending_reviews
 
 
-  get   '/teams_needing_response_notes',            to: 'teams#teams_needing_response_notes',     as: :teams_needing_response_notes
+  get   '/edit_team_reviews',            to: 'teams#edit_team_reviews',     as: :edit_team_reviews
 
 
 

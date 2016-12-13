@@ -73,13 +73,20 @@ class TeamsController < ApplicationController
     end
   end
 
-  def teams_needing_response_notes
+  def edit_team_reviews
 
     # @user_reviews = UserReview.order(:rate_period).joins(:review_item).where('review_items.is_team is true')
 
     @review_items = ReviewItem.order(:name).where(is_team: true, is_weekly: false)
 
-    @user_reviews = UserReview.joins(:review_item).where('review_items.is_team = true').left_outer_joins(:review_note).where(review_notes: { user_review_id: nil })
+    if current_user.is_admin
+      @user_reviews = UserReview.joins(:review_item).where('review_items.is_team = true').joins(:review_note).where.not("review_notes.general_notes is null")
+    elsif current_user.teams.first.try(:team_lead)
+      @user_reviews = UserReview.joins(:review_item).where('review_items.is_team = true').left_outer_joins(:review_note).where(review_notes: { user_review_id: nil })
+    else
+      flash[:notice] = "Sorry you don't have access to this page."
+      redirecto_to root
+    end
 
     @teams = Team.where(id: @user_reviews.joins(user: :employee_teams).pluck(:team_id).uniq)
     

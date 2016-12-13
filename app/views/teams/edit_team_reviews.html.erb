@@ -30,19 +30,24 @@
               <td class="text-center"><%= rate_period.strftime("%B %Y") %></td>
 
               <td class="text-center">
-                <%= link_to edit_team_rating_path(one_team.employee_teams.first.user_id, rate_period: rate_period, reviews: (rate_period_reviews.where(user_id: team_user_ids).pluck(:id)) ) do %>
-                  <i class="fa fa-edit text-primary"></i> add team response notes
+                <% if current_user.is_admin %>
+                  <%= link_to edit_team_rating_path(one_team.employee_teams.first.user_id, rate_period: rate_period, reviews: (rate_period_reviews.where(user_id: team_user_ids).pluck(:id)) ) do %>
+                    <i class="fa fa-edit text-primary"></i> view team response notes
+                  <% end %>
+              <% else %>
+                  <%= link_to edit_team_rating_path(one_team.employee_teams.first.user_id, rate_period: rate_period, reviews: (rate_period_reviews.where(user_id: team_user_ids).pluck(:id)) ) do %>
+                    <i class="fa fa-edit text-primary"></i> add team response notes
+                  <% end %>
                 <% end %>
-                <%#= link_to user_review, method: :delete, data: { confirm: 'Are you sure?' } do %>
-                <!--<i class="fa fa-trash text-danger"></i>-->
-                <%# end %>
               </td>
             </tr>
           <% end %>
         <% end %>
       <% else %>
         <tr>
-          <td colspan="15"><em>There are no pending reviews for this month.</em></td>
+          <%# wording = current_user.is_admin ? 'to view' : 'needed' %>
+          <% wording = 'to view' %>
+          <td colspan="15"><em>There are no response notes <%= wording %> for this month.</em></td>
         </tr>
       <% end %>
       </tbody>
