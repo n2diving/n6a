@@ -53,4 +53,15 @@ module TeamsHelper
     review_list.blank? ? 0 : ('%.2f' % (review_list.sum(:rating) / review_list.count.to_f).round(2))
   end
 
+  def team_ranking(team_id, rate_period)
+    @results = {}
+    something = nil
+    Team.all.each do |one_team|
+      @results["#{one_team.id}"] = team_averages(one_team.id, rate_period, rate_period)
+    end
+    @results.sort_by {|k,v| v.to_f}.reverse.each_with_index { |(k,v),i| something = i if (k == team_id.to_s) }
+    something + 1
+
+  end
+
 end

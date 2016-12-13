@@ -40,5 +40,6 @@ $( document ).on('turbolinks:load', function() {
   });
 
   $('.no-sort').removeClass('sorting');
+  $('[aria-label^="ranking"]')[0].click();
 
 });

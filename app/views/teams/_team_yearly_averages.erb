@@ -1,10 +1,11 @@
 <div class="lead">Team Performance</div>
 
-<table class="table table-striped table-hover table-bordered">
+<table class="table table-striped table-hover table-bordered datatable">
   <thead>
   <tr>
     <th>team</th>
     <th>month</th>
+    <th class="text-center">ranking</th>
     <th class="text-center">current month average</th>
     <th class="text-center">6 month average</th>
     <th class="text-center">ytd average</th>
@@ -18,6 +19,7 @@
       <tr>
         <td><%= link_to one_team.team_name, one_team %></td>
         <td><%= rate_period.strftime("%B %Y") %></td>
+        <td class="text-center"><%= team_ranking(one_team.id, rate_period) %></td>
         <td class="text-center"><%= team_averages(one_team.id, rate_period, rate_period) %></td>
         <td class="text-center"><%= team_averages(one_team.id, rate_period, (rate_period - 6.months)) %></td>
         <td class="text-center"><%= team_averages(one_team.id, rate_period, (rate_period.beginning_of_year)) %></td>
