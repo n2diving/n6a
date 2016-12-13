@@ -57,10 +57,10 @@
               <li>
                 <%= link_to 'employees', users_path %>
               </li>
-            <% end %>
               <li>
                 <%= link_to 'my team', team_path(current_user.teams.first) %>
               </li>
+            <% end %>
             <li>
               <%= link_to destroy_user_session_path, method: :delete do %>
                 <!--<i class="fa fa-sign-out"></i> -->
