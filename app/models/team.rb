@@ -18,7 +18,7 @@ class Team < ApplicationRecord
 
 
   def team_lead
-    User.where(id: self.employee_teams.where(team_lead: true).first.try(:user_id)).first
+    User.where(id: self.employee_teams.where(team_lead: true).first.try(:user_id)).first.id
   end
 
   def team_average_by_period(rate_period)
