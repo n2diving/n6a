@@ -2,15 +2,21 @@
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class="row">
       <div class="col-xs-6">
-        <h1 class="margin-bottom-lg">teams</h1>
+        <h1 class="margin-bottom-sm">teams</h1>
       </div>
 
       <div class="col-xs-6">
         <% if current_user.is_admin %>
-          <%= link_to edit_team_reviews_path, class: "text-primary pull-right margin-top-md" do %>
-            <i class="fa fa-edit"></i> view team reviews
+          <%= link_to new_team_rating_path, class: "text-primary pull-right margin-top-sm" do %>
+            <i class="fa fa-plus"></i> new team review
           <% end %>
         <% end %>
+        <br>
+        <br>
+        <%= link_to edit_team_reviews_path, class: "text-info pull-right" do %>
+          <i class="fa fa-edit"></i> team reviews
+        <% end %>
+
       </div>
     </div>
     <div class="row margin-top-lg">
