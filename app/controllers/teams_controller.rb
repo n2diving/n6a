@@ -88,7 +88,7 @@ class TeamsController < ApplicationController
       redirect_to :root
     end
 
-    if !@user_reviews.nil
+    if !@user_reviews.nil?
       @teams = Team.where(id: @user_reviews.joins(user: :employee_teams).pluck(:team_id).uniq)
     end
     
