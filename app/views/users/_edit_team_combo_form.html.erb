@@ -55,14 +55,14 @@
 
       <hr>
 
-      <% if team_lead %>
+      <%# if team_lead %>
         <div class="row">
           <div class="col-xs-12">
             <% value = @user_reviews.first.review_note.nil? ? "response notes" : @user_reviews.first.review_note.general_notes  %>
             <%= text_area_tag :general_notes, "", placeholder: value, class: "form-control margin-bottom-md", disabled: current_user.is_officer? %>
           </div>
         </div>
-      <% end %>
+      <%# end %>
     <%# end%>
 
     <div class="row">

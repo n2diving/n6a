@@ -45,8 +45,7 @@
         <% end %>
       <% else %>
         <tr>
-          <%# wording = current_user.is_admin ? 'to view' : 'needed' %>
-          <% wording = 'to view' %>
+          <% wording = current_user.is_admin ? 'to view' : 'needed' %>
           <td colspan="15"><em>There are no response notes <%= wording %> for this month.</em></td>
         </tr>
       <% end %>
