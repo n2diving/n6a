@@ -57,6 +57,8 @@
               <li>
                 <%= link_to 'employees', users_path %>
               </li>
+            <% end %>
+            <% if current_user.teams.any? %>
               <li>
                 <%= link_to 'my team', team_path(current_user.teams.first) %>
               </li>

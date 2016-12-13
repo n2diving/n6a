@@ -15,16 +15,16 @@
 
     <div class="row margin-bottom-lg">
       <div class="col-xs-6">
-        <div class="lead">General Performance</div>
         <% results1 = review_chart_results(@user_reviews) %>
         <% unless results1.blank? %>
+          <div class="lead">General Performance</div>
           <%= line_chart results1 %>
         <% end %>
       </div>
       <div class="col-xs-6">
-        <div class="lead">Performance Compared to the Team</div>
         <% results2 = review_team_chart_results(@user) %>
         <% unless results2.blank? %>
+          <div class="lead">Performance Compared to the Team</div>
           <%= line_chart results2 %>
         <% end %>
       </div>
