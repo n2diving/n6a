@@ -40,6 +40,7 @@ $( document ).on('turbolinks:load', function() {
   });
 
   $('.no-sort').removeClass('sorting');
-  $('[aria-label^="ranking"]')[0].click();
-
+  if ($('[aria-label^="ranking"]').length > 0) {
+    $('[aria-label^="ranking"]')[0].click();
+  };
 });

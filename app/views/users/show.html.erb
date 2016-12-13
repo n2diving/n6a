@@ -5,7 +5,7 @@
         <h2 class="margin-bottom-lg"><%= @user.full_name %></h2>
       </div>
       <div class="col-xs-6">
-        <% if current_user.is_admin || current_user.teams.first.try(:team_lead) %>
+        <% if current_user.is_admin || (current_user.id == current_user.teams.first.try(:team_lead)) %>
           <%= link_to new_employee_rating_path(@user.id) , class: "text-primary pull-right margin-top-md" do %>
             <i class="fa fa-plus"></i> new employee review
           <% end %>

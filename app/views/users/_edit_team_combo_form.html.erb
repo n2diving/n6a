@@ -1,5 +1,5 @@
 <% team = @user.try(:teams).first %>
-<% team_lead = current_user.teams.first.try(:team_lead) %>
+<% team_lead = current_user.id == current_user.teams.first.try(:team_lead) %>
 <% if team.blank? %>
   <p>There are no team ratings</p>
 <% else %>

@@ -53,14 +53,14 @@
                 <%= link_to 'user reviews', user_reviews_path %>
               </li>
             <% end %>
-            <% if current_user.teams.first.try(:team_lead) %>
+            <% if current_user.id == current_user.teams.first.try(:team_lead) %>
               <li>
                 <%= link_to 'employees', users_path %>
               </li>
+            <% end %>
               <li>
                 <%= link_to 'my team', team_path(current_user.teams.first) %>
               </li>
-            <% end %>
             <li>
               <%= link_to destroy_user_session_path, method: :delete do %>
                 <!--<i class="fa fa-sign-out"></i> -->

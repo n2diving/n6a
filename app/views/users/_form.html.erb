@@ -14,7 +14,7 @@
   <%= f.text_field :first_name, autofocus: true, class: "form-control margin-bottom-md", placeholder: "first name"%>
   <%= f.text_field :last_name, class: "form-control margin-bottom-md", placeholder: "last name"%>
   <%= f.email_field :email, class: "form-control margin-bottom-md", placeholder: "email"%>
-  <% if current_user.is_admin %>
+  <% if true ##current_user.is_admin %>
     <%= f.password_field :password, class: "form-control margin-bottom-md", placeholder: "password"%>
     <%= f.password_field :password_confirmation, class: "form-control margin-bottom-md", placeholder: "confirm password"%>
   <% end %>
