@@ -5,7 +5,7 @@ module UserReviewsHelper
     options = []
     i = 0
     12.times do
-      one_month = start_month - i.months
+      one_month = (start_month - i.months).end_of_month
       options << [one_month.strftime("%B %Y"), one_month]
       i += 1
     end
