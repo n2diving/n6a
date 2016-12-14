@@ -31,7 +31,7 @@ class UserReview < ApplicationRecord
   belongs_to :user
   has_one :review_note
 
-  validates_uniqueness_of :rate_period, { scope: [ :user_id, :review_item_id ], message: "-- review has already been scored for this month." }
+  # validates_uniqueness_of :rate_period, { scope: [ :user_id, :review_item_id ], message: "-- review has already been scored for this month." }
   before_save :normalize_date
   after_save :overwrite_reviews
   # after_create :employee_team_reviews
