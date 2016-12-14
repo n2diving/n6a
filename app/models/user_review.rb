@@ -33,6 +33,7 @@ class UserReview < ApplicationRecord
 
   validates_uniqueness_of :rate_period, { scope: [ :user_id, :review_item_id ], message: "-- review has already been scored for this month." }
   before_save :normalize_date
+  after_save :overwrite_reviews
   # after_create :employee_team_reviews
 
 
@@ -68,6 +69,13 @@ class UserReview < ApplicationRecord
       @review_rows[i] << (user_review.blank? ? 0 : ('%.2f' % (user_review.sum(:rating) / user_review.count.to_f).round(2)))
     end
     @review_rows
+  end
+
+  def overwrite_reviews
+    user_id = self.user_id
+    rate_period = self.rate_period
+    
+    UserReview.where(user_id: user_id, rate_period: rate_period).where.not(id: self.id).destroy_all
   end
 
   # def employee_team_reviews
