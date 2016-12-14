@@ -74,8 +74,9 @@ class UserReview < ApplicationRecord
   def overwrite_reviews
     user_id = self.user_id
     rate_period = self.rate_period
+    review_item = self.review_item_id
 
-    UserReview.where(user_id: user_id, rate_period: rate_period).where.not(id: self.id).destroy_all
+    UserReview.where(user_id: user_id, rate_period: rate_period, review_item_id: review_item).where.not(id: self.id).destroy_all
   end
 
   # def employee_team_reviews
