@@ -241,7 +241,7 @@ class UsersController < ApplicationController
             user_id: one_user_id,
             review_item_id: params[:user_reviews][one_review][:review_item_id].split(">")[1].split("}")[0],
             rate_period: params[:user_reviews][one_review][:rate_period],
-            pros: params[:user_reviews][one_review][:notes],
+            notes: params[:user_reviews][one_review][:notes],
             rating: params[:user_reviews][one_review][:rating],
             rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
             is_team: true,
