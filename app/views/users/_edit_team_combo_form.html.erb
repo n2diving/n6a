@@ -35,7 +35,7 @@
 
             <div class="row">
               <div class="col-xs-12">
-                <%= review_form.text_area :notes, class: "form-control margin-bottom-md", placeholder: "notes", disabled: team_lead %>
+                <%= review_form.text_area :notes, class: "form-control margin-bottom-md", placeholder: one_review.notes.nil? ? "notes" : one_review.notes, disabled: team_lead %>
               </div>
               <div class="col-xs-12">
                 <%# if current_user.is_admin %>
