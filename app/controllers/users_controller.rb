@@ -252,7 +252,7 @@ class UsersController < ApplicationController
 
       redirect_to team, notice: "Team rating has been saved."
     rescue => e
-      redirect_to back, notice: e.inspect
+      redirect_to :back, notice: e.inspect
     end
 
   end
