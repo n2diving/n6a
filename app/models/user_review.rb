@@ -76,7 +76,10 @@ class UserReview < ApplicationRecord
     rate_period = self.rate_period
     review_item = self.review_item_id
 
-    UserReview.where(user_id: user_id, rate_period: rate_period, review_item_id: review_item).where.not(id: self.id).destroy_all
+    UserReview.where(user_id: user_id, rate_period: rate_period, review_item_id: review_item).where.not(id: self.id).each do |one_record|
+      one_record.review_note.try(:delete)
+      one_record.delete
+    end
   end
 
   # def employee_team_reviews
