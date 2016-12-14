@@ -97,7 +97,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     month = params[:rate_period].blank? ? ((Date.today - 1.month).end_of_month) : params[:rate_period].to_date.end_of_month
 
-    @user_reviews = @user.user_reviews.where(rate_period: month, rating: nil).joins(:review_item).where('review_items.is_team = false')
+    @user_reviews = @user.user_reviews.where(rate_period: month, rating: nil).joins(:review_item).order('review_items.display_name').where('review_items.is_team = false')
   end
 
   def update_all
