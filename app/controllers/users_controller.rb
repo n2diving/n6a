@@ -233,7 +233,7 @@ class UsersController < ApplicationController
 
     employee_ids = team.employee_teams.pluck(:user_id).uniq
 
-    begin
+    # begin
       employee_ids.each do |one_user_id|
         params[:user_reviews].keys.each do |one_review|
 
@@ -251,9 +251,9 @@ class UsersController < ApplicationController
       end
 
       redirect_to team, notice: "Team rating has been saved."
-    rescue => e
-      redirect_to :back, notice: e.inspect
-    end
+    # rescue => e
+    #   redirect_to :back, notice: e.inspect
+    # end
 
   end
 
