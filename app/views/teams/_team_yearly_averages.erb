@@ -15,23 +15,30 @@
   </tr>
   </thead>
 
+  <% jan = Date.today.beginning_of_year %>
+  <% june = jan + 6.months %>
+  <% july = jan + 7.months %>
+  <% dec = Date.today.end_of_year %>
   <tbody>
   <% if teams.any? %>
     <% teams.each do |one_team| %>
-      <% rate_period = month.try(:to_date) || (Date.today - 1.month) %>
+      <% rate_periods = month.try(:to_date) || (Date.today - 1.month) %>
       <tr>
         <% if permission %>
           <td><%= link_to one_team.team_name, one_team %></td>
         <% else %>
           <td><%= one_team.team_name %></td>
         <% end %>
-        <td><%= rate_period.strftime("%B %Y") %></td>
-        <td class="text-center"><%= team_ranking(one_team.id, rate_period) %></td>
-        <td class="text-center"><%= team_averages(one_team.id, rate_period, rate_period) %></td>
-        <td class="text-center"><%= team_averages(one_team.id, rate_period, (rate_period - 6.months)) %></td>
-        <td class="text-center"><%= team_averages(one_team.id, ("2016-06-30").to_date, ("2016-01-31").to_date) %></td>
-        <td class="text-center"><%= team_averages(one_team.id, ("2016-07-31").to_date, ("2016-12-31").to_date) %></td>
-        <td class="text-center"><%= team_averages(one_team.id, rate_period, (rate_period.beginning_of_year)) %></td>
+        <td><%= rate_periods.strftime("%B %Y") %></td>
+        <td class="text-center"><%= team_ranking(one_team.id, rate_periods) %></td>
+        <td class="text-center"><%= team_averages(one_team.id, rate_periods, rate_periods) %></td>
+        <td class="text-center"><%= team_averages(one_team.id, rate_periods, (rate_periods - 6.months)) %></td>
+
+        <td class="text-center"><%= team_averages(one_team.id, june, jan) %></td>
+
+        <td class="text-center"><%= team_averages(one_team.id, dec, july) %></td>
+
+        <td class="text-center"><%= team_averages(one_team.id, rate_periods, (rate_periods.beginning_of_year)) %></td>
       </tr>
     <% end%>
   <% else %>
