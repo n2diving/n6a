@@ -77,7 +77,7 @@ class UserReview < ApplicationRecord
     review_item = self.review_item_id
 
     UserReview.where(user_id: user_id, rate_period: rate_period, review_item_id: review_item).where.not(id: self.id).each do |one_record|
-      one_record.review_note.try(:delete)
+      ReviewNote.where(user_review_id: one_record.id).try(:destroy_all)
       one_record.delete
     end
   end
