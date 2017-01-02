@@ -1,0 +1,1 @@
+json.partial! "review_items_by_roles/review_items_by_role", review_items_by_role: @review_items_by_role

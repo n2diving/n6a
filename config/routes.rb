@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :review_items_by_roles
   resources :review_items
   resources :review_notes
   resources :teams

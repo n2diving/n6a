@@ -1,5 +1,6 @@
 class ReviewItem < ApplicationRecord
   has_many :user_reviews
+  has_many :review_items_by_roles
 
   def scale
     self.scale_min.to_s + ' - ' + self.scale_max.to_s

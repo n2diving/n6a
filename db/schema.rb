@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161130061851) do
+ActiveRecord::Schema.define(version: 20170102082158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 20161130061851) do
     t.integer  "team_id"
     t.index ["team_id"], name: "index_employee_teams_on_team_id", using: :btree
     t.index ["user_id"], name: "index_employee_teams_on_user_id", using: :btree
+  end
+
+  create_table "form_roles", force: :cascade do |t|
+    t.string   "role"
+    t.string   "abbreviation"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "review_items", force: :cascade do |t|
@@ -38,6 +45,15 @@ ActiveRecord::Schema.define(version: 20161130061851) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.boolean  "is_weekly",           default: false
+  end
+
+  create_table "review_items_by_roles", force: :cascade do |t|
+    t.integer "review_item_id"
+    t.string  "short_label"
+    t.text    "evaluation_criteria"
+    t.integer "form_role_id"
+    t.index ["form_role_id"], name: "index_review_items_by_roles_on_form_role_id", using: :btree
+    t.index ["review_item_id"], name: "index_review_items_by_roles_on_review_item_id", using: :btree
   end
 
   create_table "review_notes", force: :cascade do |t|
@@ -101,6 +117,8 @@ ActiveRecord::Schema.define(version: 20161130061851) do
 
   add_foreign_key "employee_teams", "teams"
   add_foreign_key "employee_teams", "users"
+  add_foreign_key "review_items_by_roles", "form_roles"
+  add_foreign_key "review_items_by_roles", "review_items"
   add_foreign_key "review_notes", "user_reviews"
   add_foreign_key "user_reviews", "users"
 end
