@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170102082158) do
+ActiveRecord::Schema.define(version: 20170103072328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,7 +111,9 @@ ActiveRecord::Schema.define(version: 20170102082158) do
     t.string   "last_name"
     t.boolean  "is_officer",             default: false
     t.boolean  "is_admin",               default: false
+    t.integer  "form_role_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["form_role_id"], name: "index_users_on_form_role_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
@@ -121,4 +123,5 @@ ActiveRecord::Schema.define(version: 20170102082158) do
   add_foreign_key "review_items_by_roles", "review_items"
   add_foreign_key "review_notes", "user_reviews"
   add_foreign_key "user_reviews", "users"
+  add_foreign_key "users", "form_roles"
 end

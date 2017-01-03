@@ -19,7 +19,7 @@
         <% @review_items_by_roles.each do |review_items_by_role| %>
           <tr>
             <td><%= review_items_by_role.review_item.display_name %></td>
-            <td><%= review_items_by_role.form_role.role %></td>
+            <td><%= review_items_by_role.form_role.role + " (#{review_items_by_role.form_role.abbreviation})" %></td>
             <td><%= review_items_by_role.short_label %></td>
             <td><%= review_items_by_role.evaluation_criteria %></td>
             <% if current_user.is_admin || current_user.is_officer? %>

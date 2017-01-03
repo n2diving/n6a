@@ -1,4 +1,22 @@
-<p id="notice"><%= notice %></p>
+<p>
+  <strong>Review Item:</strong>
+  <%= @review_items_by_role.review_item.display_name %>
+</p>
+
+<p>
+  <strong>Form Role:</strong>
+  <%= @review_items_by_role.form_role.role + " (#{@review_items_by_role.form_role.abbreviation})" %>
+</p>
+
+<p>
+  <strong>Short Label:</strong>
+  <%= @review_items_by_role.short_label %>
+</p>
+
+<p>
+  <strong>Evaluation Criteria:</strong>
+  <%= @review_items_by_role.evaluation_criteria %>
+</p>
 
 <%= link_to 'Edit', edit_review_items_by_role_path(@review_items_by_role) %> |
 <%= link_to 'Back', review_items_by_roles_path %>

@@ -22,11 +22,17 @@
 #  last_name              :string
 #  is_officer             :boolean          default(FALSE)
 #  is_admin               :boolean          default(FALSE)
+#  form_role_id           :integer
 #
 # Indexes
 #
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_form_role_id          (form_role_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_030672cb6e  (form_role_id => form_roles.id)
 #
 
 class User < ApplicationRecord
@@ -39,6 +45,7 @@ class User < ApplicationRecord
   has_many :user_reviews
   has_many :employee_teams
   has_many :teams, through: :employee_teams, dependent: :destroy
+  has_one :form_role
 
   accepts_nested_attributes_for :user_reviews
   #, reject_if: proc { |a| a["notes"].blank? && a["pros"].blank? }

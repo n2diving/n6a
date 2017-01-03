@@ -1,6 +1,13 @@
-<h1>Editing Review Items By Role</h1>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+        <h2>edit review items by role</h2>
+        <%= render 'form', review_items_by_role: @review_items_by_role %>
+      </div>
 
-<%= render 'form', review_items_by_role: @review_items_by_role %>
-
-<%= link_to 'Show', @review_items_by_role %> |
-<%= link_to 'Back', review_items_by_roles_path %>
+      <%= link_to 'Show', @review_items_by_role %> |
+      <%= link_to 'Back', review_items_by_roles_path %>
+    </div>
+  </div>
+</div>

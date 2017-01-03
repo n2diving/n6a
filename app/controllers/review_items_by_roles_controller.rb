@@ -4,7 +4,7 @@ class ReviewItemsByRolesController < ApplicationController
   # GET /review_items_by_roles
   # GET /review_items_by_roles.json
   def index
-    @review_items_by_roles = ReviewItemsByRole.all
+    @review_items_by_roles = ReviewItemsByRole.all.order(:form_role_id, :review_item_id)
   end
 
   # GET /review_items_by_roles/1

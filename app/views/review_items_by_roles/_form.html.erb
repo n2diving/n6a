@@ -11,7 +11,13 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.collection_select :review_item_id, ReviewItem.all, :id, :display_name, { include_blank: "select review label" }, class: "form-control margin-bottom-md", autofocus: true %>
+  <%= f.collection_select :form_role_id, FormRole.all, :id, :role, { include_blank: "select form type" }, class: "form-control margin-bottom-md" %>
+
+
+  <%= f.text_field :short_label, class: "form-control margin-bottom-md", placeholder: "short label"%>
+  <%= f.text_area :evaluation_criteria, class: "form-control margin-bottom-md", placeholder: "evaluation criteria" %>
+
+  <%= f.submit "save", class: "btn btn-primary btn-center" %>
+
 <% end %>

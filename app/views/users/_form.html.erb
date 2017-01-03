@@ -14,14 +14,15 @@
   <%= f.text_field :first_name, autofocus: true, class: "form-control margin-bottom-md", placeholder: "first name"%>
   <%= f.text_field :last_name, class: "form-control margin-bottom-md", placeholder: "last name"%>
   <%= f.email_field :email, class: "form-control margin-bottom-md", placeholder: "email"%>
-  <% if true ##current_user.is_admin %>
+  <% if current_user.is_admin || current_user.is_officer? %>
     <%= f.password_field :password, class: "form-control margin-bottom-md", placeholder: "password"%>
     <%= f.password_field :password_confirmation, class: "form-control margin-bottom-md", placeholder: "confirm password"%>
   <% end %>
 
   <%= f.text_field :title, class: "form-control margin-bottom-md", placeholder: "employee title"%>
 
-  <%#= f.select(:title, [['employee', 'employee'], ['team lead', 'team lead'], ['officer', 'officer']], {}, class: "form-control margin-bottom-md", placeholder: "title" )%>
+  <%= f.collection_select :form_role_id, FormRole.all, :id, :role, { include_blank: "select form type" }, class: "form-control margin-bottom-md", autofocus: true %>
+
 
   <%= f.submit "save", class: "btn btn-primary btn-center" %>
 
