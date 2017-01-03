@@ -60,8 +60,13 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
+        if request.xhr?
+          format.html { redirect_to :back }
+          format.json { render :new_employee_rating, status: :ok }
+        else
+          format.html { redirect_to @user, notice: 'User was successfully updated.' }
+          format.json { render :show, status: :ok, location: @user }
+        end
       else
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -90,7 +95,10 @@ class UsersController < ApplicationController
         flash[:notice] = "Please select an employee on your team."
       end
     end
-    @review_items = ReviewItem.order(:name).where(is_team: false, is_weekly: false)
+
+    # raise
+    @review_items_by_role = ReviewItemsByRole.where(form_role_id: @user.first.form_role_id).order('review_items_by_roles.review_item_id').joins(:review_item).where(review_items: { is_weekly: false, is_team: false } )
+    # @review_items = ReviewItem.order(:name).where(is_team: false, is_weekly: false)
   end
 
   def edit_employee_rating
@@ -168,6 +176,7 @@ class UsersController < ApplicationController
   def employee_rating
     # begin
       user = User.find(params[:id])
+      user.update(form_role_id: params[:form_role_id])
 
       params[:user_reviews].keys.each do |one_review|
 

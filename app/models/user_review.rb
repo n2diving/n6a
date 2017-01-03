@@ -2,32 +2,36 @@
 #
 # Table name: user_reviews
 #
-#  id               :integer          not null, primary key
-#  review_item_id   :integer
-#  user_id          :integer
-#  rating           :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  rated_by_user_id :integer
-#  notes_allowed    :boolean          default(FALSE)
-#  rate_period      :date
-#  is_team          :boolean          default(FALSE)
-#  pros             :text
-#  cons             :text
-#  notes            :text
+#  id                      :integer          not null, primary key
+#  review_item_id          :integer
+#  user_id                 :integer
+#  rating                  :integer
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  rated_by_user_id        :integer
+#  notes_allowed           :boolean          default(FALSE)
+#  rate_period             :date
+#  is_team                 :boolean          default(FALSE)
+#  pros                    :text
+#  cons                    :text
+#  notes                   :text
+#  review_items_by_role_id :integer
 #
 # Indexes
 #
-#  index_user_reviews_on_review_item_id  (review_item_id)
-#  index_user_reviews_on_user_id         (user_id)
+#  index_user_reviews_on_review_item_id           (review_item_id)
+#  index_user_reviews_on_review_items_by_role_id  (review_items_by_role_id)
+#  index_user_reviews_on_user_id                  (user_id)
 #
 # Foreign Keys
 #
+#  fk_rails_0c521cfb5d  (review_items_by_role_id => review_items_by_roles.id)
 #  fk_rails_f526f8a17a  (user_id => users.id)
 #
 
 class UserReview < ApplicationRecord
   belongs_to :review_item
+  belongs_to :review_items_by_role
   belongs_to :user
   has_one :review_note
 

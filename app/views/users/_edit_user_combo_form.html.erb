@@ -20,12 +20,17 @@
     <% if @user_reviews.any? %>
 
       <% @user_reviews.each do |one_review| %>
+        <% review_items_by_role = one_review.try(:review_item_by_role) %>
+        <% if review_items_by_role.nil? %>
+          <% review_items_by_role = ReviewItemsByRole.where(form_role_id: one_review.user.try(:form_role_id), review_item_id: one_review.review_item_id).first %>
+        <% end %>
+        <% name = "#{one_review.review_item.display_name}: #{review_items_by_role.try(:short_label)}" %>
         <%= fields_for "user_reviews[]", one_review do |review_form| %>
           <div class="row margin-top-md">
             <div class="col-xs-12">
               <%#= review_form.select :rate_period, options_for_rate_period, { prompt: 'select rate period' }, class: "form-control margin-bottom-md" %>
-              <h4 class="text-primary"><%= one_review.review_item.name %></h4>
-              <p><%= one_review.review_item.evaluation_criteria %></p>
+              <h4 class="text-primary"><%= name || one_review.review_item.name %></h4>
+              <p><%= review_items_by_role.try(:evaluation_criteria) || one_review.review_item.evaluation_criteria %></p>
               <%#= review_form.hidden_field :review_item_id, value: one_review.review_item.id %>
               <%#= review_form.hidden_field :rate_period, class: "rate_period" %>
             </div>

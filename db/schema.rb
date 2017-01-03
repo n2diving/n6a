@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170103072328) do
+ActiveRecord::Schema.define(version: 20170103111209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,16 +78,18 @@ ActiveRecord::Schema.define(version: 20170103072328) do
     t.integer  "review_item_id"
     t.integer  "user_id"
     t.integer  "rating"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "rated_by_user_id"
-    t.boolean  "notes_allowed",    default: false
+    t.boolean  "notes_allowed",           default: false
     t.date     "rate_period"
-    t.boolean  "is_team",          default: false
+    t.boolean  "is_team",                 default: false
     t.text     "pros"
     t.text     "cons"
     t.text     "notes"
+    t.integer  "review_items_by_role_id"
     t.index ["review_item_id"], name: "index_user_reviews_on_review_item_id", using: :btree
+    t.index ["review_items_by_role_id"], name: "index_user_reviews_on_review_items_by_role_id", using: :btree
     t.index ["user_id"], name: "index_user_reviews_on_user_id", using: :btree
   end
 
@@ -122,6 +124,7 @@ ActiveRecord::Schema.define(version: 20170103072328) do
   add_foreign_key "review_items_by_roles", "form_roles"
   add_foreign_key "review_items_by_roles", "review_items"
   add_foreign_key "review_notes", "user_reviews"
+  add_foreign_key "user_reviews", "review_items_by_roles"
   add_foreign_key "user_reviews", "users"
   add_foreign_key "users", "form_roles"
 end

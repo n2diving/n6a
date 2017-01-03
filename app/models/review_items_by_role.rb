@@ -1,6 +1,7 @@
 class ReviewItemsByRole < ApplicationRecord
   belongs_to :form_role
   belongs_to :review_item
+  has_many :user_reviews
 end
 
 # == Schema Information
