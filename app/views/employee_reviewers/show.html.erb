@@ -1,13 +1,15 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Employee user:</strong>
-  <%= @employee_reviewer.employee_user_id %>
+  <strong>Employee:</strong>
+  <%= @employee_reviewer.employee.full_name %>
+  (<%= @employee_reviewer.employee_user_id %>)
 </p>
 
 <p>
-  <strong>Reviewer user:</strong>
-  <%= @employee_reviewer.reviewer_user_id %>
+  <strong>Reviewer:</strong>
+  <%= @employee_reviewer.reviewer.full_name %>
+  (<%= @employee_reviewer.reviewer_user_id %>)
 </p>
 
 <%= link_to 'Edit', edit_employee_reviewer_path(@employee_reviewer) %> |

@@ -28,7 +28,7 @@ class EmployeeReviewersController < ApplicationController
 
     respond_to do |format|
       if @employee_reviewer.save
-        format.html { redirect_to @employee_reviewer, notice: 'Employee reviewer was successfully created.' }
+        format.html { redirect_to employee_reviewers_url, notice: 'Employee reviewer was successfully created.' }
         format.json { render :show, status: :created, location: @employee_reviewer }
       else
         format.html { render :new }
