@@ -1,0 +1,1 @@
+json.array! @employee_reviewers, partial: 'employee_reviewers/employee_reviewer', as: :employee_reviewer

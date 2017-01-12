@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+        <h2>employee reviewers</h2>
+
+        <%# form_tag update_individual_products_path :method => :put do %>
+          <%# for product in @products %>
+            <%#= fields_for "products[]", product do |f| %>
+              <!--<h2><%#= h product.name %></h2>-->
+            <%# end %>
+          <%# end %>
+          <!--<p><%#= submit_tag "Submit" %></p>-->
+        <%# end %>
+
+
+
+        <%= form_for(employee_reviewer) do |f| %>
+          <% if employee_reviewer.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(employee_reviewer.errors.count, "error") %> prohibited this employee_reviewer from being saved:</h2>
+
+              <ul>
+                <% employee_reviewer.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <%= f.collection_select :employee_user_id, User.all.order(:first_name), :id, :full_name, { include_blank: "select employee" }, class: "form-control margin-bottom-md", autofocus: true %>
+          <%= f.collection_select :reviewer_user_id, User.all.order(:first_name), :id, :full_name, { include_blank: "select reviewer" }, class: "form-control margin-bottom-md" %>
+
+
+          <%= f.submit "save", class: "btn btn-primary btn-center" %>
+
+        <% end %>
+      </div>
+      <%= link_to 'Back', employee_reviewers_path %>
+    </div>
+  </div>
+</div>

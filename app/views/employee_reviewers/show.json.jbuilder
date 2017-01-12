@@ -1,0 +1,1 @@
+json.partial! "employee_reviewers/employee_reviewer", employee_reviewer: @employee_reviewer
