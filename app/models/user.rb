@@ -88,4 +88,8 @@ class User < ApplicationRecord
     User.where(id: EmployeeReviewer.where(reviewer_user_id: self.id).pluck(:employee_user_id))
   end
 
+  def can_review_user(user_id)
+    EmployeeReviewer.where(reviewer_user_id: self.id, employee_user_id: user_id).any?
+  end
+
 end
