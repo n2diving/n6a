@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       @users = User.all.order(:last_name)
     # elsif current_user.id == current_user.teams.first.try(:team_lead)
     #   @users = User.joins(:employee_teams).where("employee_teams.team_id = ?", current_user.teams.first.id).order(:last_name)
-    elsif current_user.id == current_user.teams.first.try(:team_lead)
+    elsif current_user.can_review_users.any?
       @users = current_user.can_review_users
     else
       flash[:error] = "Sorry you don't have permission to view all employees."
