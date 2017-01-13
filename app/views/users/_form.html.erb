@@ -21,7 +21,7 @@
 
   <%= f.text_field :title, class: "form-control margin-bottom-md", placeholder: "employee title"%>
 
-  <%= f.collection_select :form_role_id, FormRole.all, :id, :role, { include_blank: "select form type" }, class: "form-control margin-bottom-md", autofocus: true %>
+  <%= f.collection_select :form_role_id, FormRole.all.order(:role), :id, :role, { include_blank: "select form type" }, class: "form-control margin-bottom-md", autofocus: true %>
 
 
   <%= f.submit "save", class: "btn btn-primary btn-center" %>

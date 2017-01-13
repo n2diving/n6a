@@ -25,7 +25,7 @@
               <td><%= link_to user.full_name, user %></td>
               <td><%= user.teams.blank? ? '' : (link_to user.teams.first.team_name, user.teams.first) %></td>
               <td><%= user.email %></td>
-              <td><%= user.title %></td>
+              <td><%= user.title.downcase %></td>
               <% if current_user.id == current_user.teams.first.try(:team_lead) %>
                 <td class="text-center">
                   <%= link_to new_employee_rating_path(user.id) , class: "text-primary" do %>
