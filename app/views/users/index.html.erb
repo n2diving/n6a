@@ -32,6 +32,8 @@
                   <i class="fa fa-plus"></i> new employee review
                   <% end %>
                 </td>
+              <% else %>
+                <td></td>
               <% end %>
               <% if current_user.is_admin || current_user.is_officer? %>
                 <td class="text-center">
