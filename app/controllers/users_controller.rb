@@ -181,14 +181,16 @@ class UsersController < ApplicationController
 
   def employee_rating
     # begin
+
       user = User.find(params[:id])
-      user.update(form_role_id: params[:form_role_id])
+      user.update!(form_role_id: params[:form_role_id])
 
       params[:user_reviews].keys.each do |one_review|
 
-        UserReview.create(
+        UserReview.create!(
           user_id: user.id,
           review_item_id: params[:user_reviews][one_review][:review_item_id],
+          review_items_by_role_id: params[:user_reviews][one_review][:review_items_by_role_id],
           rate_period: params[:user_reviews][one_review][:rate_period],
           pros: params[:user_reviews][one_review][:pros],
           cons: params[:user_reviews][one_review][:cons],
@@ -287,6 +289,6 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       # params.fetch(:user, {})
-      params.require(:user).permit(:id, :first_name, :last_name, :title, :is_current, :start_date, :email, :is_officer, :is_admin, :password, :password_confirmation, :id, :review_item_id, :rated_by_user_id, :notes_allowed, :rate_period, :rating, :is_team, :pros, :cons, :notes,:user_reviews, :form_role_id, user_reviews_attributes: [:id, :review_item_id, :rated_by_user_id, :notes_allowed, :rate_period, :rating, :is_team, :pros, :cons, :notes])
+      params.require(:user).permit(:id, :first_name, :last_name, :title, :is_current, :start_date, :email, :is_officer, :is_admin, :password, :password_confirmation, :id, :review_item_id, :review_items_by_role_id, :rated_by_user_id, :notes_allowed, :rate_period, :rating, :is_team, :pros, :cons, :notes,:user_reviews, :form_role_id, user_reviews_attributes: [:id, :review_item_id, :rated_by_user_id, :notes_allowed, :rate_period, :rating, :is_team, :pros, :cons, :notes])
     end
 end
