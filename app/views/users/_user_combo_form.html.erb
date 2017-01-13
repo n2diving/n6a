@@ -1,4 +1,7 @@
 <% form_role = @user.first.form_role_id %>
+<% puts 'form_role' %>
+<% puts '99999999999999999999999999' %>
+<% puts form_role %>
 
 <%= form_tag employee_rating_path do %>
 
@@ -94,10 +97,10 @@
           }
         },
         success: function(data) {
-          return false;
+          return console.log('yay');
         },
         error: function(data) {
-          return false;
+          return console.log('sup');
         }
       });
 //      $('.hidden').removeClass('hidden');
