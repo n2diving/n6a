@@ -9,9 +9,9 @@
           <th>team</th>
           <th>email</th>
           <th>title</th>
-          <% if current_user.id == current_user.teams.first.try(:team_lead) %>
-            <th class="text-center">new review</th>
-          <% end %>
+          <%# if current_user.id == current_user.teams.first.try(:team_lead) %>
+            <th class="text-center">review</th>
+          <%# end %>
           <% if current_user.is_admin || current_user.is_officer? %>
             <th class="text-center no-sort">actions</th>
           <% end %>
