@@ -183,7 +183,6 @@ class UsersController < ApplicationController
     # begin
 
       user = User.find(params[:id])
-      # user.update!(form_role_id: params[:form_role_id])
 
       params[:user_reviews].keys.each do |one_review|
 
