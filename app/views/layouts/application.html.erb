@@ -56,7 +56,7 @@
                 <%= link_to 'user reviews', user_reviews_path %>
               </li>
             <% end %>
-            <% if current_user.id == current_user.teams.first.try(:team_lead) %>
+            <% if (current_user.id == current_user.teams.first.try(:team_lead)) || (current_user.can_review_users.any?) %>
               <li>
                 <%= link_to 'employees', users_path %>
               </li>
