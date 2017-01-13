@@ -12,7 +12,7 @@
   <% end %>
 
   <%= f.collection_select :review_item_id, ReviewItem.all.where(is_team: false).order(:display_name), :id, :display_name, { include_blank: "select review label" }, class: "form-control margin-bottom-md", autofocus: true %>
-  <%= f.collection_select :form_role_id, FormRole.all, :id, :role, { include_blank: "select form type" }, class: "form-control margin-bottom-md" %>
+  <%= f.collection_select :form_role_id, FormRole.all.order(:role), :id, :role, { include_blank: "select form type" }, class: "form-control margin-bottom-md" %>
 
 
   <%= f.text_field :short_label, class: "form-control margin-bottom-md", placeholder: "short label"%>
