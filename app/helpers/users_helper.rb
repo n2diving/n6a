@@ -34,17 +34,20 @@ module UsersHelper
           team_dataset << [one_period.strftime("%B %Y"), user.team_average(team, one_period)]
         end
 
+
       end
 
-      @results = [
-        {
-          name: "employee",
-          data: employee_dataset
-        },
-        {
-          name: "team",
-          data: team_dataset
-        }]
+      unless (team_dataset.empty? && employee_dataset.empty?)
+        @results = [
+          {
+            name: "employee",
+            data: employee_dataset
+          },
+          {
+            name: "team",
+            data: team_dataset
+          }]
+      end
     end
   end
 
