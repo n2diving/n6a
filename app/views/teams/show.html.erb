@@ -1,4 +1,4 @@
-<% month = params[:rate_period] || ((Date.today - 1.month).end_of_month) %>
+<% month = params[:rate_period] || (Date.today.end_of_month) %>
 <% permission = current_user.is_admin? || current_user.is_officer? || (current_user.id == current_user.teams.first.try(:team_lead)) %>
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">

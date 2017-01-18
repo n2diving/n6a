@@ -5,7 +5,7 @@
 
     <div class="row margin-bottom-lg">
       <div class="col-xs-12">
-        <%= select_tag :rate_period, options_for_select(options_for_rate_period, month.blank? ? ((Date.today - 1.month).end_of_month) : month.to_date.end_of_month), include_blank: "select rate period", class: "form-control", id: "rate_period" %>
+        <%= select_tag :rate_period, options_for_select(options_for_rate_period, month.blank? ? (Date.today.end_of_month) : month.to_date.end_of_month), include_blank: "select rate period", class: "form-control", id: "rate_period" %>
       </div>
     </div>
 

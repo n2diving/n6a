@@ -10,7 +10,7 @@
         <%= select_tag :form_role_id, options_for_select( FormRole.all.collect { |fr| [ fr.role, fr.id ] }, @user.first.form_role_id), include_blank: "select form type", class: "form-control margin-bottom-sm", id: "form_role", required: true %>
       <% end %>
 
-      <%= select_tag :rate_period, options_for_select(options_for_rate_period), include_blank: "select rate period", class: "form-control margin-bottom-md", id: "rate_period", required: true %>
+      <%= select_tag :rate_period, options_for_select(options_for_rate_period, Date.today.end_of_month), include_blank: "select rate period", class: "form-control margin-bottom-md", id: "rate_period", required: true %>
 
 
     </div>
