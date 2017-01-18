@@ -1,16 +1,15 @@
 module UserReviewsHelper
 
   def options_for_rate_period
-    start_month = (Date.today + 2.months).end_of_month
+    this_month = Date.today.month
+
     options = []
-    i = 0
-    12.times do
-      one_month = (start_month - i.months).end_of_month
-      options << [one_month.strftime("%B %Y"), one_month]
-      i += 1
+    Date::MONTHNAMES.each_with_index do |one_month, i|
+      if i <= this_month && !one_month.nil?
+        options << [one_month.to_date.strftime("%B %Y"), one_month]
+      end
     end
     options
   end
-
 
 end
