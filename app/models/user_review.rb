@@ -16,6 +16,7 @@
 #  cons                    :text
 #  notes                   :text
 #  review_items_by_role_id :integer
+#  is_archived             :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -34,6 +35,8 @@ class UserReview < ApplicationRecord
   belongs_to :review_items_by_role
   belongs_to :user
   has_one :review_note
+
+  default_scope { where(is_archived: false) }
 
   # validates_uniqueness_of :rate_period, { scope: [ :user_id, :review_item_id ], message: "-- review has already been scored for this month." }
   before_save :normalize_date
