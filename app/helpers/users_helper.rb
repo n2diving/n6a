@@ -31,9 +31,9 @@ module UsersHelper
         employee_ratings = UserReview.where(user_id: user.id, rate_period: one_period).where.not(rating: nil).pluck(:rating)
         unless employee_ratings.blank?
           employee_dataset << [one_period.strftime("%B %Y"), (employee_ratings.reduce(&:+) / employee_ratings.count)]
+          team_dataset << [one_period.strftime("%B %Y"), user.team_average(team, one_period)]
         end
 
-        team_dataset << [one_period.strftime("%B %Y"), user.team_average(team, one_period)]
       end
 
       @results = [
