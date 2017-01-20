@@ -27,7 +27,7 @@
           <div class="row">
             <div class="col-xs-12">
               <%#= review_form.select :rate_period, options_for_rate_period, { prompt: 'select rate period' }, class: "form-control margin-bottom-md" %>
-              <h4 class="text-primary"><%= review_item_by_role.review_item.name %></h4>
+              <h4 class="text-primary"><%= "#{review_item_by_role.review_item.display_name}: #{review_item_by_role.short_label}" %></h4>
               <p><%= review_item_by_role.evaluation_criteria %></p>
               <%= hidden_field_tag "user_reviews[#{i}][review_items_by_role_id]", review_item_by_role.id %>
               <%= hidden_field_tag "user_reviews[#{i}][review_item_id]", review_item_by_role.review_item.id %>

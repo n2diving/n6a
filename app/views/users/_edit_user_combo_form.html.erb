@@ -29,7 +29,7 @@
           <div class="row margin-top-md">
             <div class="col-xs-12">
               <%#= review_form.select :rate_period, options_for_rate_period, { prompt: 'select rate period' }, class: "form-control margin-bottom-md" %>
-              <h4 class="text-primary"><%= name || one_review.review_item.name %></h4>
+              <h4 class="text-primary"><%= name || one_review.review_item.display_name %></h4>
               <p><%= review_items_by_role.try(:evaluation_criteria) || one_review.review_item.evaluation_criteria %></p>
               <%#= review_form.hidden_field :review_item_id, value: one_review.review_item.id %>
               <%#= review_form.hidden_field :rate_period, class: "rate_period" %>
