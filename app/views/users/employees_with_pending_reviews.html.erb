@@ -20,7 +20,7 @@
       </thead>
 
       <tbody>
-        <% rate_period = month.try(:to_date) || (Date.today - 1.month) %>
+        <% rate_period = month.try(:to_date) || Date.today.end_of_month %>
         <% rate_period_reviews = @user_reviews.where(rate_period: rate_period) %>
         <% if rate_period_reviews.any? %>
           <% users = rate_period_reviews.pluck(:user_id).uniq %>
