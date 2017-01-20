@@ -91,13 +91,13 @@ class UsersController < ApplicationController
     @user_review = UserReview.new
     if current_user.is_admin?
       @users = User.all.order(:last_name)
+    elsif current_user.can_review_users.any?
+      @users = current_user.can_review_users
     elsif current_user.id == current_user.teams.first.try(:team_lead)
       @users = User.joins(:employee_teams).where("employee_teams.team_id = ?", current_user.teams.first.id).order(:last_name)
       if !@users.pluck(:id).include? @user.first.id
         flash[:notice] = "Please select an employee on your team."
       end
-    elsif current_user.can_review_users.any?
-      @users = current_user.can_review_users
     else
       flash[:alert] = "Sorry you don't have access to this page."
     end
