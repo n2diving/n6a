@@ -6,9 +6,7 @@
       <thead>
         <tr>
           <th>name</th>
-          <th>display name</th>
-          <th>evaluation criteria</th>
-          <th>scale</th>
+          <th class="text-center">scale</th>
           <th>start date</th>
           <th>response allowed?</th>
           <% if current_user.is_officer? || (current_user.id == 1) %>
@@ -20,10 +18,8 @@
       <tbody>
         <% @review_items.each do |review_item| %>
           <tr>
-            <td><%= review_item.name %></td>
             <td><%= review_item.display_name %></td>
-            <td><%= review_item.evaluation_criteria %></td>
-            <td><%= review_item.scale %>
+            <td class="text-center"><%= review_item.scale %>
             <td><%= review_item.start_date.strftime("%B %Y") %></td>
             <td><%= review_item.response_allowed ? 'yes' : 'no' %></td>
 
