@@ -58,10 +58,11 @@
           <th>employee</th>
           <th>month</th>
           <!--<th class="text-center">average</th>-->
-          <% headers = ReviewItem.order(:name).pluck(:display_name, :id) %>
+          <% headers = ReviewItem.where(is_weekly: false).order(:name).pluck(:display_name, :id) %>
           <% headers.each do |criteria| %>
             <th class="text-center"><%= criteria[0] %></th>
           <% end %>
+          <th class="text-center no-sort">bonuses</th>
         </tr>
         </thead>
 
@@ -81,6 +82,14 @@
                 <% one_teammember.team_user_review_rows(headers, (rate_period)).each do |one_row| %>
                   <td class="text-center"><%= one_row[1].first %></td>
                 <% end %>
+                <td class="text-center">
+                  <% if one_teammember.weekly_review_item(one_teammember.user_reviews, rate_period).any? %>
+                    <i class="fa fa-trophy text-primary" data-toggle="tooltip" title="Hooray!"></i>
+                    <i class="fa fa-shield text-info"></i>
+                    <i class="fa fa-certificate text-success"></i>
+                    <i class="fa fa-star text-warning"></i>
+                  <% end %>
+                </td>
               </tr>
             <% end%>
           <% else %>
@@ -100,10 +109,11 @@
       <tr>
         <th>month</th>
         <th class="text-center">average</th>
-        <% headers2 = ReviewItem.order(:name).pluck(:display_name, :id) %>
+        <% headers2 = ReviewItem.where(is_weekly: false).order(:name).pluck(:display_name, :id) %>
         <% headers2.each do |criteria| %>
           <th class="text-center"><%= criteria[0] %></th>
         <% end %>
+        <th class="text-center no-sort">bonuses</th>
       </tr>
       </thead>
 
@@ -123,6 +133,7 @@
             <% team_review.team_review_rows(headers2, @team.id, one_month.to_datetime.end_of_month).each do |one_row| %>
               <td class="text-center"><%= one_row[1].first %></td>
             <% end %>
+            <td>bonuses go here</td>
           </tr>
         <% end %>
       <% end%>

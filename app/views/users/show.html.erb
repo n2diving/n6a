@@ -41,10 +41,11 @@
       <tr>
         <th>month</th>
         <th class="text-center">average</th>
-        <% headers = ReviewItem.order(:name).pluck(:display_name, :id) %>
+        <% headers = ReviewItem.where(is_weekly: false).order(:name).pluck(:display_name, :id) %>
         <% headers.each do |criteria| %>
           <th class="text-center"><%= criteria[0] %></th>
         <% end %>
+        <th class="text-center no-sort">bonuses</th>
       </tr>
       </thead>
 
@@ -63,6 +64,16 @@
               <% user_review.user_review_rows(headers, user_review.user.id, one_month.to_datetime.end_of_month).each do |one_row| %>
                 <td class="text-center"><%= one_row[1].first %></td>
               <% end %>
+              <td class="text-center">
+                <% reviews.each do |one_review| %>
+                  <% if one_review.weekly_review_item %>
+                    <i class="fa fa-trophy text-primary" data-toggle="tooltip" title="Hooray!"></i>
+                    <i class="fa fa-shield text-info"></i>
+                    <i class="fa fa-certificate text-success"></i>
+                    <i class="fa fa-star text-warning"></i>
+                  <% end %>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         <% end %>

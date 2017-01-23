@@ -43,4 +43,8 @@ $( document ).on('turbolinks:load', function() {
   if ($('[aria-label^="ranking"]').length > 0) {
     $('[aria-label^="ranking"]')[0].click();
   };
+
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+  });
 });

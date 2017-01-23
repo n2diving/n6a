@@ -71,6 +71,12 @@ class User < ApplicationRecord
     @review_rows
   end
 
+  def weekly_review_item(user_reviews, rate_period)
+    user_reviews.where(rate_period: rate_period).joins(:review_item).where('review_items.is_weekly = true')
+    # raise
+
+  end
+
   def team_average(team, rate_period)
     teammates = EmployeeTeam.where(team_id: team.id).pluck(:user_id)
 

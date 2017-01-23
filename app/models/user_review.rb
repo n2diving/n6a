@@ -45,11 +45,11 @@ class UserReview < ApplicationRecord
 
 
   def normalize_date
-    if self.review_item.is_weekly
-      self.rate_period = self.rate_period.end_of_week
-    else
+    # if self.review_item.is_weekly
+    #   self.rate_period = self.rate_period.end_of_week
+    # else
       self.rate_period = self.rate_period.end_of_month
-    end
+    # end
   end
 
   def user_review_rows(columns, user_id, rate_period)
@@ -87,6 +87,10 @@ class UserReview < ApplicationRecord
       ReviewNote.where(user_review_id: one_record.id).try(:destroy_all)
       one_record.delete
     end
+  end
+
+  def weekly_review_item
+    self.review_item.is_weekly == true
   end
 
   # def employee_team_reviews

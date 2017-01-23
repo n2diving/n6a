@@ -69,6 +69,6 @@ class ReviewItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def review_item_params
-      params.require(:review_item).permit(:name, :display_name, :evaluation_criteria, :scale_min, :scale_max, :start_date,:end_date, :response_allowed, :is_team, :is_weekly)
+      params.require(:review_item).permit(:name, :display_name, :evaluation_criteria, :scale_min, :scale_max, :start_date,:end_date, :response_allowed, :is_team, :is_weekly, :is_displayed )
     end
 end

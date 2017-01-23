@@ -104,7 +104,7 @@ class UsersController < ApplicationController
 
     # raise
 
-    @review_items_by_role = ReviewItemsByRole.where(form_role_id: @user.first.form_role_id).joins(:review_item).order('review_items.display_name').where(review_items: { is_weekly: false, is_team: false } )
+    @review_items_by_role = ReviewItemsByRole.where(form_role_id: @user.first.form_role_id).joins(:review_item).order('review_items.display_name').where(review_items: { is_team: false } )
 
     # @review_items = ReviewItem.order(:name).where(is_team: false, is_weekly: false)
   end
