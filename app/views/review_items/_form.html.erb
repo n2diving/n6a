@@ -1,4 +1,4 @@
-<%= form_for(review_item) do |f| %>
+<%= form_for @review_item do |f| %>
   <% if review_item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(review_item.errors.count, "error") %> prohibited this review_item from being saved:</h2>
@@ -25,6 +25,9 @@
   <br>
   <%= f.check_box :is_weekly, { class: "" }, true, false %>
   <%= f.label :is_weekly, "weekly review item?", { class: "checkbox-inline" } %>
+  <br>
+  <%= f.check_box :is_monthly_bonus, { class: "" }, true, false %>
+  <%= f.label :is_monthly_bonus, "monthly bonus item?", { class: "checkbox-inline" } %>
 
   <%= f.submit "save", class: "btn btn-primary btn-center" %>
 

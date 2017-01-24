@@ -38,7 +38,27 @@
             </div>
           <% end%>
           <hr>
-        <% end%>
+        <% end %>
+
+        <% if @bonus_items_by_role.any? %>
+          <% counter = @review_items_by_role.count %>
+
+          <% @bonus_items_by_role.each_with_index do |bonus_item_by_role, i| %>
+            <%= fields_for "user_reviews[]", one_user do |bonus_form| %>
+              <div class="row">
+                <div class="col-xs-12">
+                  <%= hidden_field_tag "user_reviews[#{i+counter}][review_items_by_role_id]", bonus_item_by_role.id %>
+                  <%= hidden_field_tag "user_reviews[#{i+counter}][review_item_id]", bonus_item_by_role.review_item.id %>
+                  <%= hidden_field_tag "user_reviews[#{i+counter}][rate_period]", Date.today.end_of_month, class: "rate_period" %>
+                  <%= hidden_field_tag "user_reviews[#{i+counter}][rated_by_user_id]", current_user.id %>
+
+                </div>
+              </div>
+
+            <% end%>
+          <% end %>
+        <% end %>
+
       <% end %>
 
       <div class="row">

@@ -24,4 +24,5 @@ end
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  is_weekly           :boolean          default(FALSE)
+#  is_monthly_bonus    :boolean          default(FALSE)
 #

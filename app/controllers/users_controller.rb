@@ -104,7 +104,10 @@ class UsersController < ApplicationController
 
     # raise
 
-    @review_items_by_role = ReviewItemsByRole.where(form_role_id: @user.first.form_role_id).joins(:review_item).order('review_items.display_name').where(review_items: { is_team: false } )
+    @review_items_by_role = ReviewItemsByRole.where(form_role_id: @user.first.form_role_id).joins(:review_item).order('review_items.display_name').where(review_items: { is_team: false, is_weekly: false, is_monthly_bonus: false } )
+
+    @bonus_items_by_role = ReviewItemsByRole.where(form_role_id: @user.first.form_role_id).joins(:review_item).order('review_items.display_name').where(review_items: { is_team: false }).where('review_items.is_weekly = true OR review_items.is_monthly_bonus = true')
+
 
     # @review_items = ReviewItem.order(:name).where(is_team: false, is_weekly: false)
   end
@@ -114,6 +117,8 @@ class UsersController < ApplicationController
     month = params[:rate_period].blank? ? ((Date.today - 1.month).end_of_month) : params[:rate_period].to_date.end_of_month
 
     @user_reviews = @user.user_reviews.where(rate_period: month, rating: nil).joins(:review_item).order('review_items.display_name').where('review_items.is_team = false')
+
+
   end
 
   def update_all
@@ -130,7 +135,7 @@ class UsersController < ApplicationController
       end
       redirect_to users_url, notice: "Employee review has been updated."
     rescue => e
-      redirect_to back, notice: e.inspect
+      redirect_to :back, notice: e.inspect
     end
   end
 
@@ -215,6 +220,9 @@ class UsersController < ApplicationController
       @user = [User.new]
     end
     @review_items = ReviewItem.order(:name).where(is_team: true, is_weekly: false)
+
+    @bonus_items_by_role = ReviewItemsByRole.where(form_role_id: @user.first.form_role_id).joins(:review_item).order('review_items.display_name').where(review_items: { is_team: true }).where('review_items.is_weekly = true OR review_items.is_monthly_bonus = true')
+
   end
 
   def edit_team_rating
