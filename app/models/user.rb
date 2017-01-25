@@ -74,11 +74,18 @@ class User < ApplicationRecord
   def bonus_totals(user_reviews, rate_period)
     list = user_reviews.where(rate_period: rate_period).joins(:review_item).where('review_items.is_weekly = true OR review_items.is_monthly_bonus = true')
     bonus_amount = []
+
     list.each do |one|
-      # raise if !one.review_item.bonus_amount.nil?
-      bonus_amount << (one.review_item.bonus_amount.nil? ? 0 : one.review_item.bonus_amount)
+      if !one.review_item.bonus_amount.nil?
+        if one.multiplier.nil?
+          bonus_amount << one.review_item.bonus_amount
+        else
+          bonus_amount << (one.review_item.bonus_amount * one.multiplier)
+        end
+      end
     end
     bonus_amount.sum
+    
   end
 
   def team_average(team, rate_period)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170125053535) do
+ActiveRecord::Schema.define(version: 20170125092202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,8 @@ ActiveRecord::Schema.define(version: 20170125053535) do
     t.text     "notes"
     t.integer  "review_items_by_role_id"
     t.boolean  "is_archived",             default: false
+    t.boolean  "checked",                 default: false
+    t.integer  "multiplier"
     t.index ["review_item_id"], name: "index_user_reviews_on_review_item_id", using: :btree
     t.index ["review_items_by_role_id"], name: "index_user_reviews_on_review_items_by_role_id", using: :btree
     t.index ["user_id"], name: "index_user_reviews_on_user_id", using: :btree

@@ -17,6 +17,8 @@
 #  notes                   :text
 #  review_items_by_role_id :integer
 #  is_archived             :boolean          default(FALSE)
+#  checked                 :boolean          default(FALSE)
+#  multiplier              :integer
 #
 # Indexes
 #

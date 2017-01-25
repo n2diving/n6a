@@ -60,10 +60,10 @@
             <div class="row">
               <div class="col-xs-12">
                 <% if one_review.review_item.is_monthly_bonus? %>
-                  <%= review_form.check_box :rating, { class: "" }, true, false %>
+                  <%= review_form.check_box :checked, { class: "" }, true, false %>
                   <%= review_form.label :rating, "awarded this month?", { class: "checkbox-inline" } %>
                 <% elsif one_review.review_item.is_weekly? %>
-                  <%= review_form.select :rating, (one_review.review_item.scale_min..one_review.review_item.scale_max), { include_blank: "#{ one_review.review_item.is_weekly? ? 'how many weekly awards this month' : 'rating' }" }, class: "form-control margin-bottom-sm", required: true  %>
+                  <%= review_form.select :multiplier, (one_review.review_item.scale_min..one_review.review_item.scale_max), { include_blank: "how many weekly awards this month" }, class: "form-control margin-bottom-sm", required: true  %>
                 <% end %>
 
               </div>
