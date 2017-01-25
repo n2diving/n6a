@@ -50,6 +50,7 @@ Rails.application.routes.draw do
 
   get   '/edit_team_reviews',            to: 'teams#edit_team_reviews',     as: :edit_team_reviews
 
+  get '/monthly_analysis',  to: 'user_reviews#monthly_analysis',  as: :monthly_analysis
 
 
   # get    '/review_criteria(.:format)',                                 to: 'review_criteria#index',            as: :review_criterias

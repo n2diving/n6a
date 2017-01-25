@@ -1,6 +1,8 @@
 class UserReviewsController < ApplicationController
   before_action :set_user_review, only: [:show, :edit, :update, :destroy]
 
+  include TeamsHelper
+
   # GET /user_reviews
   # GET /user_reviews.json
   def index
@@ -62,7 +64,83 @@ class UserReviewsController < ApplicationController
   end
 
   def monthly_analysis
+    month = params[:rate_period].blank? ? ((Date.today).end_of_month) : params[:rate_period].to_date.end_of_month
+    totm_user_id = UserReview.where(rate_period: month).joins(:review_item). where(review_items: { is_team: false, is_monthly_bonus: true}).try(:user_id)
+    totm = !totm_user_id.blank? ? EmployeeTeam.where(user_id: totm_user_id).team.team_name : nil
+    employee_average = employee_average_high_low(month)
 
+    @group_of_the_month = Team.find(team_ranking(Team.first.id, month)).team_name
+    @team_of_the_month = totm.nil? ? 'No team has been selected for this month.' : totm
+    @producer_of_the_week = User.where(id: UserReview.where(rate_period: month).joins(:review_item). where(review_items: { is_team: false, is_weekly: true}).pluck(:user_id))
+    @individual_by_level = individual_averages_by_role(month)
+    @team_variance = {
+      "average team member" => team_variance(month),
+      "highest individual average" => employee_average[:high],
+      "lowest individual average" => employee_average[:low]
+    }
+    @highest_by_level = highest_kpi_average_by_role(month)
+
+  end
+
+  def individual_averages_by_role(rate_period)
+
+    review_list = UserReview.where(rate_period: rate_period).where.not(rating: nil).joins(:review_items_by_role)
+
+    roles = FormRole.all
+    results = {}
+    roles.each do |one_role|
+      data = review_list.where('review_items_by_roles.id = ?', one_role.id)
+      results[one_role.role] = (review_list.blank? ? 0 : ('%.2f' % (review_list.sum(:rating) / review_list.count.to_f).round(2)))
+    end
+
+    results
+  end
+
+  def team_variance(rate_period)
+    results = []
+    Team.all.each do |one_team|
+      unless team_averages(one_team.id, rate_period, rate_period).to_i == 0
+        results << team_averages(one_team.id, rate_period, rate_period).to_i
+      end
+    end
+
+    results.blank? ? 0 : ('%.2f' % (results.reduce(&:+) / results.length.to_f).round(2))
+  end
+
+  def employee_average_high_low(rate_period)
+
+    list = UserReview.where(rate_period: rate_period).where.not(rating: nil)
+    ratings = []
+    User.all.pluck(:id).each do |one_user_id|
+      data = list.where(user_id: one_user_id)
+        ratings << (data.sum(:rating) / data.count) if !data.blank?
+    end
+
+    ratings.sort!
+
+    results = {
+      high: '%.2f' % ratings.first,
+      low: '%.2f' % ratings.last
+    }
+
+  end
+
+  def highest_kpi_average_by_role(rate_period)
+
+    review_list = UserReview.where(rate_period: rate_period).where.not(rating: nil).joins(:review_item, :review_items_by_role).where(review_items: { is_weekly: false, is_monthly_bonus: false })
+
+    items = ReviewItem.all
+    roles = FormRole.all
+    results = {}
+    roles.each do |one_role|
+      items.each do |one_item|
+        data = review_list.where(user_reviews: { review_item_id: one_item.id, review_items_by_role_id: one_role.id })
+        results[one_role.role] = [one_item.display_name]
+        results[one_role.role] << (data.blank? ? 0 : ('%.2f' % (data.sum(:rating) / data.count.to_f).round(2)))
+      end
+    end
+
+    results
   end
 
   private

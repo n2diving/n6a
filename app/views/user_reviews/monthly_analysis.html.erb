@@ -1,12 +1,116 @@
-<div class="row">
+<% month = params[:rate_period] || (Date.today.end_of_month) %>
+<div class="row text-center">
   <div class="col-xs-12">
     <div class="row">
-      <%= image_tag "N6A_EmbraceThePace_3.jpg", class: "mainpage-logo block" %>
+      <%= image_tag "n6a-logo.png", class: "mainpage-logo block" %>
       <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-        <h2>new employee review</h2>
+        <h2 class="text-center">n6a monthly team analysis</h2>
 
 
+        <div class="row margin-bottom-lg">
+          <div class="col-xs-12">
+            <%= select_tag :rate_period, options_for_select(options_for_rate_period, month), include_blank: "select rate period", class: "form-control", id: "rate_period" %>
+          </div>
+        </div>
       </div>
+
+      <div class="row margin-bottom-lg">
+        <div class="col-xs-12">
+          <h3 class="text-primary">group of the month</h3>
+          <h5><%= @group_of_the_month %></h5>
+        </div>
+      </div>
+
+      <div class="row margin-bottom-lg">
+        <div class="col-xs-12">
+          <h3 class="text-primary">team of the month</h3>
+          <h5><%= @team_of_the_month %></h5>
+        </div>
+      </div>
+
+      <div class="row margin-bottom-lg">
+        <div class="col-xs-12">
+          <h3 class="text-primary">producers of the week</h3>
+          <% if @producers_of_the_week.blank? %>
+            <h5>No weekly producers have been selected for this month.</h5>
+          <% else %>
+            <ul>
+              <% @producers_of_the_week.each do |one_employee| %>
+                <li>
+                  <h5><%= one_employee.full_name %></h5>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row margin-bottom-lg">
+        <div class="col-xs-12">
+          <h3 class="text-primary">average individual ratings by role</h3>
+          <% if @individual_by_level.blank? %>
+            <h5>No data this month.</h5>
+          <% else %>
+            <ul>
+              <% @individual_by_level.each do |one_level| %>
+                <li>
+                  <h5><%= one_level[0] %>: <bold><%= one_level[1] %></bold></h5>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row margin-bottom-lg">
+        <div class="col-xs-12">
+          <h3 class="text-primary">team performance and variance</h3>
+          <% if @team_variance.blank? %>
+            <h5>No data this month.</h5>
+          <% else %>
+            <ul>
+              <% @team_variance.each do |one_result| %>
+                <li>
+                  <h5><%= one_result[0] %>: <bold><%= one_result[1] %></bold></h5>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+      </div>
+
+
+      <div class="row margin-bottom-lg">
+        <div class="col-xs-12">
+          <h3 class="text-primary">highest averages by role</h3>
+          <% if @highest_by_level.blank? %>
+            <h5>No data this month.</h5>
+          <% else %>
+            <ul>
+              <% @highest_by_level.each do |one_level| %>
+                <li>
+                  <h5><%= one_level[0] %>: <bold><%= one_level[1] %></bold></h5>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+      </div>
+
+
     </div>
   </div>
 </div>
+
+
+<script>
+  $(function(){
+    $('select#rate_period').on('change', function () {
+      var url = $(this).val();
+      if (url) {
+        window.location = "?rate_period="+url.split('%')[0];
+      }
+      return false;
+    });
+  });
+</script>
