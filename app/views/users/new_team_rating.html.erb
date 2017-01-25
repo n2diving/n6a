@@ -31,7 +31,9 @@
             <div class="row">
               <div class="col-xs-12">
                 <%= text_area_tag "user_reviews[#{i}][notes]", '', class: "form-control margin-bottom-md", placeholder: "notes", required: true%>
-                <%= select_tag "user_reviews[#{i}][rating]", options_for_select(review_item.scale_min..review_item.scale_max), include_blank: "rating", class: "form-control margin-bottom-md", id: "rate_period" %>
+                <% if !review_item.scale_min.blank? %>
+                  <%= select_tag "user_reviews[#{i}][rating]", options_for_select(review_item.scale_min..review_item.scale_max), include_blank: "rating", class: "form-control margin-bottom-md", id: "rate_period" %>
+                <% end %>
                 <%= hidden_field_tag "user_reviews[#{i}][rated_by_user_id]", current_user.id %>
                 <%= hidden_field_tag "user_reviews[#{i}][is_team]", true %>
               </div>
@@ -40,17 +42,20 @@
           <hr>
         <% end %>
 
-        <% if @bonus_items_by_role.any? %>
-          <% counter = @review_items_by_role.count %>
+        <% if @bonus_items.any? %>
+          <% counter = @bonus_items.count %>
 
-          <% @bonus_items_by_role.each_with_index do |bonus_item_by_role, i| %>
+          <% @bonus_items.each_with_index do |bonus_item, i| %>
             <%= fields_for "user_reviews[]", one_user do |bonus_form| %>
               <div class="row">
                 <div class="col-xs-12">
-                  <%= hidden_field_tag "user_reviews[#{i+counter}][review_items_by_role_id]", bonus_item_by_role.id %>
-                  <%= hidden_field_tag "user_reviews[#{i+counter}][review_item_id]", bonus_item_by_role.review_item.id %>
+                  <h4 class="text-primary"><%= bonus_item.display_name %></h4>
+                  <%= hidden_field_tag "user_reviews[#{i+counter}][review_items_by_role_id]", 0 %>
+                  <%= hidden_field_tag "user_reviews[#{i+counter}][review_item_id]", bonus_item.id %>
                   <%= hidden_field_tag "user_reviews[#{i+counter}][rate_period]", Date.today.end_of_month, class: "rate_period" %>
                   <%= hidden_field_tag "user_reviews[#{i+counter}][rated_by_user_id]", current_user.id %>
+                  <%= check_box_tag "user_reviews[#{i+counter}][rate_period]", checked: false, class: "form-control" %>
+                  <%= label_tag :checked, "awarded this month?", { class: "checkbox-inline" } %>
 
                 </div>
               </div>

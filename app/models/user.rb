@@ -85,7 +85,7 @@ class User < ApplicationRecord
       end
     end
     bonus_amount.sum
-    
+
   end
 
   def team_average(team, rate_period)

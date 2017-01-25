@@ -20,7 +20,6 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user_reviews = @user.user_reviews
-    @non_bonus_user_reviews = @user_reviews.joins(:review_item).where('review_items.is_weekly = false OR review_items.is_monthly_bonus = false')
     @rate_periods = UserReview.all.pluck(:rate_period).uniq.sort.map{ |x| x.strftime("%B %Y") }
     @months = I18n.t("date.month_names").drop(0)
     @team_list = Team.where(id: UserReview.where.not(rating: nil).joins(user: { employee_teams: :team }).pluck(:team_id).uniq)
@@ -220,9 +219,9 @@ class UsersController < ApplicationController
     else
       @user = [User.new]
     end
-    @review_items = ReviewItem.order(:name).where(is_team: true, is_weekly: false)
+    @review_items = ReviewItem.order(:display_name).where(is_team: true).where(is_monthly_bonus: false)
 
-    @bonus_items_by_role = ReviewItemsByRole.where(form_role_id: @user.first.form_role_id).joins(:review_item).order('review_items.display_name').where(review_items: { is_team: true }).where('review_items.is_weekly = true OR review_items.is_monthly_bonus = true')
+    @bonus_items= ReviewItem.order(:display_name).where(is_team: true).where(is_monthly_bonus: true)
 
   end
 
@@ -264,9 +263,15 @@ class UsersController < ApplicationController
       employee_ids.each do |one_user_id|
         params[:user_reviews].keys.each do |one_review|
 
+          if params[:user_reviews][one_review][:review_item_id].include?(">")
+            review_item_id = params[:user_reviews][one_review][:review_item_id].split(">")[1].split("}")[0]
+          else
+            review_item_id = params[:user_reviews][one_review][:review_item_id]
+          end
+
           UserReview.create(
             user_id: one_user_id,
-            review_item_id: params[:user_reviews][one_review][:review_item_id].split(">")[1].split("}")[0],
+            review_item_id: review_item_id,
             rate_period: params[:user_reviews][one_review][:rate_period],
             notes: params[:user_reviews][one_review][:notes],
             rating: params[:user_reviews][one_review][:rating],
