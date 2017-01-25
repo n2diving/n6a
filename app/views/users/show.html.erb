@@ -40,6 +40,7 @@
       <thead>
       <tr>
         <th>month</th>
+        <th class="text-center">adjusted average</th>
         <th class="text-center">average</th>
         <% headers = ReviewItem.where(is_weekly: false, is_monthly_bonus: false).order(:name).pluck(:display_name, :id) %>
         <% headers.each do |criteria| %>
@@ -62,6 +63,7 @@
             <tr>
               <td><%= one_month %></td>
               <td class="text-center"><%= ((average.reduce(:+) / average.size.to_f).round(2)) + bonus_totals %></td>
+              <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
               <% user_review.user_review_rows(headers, user_review.user.id, one_month.to_datetime.end_of_month).each do |one_row| %>
                 <td class="text-center"><%= one_row[1].first %></td>
               <% end %>
