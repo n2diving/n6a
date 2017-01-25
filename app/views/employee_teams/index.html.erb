@@ -8,7 +8,7 @@
           <th>user</th>
           <th>team</th>
           <th>team lead?</th>
-          <% if current_user.is_admin %>
+          <% if current_user.is_admin || current_user.is_officer %>
             <th class="text-center no-sort">actions</th>
           <% end %>
         </tr>
@@ -20,7 +20,7 @@
             <td><%= employee_team.user.full_name %></td>
             <td><%= employee_team.team.team_name %></td>
             <td><%= employee_team.team_lead ? 'yes' : 'no' %></td>
-            <% if current_user.is_admin %>
+            <% if current_user.is_admin || current_user.is_officer %>
               <td class="text-center">
                 <%= link_to edit_employee_team_path(employee_team), class: "margin-right-sm" do %>
                   <i class="fa fa-cog text-primary"></i>

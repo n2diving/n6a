@@ -7,8 +7,12 @@
         <tr>
           <th>name</th>
           <th class="text-center">scale</th>
-          <th>start date</th>
-          <th>response allowed?</th>
+          <th class="text-center">start date</th>
+          <th class="text-center">response allowed?</th>
+          <th class="text-center">is team?</th>
+          <th class="text-center">is weekly?</th>
+          <th class="text-center">is monthly bonus?</th>
+          <th class="text-center">bonus amount</th>
           <% if current_user.is_officer? || (current_user.id == 1) %>
             <th class="text-center no-sort">actions</th>
           <% end %>
@@ -20,8 +24,12 @@
           <tr>
             <td><%= review_item.display_name %></td>
             <td class="text-center"><%= review_item.scale %>
-            <td><%= review_item.start_date.strftime("%B %Y") %></td>
-            <td><%= review_item.response_allowed ? 'yes' : 'no' %></td>
+            <td class="text-center"><%= review_item.start_date.strftime("%B %Y") %></td>
+            <td class="text-center"><%= review_item.response_allowed ? 'yes' : 'no' %></td>
+            <td class="text-center"><%= review_item.is_team ? 'yes' : 'no' %></td>
+            <td class="text-center"><%= review_item.is_weekly ? 'yes' : 'no' %></td>
+            <td class="text-center"><%= review_item.is_monthly_bonus ? 'yes' : 'no' %></td>
+            <td class="text-center"><%= review_item.bonus_amount %></td>
 
             <% if current_user.is_officer? || (current_user.id == 1) %>
               <td class="text-center">

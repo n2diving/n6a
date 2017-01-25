@@ -28,6 +28,9 @@
   <br>
   <%= f.check_box :is_monthly_bonus, { class: "" }, true, false %>
   <%= f.label :is_monthly_bonus, "monthly bonus item?", { class: "checkbox-inline" } %>
+  <div class="margin-bottom-md"></div>
+  <%= f.number_field :bonus_amount, class: "form-control margin-bottom-md", placeholder: "bonus amount", step: "0.01" %>
+
 
   <%= f.submit "save", class: "btn btn-primary btn-center" %>
 
