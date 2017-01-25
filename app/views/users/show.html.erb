@@ -41,7 +41,7 @@
       <tr>
         <th>month</th>
         <th class="text-center">average</th>
-        <% headers = ReviewItem.where(is_weekly: false).order(:name).pluck(:display_name, :id) %>
+        <% headers = ReviewItem.where(is_weekly: false, is_monthly_bonus: false).order(:name).pluck(:display_name, :id) %>
         <% headers.each do |criteria| %>
           <th class="text-center"><%= criteria[0] %></th>
         <% end %>
@@ -56,22 +56,22 @@
           <% nope = true if reviews.any? %>
           <% average = reviews.pluck(:rating) %>
           <% user_review = reviews.first %>
+          <% bonus_totals = bonus_totals(reviews) %>
           <%#= user_review.inspect %>
           <% unless user_review.blank? %>
             <tr>
               <td><%= one_month %></td>
-              <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
+              <td class="text-center"><%= ((average.reduce(:+) / average.size.to_f).round(2)) + bonus_totals %></td>
               <% user_review.user_review_rows(headers, user_review.user.id, one_month.to_datetime.end_of_month).each do |one_row| %>
                 <td class="text-center"><%= one_row[1].first %></td>
               <% end %>
               <td class="text-center">
-                <% reviews.each do |one_review| %>
-                  <% if one_review.weekly_review_item %>
-                    <i class="fa fa-trophy text-primary" data-toggle="tooltip" title="Hooray!"></i>
-                    <i class="fa fa-shield text-info"></i>
-                    <i class="fa fa-certificate text-success"></i>
-                    <i class="fa fa-star text-warning"></i>
-                  <% end %>
+                <% if bonus_totals > 0 %>
+                  <%= bonus_totals %>
+                  <!--<i class="fa fa-trophy text-primary" data-toggle="tooltip" title="Hooray!"></i>-->
+                  <!--<i class="fa fa-shield text-info"></i>-->
+                  <!--<i class="fa fa-certificate text-success"></i>-->
+                  <!--<i class="fa fa-star text-warning"></i>-->
                 <% end %>
               </td>
             </tr>

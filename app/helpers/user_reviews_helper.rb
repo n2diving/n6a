@@ -12,4 +12,12 @@ module UserReviewsHelper
     options
   end
 
+  def bonus_totals(user_reviews)
+    bonus_amount = []
+    user_reviews.each do |one|
+      bonus_amount << (one.review_item.bonus_amount.nil? ? 0 : one.review_item.bonus_amount)
+    end
+    bonus_amount.sum
+  end
+
 end

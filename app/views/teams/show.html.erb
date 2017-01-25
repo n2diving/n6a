@@ -58,7 +58,7 @@
           <th>employee</th>
           <th>month</th>
           <!--<th class="text-center">average</th>-->
-          <% headers = ReviewItem.where(is_weekly: false).order(:name).pluck(:display_name, :id) %>
+          <% headers = ReviewItem.where(is_weekly: false, is_monthly_bonus: false).order(:name).pluck(:display_name, :id) %>
           <% headers.each do |criteria| %>
             <th class="text-center"><%= criteria[0] %></th>
           <% end %>
@@ -71,6 +71,7 @@
           <% if teammates.any? %>
             <% teammates.each do |one_teammember| %>
               <% rate_period = month.try(:to_date) || (Date.today - 1.month) %>
+              <% bonus_totals = one_teammember.bonus_totals(one_teammember.user_reviews, rate_period) %>
               <tr>
                 <% if permission %>
                   <td><%= link_to one_teammember.full_name, one_teammember %></td>
@@ -83,11 +84,12 @@
                   <td class="text-center"><%= one_row[1].first %></td>
                 <% end %>
                 <td class="text-center">
-                  <% if one_teammember.weekly_review_item(one_teammember.user_reviews, rate_period).any? %>
-                    <i class="fa fa-trophy text-primary" data-toggle="tooltip" title="Hooray!"></i>
-                    <i class="fa fa-shield text-info"></i>
-                    <i class="fa fa-certificate text-success"></i>
-                    <i class="fa fa-star text-warning"></i>
+                  <% if bonus_totals > 0 %>
+                    <%= bonus_totals %>
+                    <!--<i class="fa fa-trophy text-primary" data-toggle="tooltip" title="Hooray!"></i>-->
+                    <!--<i class="fa fa-shield text-info"></i>-->
+                    <!--<i class="fa fa-certificate text-success"></i>-->
+                    <!--<i class="fa fa-star text-warning"></i>-->
                   <% end %>
                 </td>
               </tr>
@@ -109,7 +111,7 @@
       <tr>
         <th>month</th>
         <th class="text-center">average</th>
-        <% headers2 = ReviewItem.where(is_weekly: false).order(:name).pluck(:display_name, :id) %>
+        <% headers2 = ReviewItem.where(is_weekly: false, is_monthly_bonus: false).order(:name).pluck(:display_name, :id) %>
         <% headers2.each do |criteria| %>
           <th class="text-center"><%= criteria[0] %></th>
         <% end %>
