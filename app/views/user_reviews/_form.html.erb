@@ -12,7 +12,7 @@
   <% end %>
 
   <%= f.select :rate_period, options_for_select(options_for_rate_period, Date.today.end_of_month), { prompt: 'select rate period' }, class: "form-control margin-bottom-md" %>
-  <%= f.select :review_item_id, ReviewItem.all.order(:name).collect { |r| [ r.name, r.id ] }, { include_blank: "select review item" }, class: "form-control margin-bottom-md" %>
+  <%= f.select :review_item_id, ReviewItem.all.order(:name).collect { |r| [ r.display_name, r.id ] }, { include_blank: "select review item" }, class: "form-control margin-bottom-md" %>
   <%= f.select :user_id, User.all.collect { |u| [ u.full_name, u.id ] }, { include_blank: "employee name" }, class: "form-control margin-bottom-md" %>
   <%= f.text_area :pros, class: "form-control margin-bottom-md", placeholder: "pros"%>
   <%= f.text_area :cons, class: "form-control margin-bottom-md", placeholder: "cons"%>
