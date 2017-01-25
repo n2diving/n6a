@@ -53,8 +53,8 @@
       <tbody>
         <% nope = false %>
         <% @rate_periods.each do |one_month| %>
-          <% reviews =  @user_reviews.where(rate_period: one_month.to_datetime.end_of_month).where.not(rating: nil) %>
-          <% nope = true if reviews.any? %>
+          <% reviews =  @user_reviews.where(rate_period: one_month.to_datetime.end_of_month).where.not(rating: nil).joins(:review_item).where('review_items.is_weekly = false OR review_items.is_monthly_bonus = false') %>
+        <% nope = true if reviews.any? %>
           <% average = reviews.pluck(:rating) %>
           <% user_review = reviews.first %>
           <% bonus_totals = bonus_totals(reviews) %>
