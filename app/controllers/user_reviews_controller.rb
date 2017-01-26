@@ -79,7 +79,7 @@ class UserReviewsController < ApplicationController
       "lowest individual average" => employee_average[:low]
     }
     @highest_by_level = highest_kpi_average_by_role(month)
-    @lowest_by_level = highest_kpi_average_by_role(month)
+    @lowest_by_level = lowest_kpi_average_by_role(month)
 
   end
 
@@ -147,6 +147,31 @@ class UserReviewsController < ApplicationController
 
     results.each_with_index do |k,v|
       results[k.first] = results[k.first].sort_by {|k,v| v.to_f}.reverse.to_h
+    end
+
+    results
+
+  end
+
+  def lowest_kpi_average_by_role(rate_period)
+
+    review_list = UserReview.where(rate_period: rate_period).where.not(rating: nil).joins(:review_item, :review_items_by_role)
+
+    items = ReviewItem.where(is_weekly: false, is_monthly_bonus: false)
+    roles = FormRole.no_team.limited
+    results = {}
+    roles.each do |one_role|
+      results[one_role.role] = {}
+      items.each do |one_item|
+        data = review_list.where(user_reviews: { review_item_id: one_item.id }).where('review_items_by_roles.form_role_id = ?', one_role.id)
+        average = (data.blank? ? "0.00" : ('%.2f' % (data.sum(:rating) / data.count.to_f).round(2)))
+        results[one_role.role][one_item.display_name] = average
+      end
+    end
+
+
+    results.each_with_index do |k,v|
+      results[k.first] = results[k.first].sort_by {|k,v| v.to_f}.to_h
     end
 
     results

@@ -107,7 +107,7 @@
             <ul>
               <% @lowest_by_level.each do |one_level| %>
                 <li>
-                  <h5><%= one_level[0] %>: <bold><%= one_level[1].keys.last %></bold> (<%= one_level[1].values.last %>) </h5>
+                  <h5><%= one_level[0] %>: <bold><%= one_level[1].first[0] %></bold> (<%= one_level[1].first[1] %>) </h5>
                 </li>
               <% end %>
             </ul>
