@@ -44,6 +44,14 @@ table.dataTable.no-footer {
   border-bottom: none;
 }
 
+ul {
+  list-style-position: inside;
+  padding-left: 0;
+  & > li {
+    margin-left: 0;
+  }
+}
+
 //.chart-legend li span{
 //  display: inline-block;
 //  width: 20px;
