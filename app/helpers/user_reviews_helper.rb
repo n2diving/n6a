@@ -23,7 +23,7 @@ module UserReviewsHelper
         end
       end
     end
-    bonus_amount.sum
+    bonus_amount
   end
 
 end

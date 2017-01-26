@@ -54,16 +54,17 @@
         <% nope = false %>
         <% @rate_periods.each do |one_month| %>
         <% reviews =  @user_reviews.where(rate_period: one_month.to_datetime.end_of_month).where.not(rating: nil) %>
-          <% non_bonus_reviews = @non_bonus_user_reviews.where(rate_period: one_month.to_datetime.end_of_month).where.not(rating: nil) %>
-          <% nope = true if reviews.any? %>
-          <% average = non_bonus_reviews.pluck(:rating) %>
-          <% user_review = reviews.first %>
-          <% bonus_totals = bonus_totals(reviews) %>
+        <% non_bonus_reviews = @non_bonus_user_reviews.where(rate_period: one_month.to_datetime.end_of_month).where.not(rating: nil) %>
+        <% nope = true if reviews.any? %>
+        <% average = reviews.pluck(:rating) %>
+        <% average.reject! {|x| x == 0} %>
+        <% user_review = reviews.first %>
+        <% bonus = bonus_totals(reviews) %>
           <%#= user_review.inspect %>
           <% unless user_review.blank? %>
             <tr>
               <td><%= one_month %></td>
-              <td class="text-center"><%= ((average.reduce(:+) / average.size.to_f).round(2)) + bonus_totals %></td>
+              <td class="text-center"><%= ((average.reduce(:+) / average.size.to_f).round(2)) + bonus.sum %></td>
               <% puts 'bonus_totals' %>
               <% puts bonus_totals %>
               <% puts 'adjusted average' %>
@@ -73,8 +74,8 @@
                 <td class="text-center"><%= one_row[1].first %></td>
               <% end %>
               <td class="text-center">
-                <% if bonus_totals > 0 %>
-                  <%= bonus_totals %>
+                <% if !bonus.blank? %>
+                  <%= bonus.sum %>
                   <!--<i class="fa fa-trophy text-primary" data-toggle="tooltip" title="Hooray!"></i>-->
                   <!--<i class="fa fa-shield text-info"></i>-->
                   <!--<i class="fa fa-certificate text-success"></i>-->
