@@ -80,10 +80,17 @@ class TeamsController < ApplicationController
 
     @review_items = ReviewItem.order(:name).where(is_team: true, is_weekly: false)
 
-    if current_user.is_admin || current_user.is_officer?
-      @user_reviews = UserReview.joins(:review_item).where('review_items.is_team = true').joins(:review_note).where.not("review_notes.general_notes is null")
-    elsif (current_user.id == current_user.teams.first.try(:team_lead))
-      @user_reviews = UserReview.joins(:review_item).where('review_items.is_team = true').left_outer_joins(:review_note).where(review_notes: { user_review_id: nil })
+    # if current_user.is_admin || current_user.is_officer?
+    #   @user_reviews = UserReview.joins(:review_item).where('review_items.is_team = true').joins(:review_note).where.not("review_notes.general_notes is null")
+    # elsif (current_user.id == current_user.teams.first.try(:team_lead))
+    #   @user_reviews = UserReview.joins(:review_item).where('review_items.is_team = true').left_outer_joins(:review_note).where(review_notes: { user_review_id: nil })
+    # else
+    #   flash[:notice] = "Sorry you don't have access to this page."
+    #   redirect_to :root
+    # end
+
+    if current_user.is_admin || current_user.is_officer? || (current_user.id == current_user.teams.first.try(:team_lead))
+      @user_reviews = UserReview.joins(:review_item).where('review_items.is_team = true')
     else
       flash[:notice] = "Sorry you don't have access to this page."
       redirect_to :root
