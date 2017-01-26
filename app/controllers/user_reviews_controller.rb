@@ -142,7 +142,7 @@ class UserReviewsController < ApplicationController
     end
 
     results
-    
+
   end
 
   private

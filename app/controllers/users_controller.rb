@@ -216,6 +216,10 @@ class UsersController < ApplicationController
     if params[:team_id]
       team = Team.find(params[:team_id])
       @user = [User.joins(:employee_teams).where('employee_teams.team_id = ?', team.id).first]
+      if @user.first.nil?
+        flash[:notice] = "Sorry there are no employees on #{team.team_name} to rate."
+        redirect_to :teams
+      end
     else
       @user = [User.new]
     end
@@ -269,15 +273,17 @@ class UsersController < ApplicationController
             review_item_id = params[:user_reviews][one_review][:review_item_id]
           end
 
-          UserReview.create(
+          UserReview.create!(
             user_id: one_user_id,
             review_item_id: review_item_id,
+            review_items_by_role_id: params[:user_reviews][one_review][:review_items_by_role_id],
             rate_period: params[:user_reviews][one_review][:rate_period],
             notes: params[:user_reviews][one_review][:notes],
             rating: params[:user_reviews][one_review][:rating],
             rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
             is_team: true,
-            notes_allowed: true
+            notes_allowed: true,
+            checked: (params[:user_reviews][one_review][:checked].nil? ? false : true)
           )
         end
       end

@@ -1,6 +1,9 @@
 class FormRole < ApplicationRecord
   has_many :review_items_by_roles
   validates_uniqueness_of :role
+
+  default_scope { where.not(role: 'team') }
+
 end
 
 # == Schema Information
