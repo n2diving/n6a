@@ -41,7 +41,7 @@
             <div class="row">
               <div class="col-xs-12">
                 <% if !one_review.review_item.is_monthly_bonus? %>
-                  <%= review_form.text_area :notes, class: "form-control margin-bottom-md", placeholder: one_review.notes.nil? ? "notes" : one_review.notes, disabled: team_lead %>
+                  <%= review_form.text_area :notes, class: "form-control margin-bottom-md", placeholder: one_review.notes.nil? ? "notes" : one_review.notes %>
                 <% end %>
               </div>
               <div class="col-xs-12">
@@ -50,7 +50,7 @@
                     <%= review_form.check_box :checked, { class: "" }, true, false %>
                     <%= review_form.label :checked, "awarded this month?", { class: "checkbox-inline" } %>
                   <% else %>
-                    <%= review_form.select :rating, (one_review.review_item.scale_min..one_review.review_item.scale_max), { include_blank: "rating" }, class: "form-control margin-bottom-sm", disabled: team_lead %>
+                    <%= review_form.select :rating, (one_review.review_item.scale_min..one_review.review_item.scale_max), { include_blank: "rating" }, class: "form-control margin-bottom-sm" %>
                   <% end %>
                 <% end %>
 
