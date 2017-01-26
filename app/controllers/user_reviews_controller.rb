@@ -75,8 +75,8 @@ class UserReviewsController < ApplicationController
     @individual_by_level = individual_averages_by_role(month)
     @team_variance = {
       "average team member" => team_variance(month),
-      "highest individual average" => employee_average[:high],
-      "lowest individual average" => employee_average[:low]
+      "highest individual average" => employee_average[:low],
+      "lowest individual average" => employee_average[:high]
     }
     @highest_by_level = highest_kpi_average_by_role(month)
     @lowest_by_level = highest_kpi_average_by_role(month)
@@ -90,7 +90,7 @@ class UserReviewsController < ApplicationController
     roles = FormRole.no_team
     results = {}
     roles.each do |one_role|
-      data = review_list.where('review_items_by_roles.id = ?', one_role.id)
+      data = review_list.where('review_items_by_roles.form_role_id = ?', one_role.id)
       results[one_role.role] = (review_list.blank? ? 0 : ('%.2f' % (review_list.sum(:rating) / review_list.count.to_f).round(2)))
     end
 
