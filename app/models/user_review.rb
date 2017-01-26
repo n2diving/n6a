@@ -98,10 +98,14 @@ class UserReview < ApplicationRecord
   end
 
   def review_noted
-    team = EmployeeTeam.where(user_id: self.user_id).first.team
-    user_ids = EmployeeTeam.where(team_id: team.id).pluck(:user_id)
-    review_ids = UserReview.where(rate_period: self.rate_period, id: user_ids).pluck(:id)
-    ReviewNote.where(user_review_id: review_ids).first.try(:general_notes)
+
+    ReviewNote.all.joins(user_review: :review_item).where('review_items.id = ?', self.review_item_id).last.try(:general_notes)
+
+
+    # team = EmployeeTeam.where(user_id: self.user_id).first.team
+    # user_ids = EmployeeTeam.where(team_id: team.id).pluck(:user_id)
+    # review_ids = UserReview.where(rate_period: self.rate_period, id: user_ids).pluck(:id)
+    # ReviewNote.where(user_review_id: review_ids).first.try(:general_notes)
   end
 
   # def employee_team_reviews
