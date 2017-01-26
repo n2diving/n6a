@@ -127,7 +127,7 @@
         <% reviews =  @team_reviews.where(rate_period: one_month.to_datetime.end_of_month).where.not(rating: nil) %>
         <% average = reviews.pluck(:rating) %>
         <% team_review = reviews.first %>
-        <% bonus_totals = bonus_totals(reviews) %>
+        <% bonus = bonus_totals(reviews) %>
         <%#= team_review.inspect %>
         <% unless team_review.blank? %>
           <tr>
@@ -137,8 +137,8 @@
               <td class="text-center"><%= one_row[1].first %></td>
             <% end %>
             <td class="text-center">
-              <% if bonus_totals > 0 %>
-                <%= bonus_totals %>
+              <% if !bonus.blank? %>
+                <%= bonus.sum %>
                 <!--<i class="fa fa-trophy text-primary" data-toggle="tooltip" title="Hooray!"></i>-->
                 <!--<i class="fa fa-shield text-info"></i>-->
                 <!--<i class="fa fa-certificate text-success"></i>-->
