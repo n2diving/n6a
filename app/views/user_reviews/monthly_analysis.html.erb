@@ -52,9 +52,9 @@
             <h5>No data this month.</h5>
           <% else %>
             <ul>
-              <% @individual_by_level.each do |one_level| %>
+              <% @individual_by_level.each do |k,v| %>
                 <li>
-                  <h5><%= one_level[0] %>: <bold><%= one_level[1] %></bold></h5>
+                  <h5><%= k %>: <bold><%= v %></bold></h5>
                 </li>
               <% end %>
             </ul>
