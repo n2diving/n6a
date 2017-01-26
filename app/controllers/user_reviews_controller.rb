@@ -126,6 +126,8 @@ class UserReviewsController < ApplicationController
       high: '%.2f' % ratings.last
     }
 
+    results
+
   end
 
   def highest_kpi_average_by_role(rate_period)
