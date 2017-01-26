@@ -53,7 +53,7 @@
       <tbody>
         <% nope = false %>
         <% @rate_periods.each do |one_month| %>
-        <% reviews =  @user_reviews.where(rate_period: one_month.to_datetime.end_of_month)%>
+        <% reviews = @user_reviews.where(rate_period: one_month.to_datetime.end_of_month)%>
         <% non_bonus_reviews = @non_bonus_user_reviews.where(rate_period: one_month.to_datetime.end_of_month).where.not(rating: nil) %>
         <% nope = true if reviews.any? %>
         <% average = reviews.pluck(:rating) %>
@@ -94,6 +94,45 @@
         <% end %>
       </tbody>
     </table>
+
+
+
+
+
+
+    <hr>
+    <%# raise %>
+    <% month =  '01/01/2017'.to_date.end_of_month %>
+    <% reviews2 =  @user_reviews.where(rate_period: month) %>
+    <% list = ReviewItem.where(id: reviews2.pluck(:review_item_id)) %>
+
+    <table class="table table-striped table-hover table-bordered datatable">
+      <thead>
+        <tr>
+          <th>month</th>
+          <th>rating criteria</th>
+          <th>pros</th>
+          <th>cons</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% list.each do |one_review_item| %>
+          <tr>
+            <td><%= month.strftime("%B %Y") %></td>
+            <td><%= one_review_item.display_name %></td>
+            <td><%= reviews2.where(review_item_id: one_review_item.id).first.pros %></td>
+            <td><%= reviews2.where(review_item_id: one_review_item.id).first.cons %></td>
+          </tr>
+        <% end %>
+
+      </tbody>
+    </table>
+
+
+
+
+
 
 
     <%#= link_to 'Edit', edit_user_path(@user) %>
