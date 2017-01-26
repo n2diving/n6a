@@ -79,6 +79,7 @@ class UserReviewsController < ApplicationController
       "lowest individual average" => employee_average[:low]
     }
     @highest_by_level = highest_kpi_average_by_role(month)
+    @lowest_by_level = highest_kpi_average_by_role(month)
 
   end
 
