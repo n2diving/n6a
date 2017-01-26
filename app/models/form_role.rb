@@ -4,6 +4,7 @@ class FormRole < ApplicationRecord
 
   # default_scope { where.not(role: 'team') }
   scope :no_team, -> { where.not(role: 'team') }
+  scope :limited, -> { where(abbreviation: ["AM", "AC", "AE", "SAE", "EMP"])}
 
 end
 
