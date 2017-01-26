@@ -91,7 +91,7 @@ class UserReviewsController < ApplicationController
     results = {}
     roles.each do |one_role|
       data = review_list.where('review_items_by_roles.form_role_id = ?', one_role.id)
-      results[one_role.role] = (review_list.blank? ? 0 : ('%.2f' % (review_list.sum(:rating) / review_list.count.to_f).round(2)))
+      results[one_role.role] = (data.blank? ? 0 : ('%.2f' % (data.sum(:rating) / data.count.to_f).round(2)))
     end
 
     results
