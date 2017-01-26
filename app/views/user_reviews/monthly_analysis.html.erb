@@ -101,15 +101,13 @@
       <div class="row margin-bottom-lg">
         <div class="col-xs-12">
           <h3 class="text-primary">lowest averages by role</h3>
-          <% puts 'lowestlevel' %>
-          <% puts @lowest_by_level.inspect %>
           <% if @lowest_by_level.blank? %>
             <h5>No data this month.</h5>
           <% else %>
             <ul>
               <% @lowest_by_level.each do |one_level| %>
                 <li>
-                  <h5><%= one_level[0] %>: <bold><%= one_level[1].first[0] %></bold> (<%= one_level[1].first[1] %>) </h5>
+                  <h5><%= one_level[0] %>: <bold><%= one_level[1].keys.last %></bold> (<%= one_level[1].values.last %>) </h5>
                 </li>
               <% end %>
             </ul>
