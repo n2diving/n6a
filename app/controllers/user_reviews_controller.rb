@@ -71,12 +71,12 @@ class UserReviewsController < ApplicationController
 
     @group_of_the_month = Team.find(team_ranking(Team.first.id, month)).team_name
     @team_of_the_month = totm.nil? ? 'No team has been selected for this month.' : totm
-    @producer_of_the_week = User.where(id: UserReview.where(rate_period: month).joins(:review_item). where(review_items: { is_team: false, is_weekly: true}).pluck(:user_id))
+    @producer_of_the_week = User.where(id: UserReview.where(rate_period: month).joins(:review_item).where(review_items: { is_team: false, is_weekly: true}).pluck(:user_id))
     @individual_by_level = individual_averages_by_role(month)
     @team_variance = {
       "average team member" => team_variance(month),
-      "highest individual average" => employee_average[:low],
-      "lowest individual average" => employee_average[:high]
+      "highest individual average" => employee_average[:high],
+      "lowest individual average" => employee_average[:low]
     }
     @highest_by_level = highest_kpi_average_by_role(month)
     @lowest_by_level = highest_kpi_average_by_role(month)
@@ -120,8 +120,8 @@ class UserReviewsController < ApplicationController
     ratings.sort!
 
     results = {
-      high: '%.2f' % ratings.first,
-      low: '%.2f' % ratings.last
+      low: '%.2f' % ratings.first,
+      high: '%.2f' % ratings.last
     }
 
   end
