@@ -111,19 +111,41 @@
         <tr>
           <th>month</th>
           <th>rating criteria</th>
-          <th>pros</th>
-          <th>cons</th>
+          <th>notes</th>
         </tr>
       </thead>
 
       <tbody>
         <% list.each do |one_review_item| %>
           <% if !reviews2.blank? %>
+            <% pros = reviews2.where(review_item_id: one_review_item.id).first.pros %>
+            <% cons = reviews2.where(review_item_id: one_review_item.id).first.cons %>
+            <% notes = reviews2.where(review_item_id: one_review_item.id).first.review_note.try(:general_notes) %>
             <tr>
               <td><%= month.strftime("%B %Y") %></td>
               <td><%= one_review_item.display_name %></td>
-              <td><%= reviews2.where(review_item_id: one_review_item.id).first.pros %></td>
-              <td><%= reviews2.where(review_item_id: one_review_item.id).first.cons %></td>
+              <td>
+                <ul>
+                  <% if !pros.blank? %>
+                    <li>
+                      PROS:
+                      <%= pros %>
+                    </li>
+                  <% end %>
+                  <% if !cons.blank? %>
+                    <li>
+                      CONS:
+                      <%= cons %>
+                    </li>
+                  <% end %>
+                  <% if !notes.blank? %>
+                    <li>
+                      NOTES:
+                      <%= notes %>
+                    </li>
+                  <% end %>
+                </ul>
+              </td>
             </tr>
           <% else %>
             <tr>
