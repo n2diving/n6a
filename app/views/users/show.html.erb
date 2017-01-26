@@ -118,12 +118,21 @@
 
       <tbody>
         <% list.each do |one_review_item| %>
-          <tr>
-            <td><%= month.strftime("%B %Y") %></td>
-            <td><%= one_review_item.display_name %></td>
-            <td><%= reviews2.where(review_item_id: one_review_item.id).first.pros %></td>
-            <td><%= reviews2.where(review_item_id: one_review_item.id).first.cons %></td>
-          </tr>
+          <% if !reviews2.blank? %>
+             <tr>
+              <td><%= month.strftime("%B %Y") %></td>
+              <td><%= one_review_item.display_name %></td>
+              <td><%= reviews2.where(review_item_id: one_review_item.id).first.pros %></td>
+              <td><%= reviews2.where(review_item_id: one_review_item.id).first.cons %></td>
+            </tr>
+          <% else %>
+            <tr>
+              <td colspan="15">
+                <em>There is no data to display.</em>
+              </td>
+            </tr>
+          <% end %>
+
         <% end %>
 
       </tbody>
