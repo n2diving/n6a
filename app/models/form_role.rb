@@ -3,6 +3,7 @@ class FormRole < ApplicationRecord
   validates_uniqueness_of :role
 
   # default_scope { where.not(role: 'team') }
+  scope :no_team, -> { where.not(role: 'team') }
 
 end
 

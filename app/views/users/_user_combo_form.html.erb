@@ -7,7 +7,7 @@
       <%= select_tag :id, options_for_select( @users.all.collect { |u| [ u.full_name, u.id ] }, params[:id]), include_blank: "employee name", class: "form-control margin-bottom-sm", required: true %>
 
       <% if form_role.nil? %>
-        <%= select_tag :form_role_id, options_for_select( FormRole.all.collect { |fr| [ fr.role, fr.id ] }, @user.first.form_role_id), include_blank: "select form type", class: "form-control margin-bottom-sm", id: "form_role", required: true %>
+        <%= select_tag :form_role_id, options_for_select( FormRole.no_team.collect { |fr| [ fr.role, fr.id ] }, @user.first.form_role_id), include_blank: "select form type", class: "form-control margin-bottom-sm", id: "form_role", required: true %>
       <% end %>
 
       <%= select_tag :rate_period, options_for_select(options_for_rate_period, Date.today.end_of_month), include_blank: "select rate period", class: "form-control margin-bottom-md", id: "rate_period", required: true %>
@@ -47,7 +47,7 @@
                   <%= review_form.check_box :checked, { class: "" }, true, false %>
                   <%= review_form.label :checked, "awarded this month?", { class: "checkbox-inline" } %>
                 <% else %>
-                     <%= select_tag "user_reviews[#{i}][rating]", options_for_select(review_item_by_role.review_item.scale_min..review_item_by_role.review_item.scale_max), include_blank: "rating", class: "form-control margin-bottom-md" %>
+                   <%= select_tag "user_reviews[#{i}][rating]", options_for_select(review_item_by_role.review_item.scale_min..review_item_by_role.review_item.scale_max), include_blank: "rating", class: "form-control margin-bottom-md" %>
                   <% end %>
               <% end %>
 
