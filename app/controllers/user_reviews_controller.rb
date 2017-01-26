@@ -186,6 +186,6 @@ class UserReviewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_review_params
-      params.require(:user_review).permit(:review_item_id, :user_id, :rated_by_user_id, :notes_allowed, :rate_period, :rating, :is_team, :pros, :cons, :notes, :is_archived, :checked, :multiplier)
+      params.require(:user_review).permit(:review_item_id, :user_id, :rated_by_user_id, :notes_allowed, :rate_period, :rating, :is_team, :pros, :cons, :notes, :is_archived, :checked, :multiplier, review_notes: [:user_review_id, :general_notes, :pros, :cons] )
     end
 end

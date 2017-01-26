@@ -38,6 +38,8 @@ class UserReview < ApplicationRecord
   belongs_to :user
   has_one :review_note
 
+  accepts_nested_attributes_for :review_notes
+
   default_scope { where(is_archived: false) }
 
   # validates_uniqueness_of :rate_period, { scope: [ :user_id, :review_item_id ], message: "-- review has already been scored for this month." }
