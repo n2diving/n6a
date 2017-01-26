@@ -158,7 +158,7 @@ class UsersController < ApplicationController
               rating: params[:user_reviews][one_review][:rating],
               rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id]
             )
-            ReviewNote.create(
+            ReviewNote.create!(
               user_review_id: one_review,
               general_notes: params[:general_notes]
             )
