@@ -67,8 +67,9 @@
               <td class="text-center"><%= ((average.reduce(:+) / average.size.to_f).round(2)) + bonus.sum %></td>
               <% puts 'bonus_totals' %>
               <% puts bonus %>
+              <% puts bonus.sum %>
               <% puts 'adjusted average' %>
-              <% puts ((average.reduce(:+) / average.size.to_f).round(2)) + bonus %>
+              <% puts ((average.reduce(:+) / average.size.to_f).round(2)) + bonus.sum %>
               <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
               <% user_review.user_review_rows(headers, user_review.user.id, one_month.to_datetime.end_of_month).each do |one_row| %>
                 <td class="text-center"><%= one_row[1].first %></td>
