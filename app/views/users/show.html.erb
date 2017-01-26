@@ -53,10 +53,11 @@
       <tbody>
         <% nope = false %>
         <% @rate_periods.each do |one_month| %>
-        <% reviews =  @user_reviews.where(rate_period: one_month.to_datetime.end_of_month).where.not(rating: nil) %>
+        <% reviews =  @user_reviews.where(rate_period: one_month.to_datetime.end_of_month)%>
         <% non_bonus_reviews = @non_bonus_user_reviews.where(rate_period: one_month.to_datetime.end_of_month).where.not(rating: nil) %>
         <% nope = true if reviews.any? %>
         <% average = reviews.pluck(:rating) %>
+        <% average.reject! {|x| x == nil} %>
         <% average.reject! {|x| x == 0} %>
         <% user_review = reviews.first %>
         <% bonus = bonus_totals(reviews) %>
@@ -64,13 +65,13 @@
           <% unless user_review.blank? %>
             <tr>
               <td><%= one_month %></td>
-              <td class="text-center"><%= ((average.reduce(:+) / average.size.to_f) + bonus.sum).round(2) %></td>
-              <% puts 'bonus_totals' %>
-              <% puts bonus %>
-              <% puts bonus.sum %>
-              <% puts 'adjusted average' %>
-              <% puts ((average.reduce(:+) / average.size.to_f).round(2)) + bonus.sum %>
-              <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
+              <% unless average.blank? %>
+                <td class="text-center"><%= ((average.reduce(:+) / average.size.to_f) + bonus.sum).round(2) %></td>
+                <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
+              <% else %>
+                <td></td>
+                <td></td>
+              <% end %>
               <% user_review.user_review_rows(headers, user_review.user.id, one_month.to_datetime.end_of_month).each do |one_row| %>
                 <td class="text-center"><%= one_row[1].first %></td>
               <% end %>
