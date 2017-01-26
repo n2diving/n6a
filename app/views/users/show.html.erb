@@ -119,7 +119,7 @@
       <tbody>
         <% list.each do |one_review_item| %>
           <% if !reviews2.blank? %>
-             <tr>
+            <tr>
               <td><%= month.strftime("%B %Y") %></td>
               <td><%= one_review_item.display_name %></td>
               <td><%= reviews2.where(review_item_id: one_review_item.id).first.pros %></td>
