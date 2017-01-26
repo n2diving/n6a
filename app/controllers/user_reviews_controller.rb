@@ -118,6 +118,7 @@ class UserReviewsController < ApplicationController
     end
 
     ratings.reject! {|x| x == nil}
+    ratings.reject! {|x| x == 0}
     ratings.sort!
 
     results = {
