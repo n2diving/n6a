@@ -29,7 +29,7 @@ class UserReviewsController < ApplicationController
     @user_review = UserReview.new(user_review_params)
 
     respond_to do |format|
-      if @user_review.save
+      if @user_review.save!
         format.html { redirect_to user_reviews_path, notice: 'User review was successfully created.' }
         format.json { render :show, status: :created, location: @user_review }
       else
@@ -43,7 +43,7 @@ class UserReviewsController < ApplicationController
   # PATCH/PUT /user_reviews/1.json
   def update
     respond_to do |format|
-      if @user_review.update(user_review_params)
+      if @user_review.update!(user_review_params)
         format.html { redirect_to user_reviews_path, notice: 'User review was successfully updated.' }
         format.json { render :show, status: :ok, location: @user_review }
       else
@@ -133,7 +133,7 @@ class UserReviewsController < ApplicationController
     review_list = UserReview.where(rate_period: rate_period).where.not(rating: nil).joins(:review_item, :review_items_by_role)
 
     items = ReviewItem.where(is_weekly: false, is_monthly_bonus: false)
-    roles = FormRole.limited
+    roles = FormRole.no_team.limited
     results = {}
     roles.each do |one_role|
       results[one_role.role] = {}
