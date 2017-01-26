@@ -38,7 +38,7 @@ class UserReview < ApplicationRecord
   belongs_to :user
   has_one :review_note
 
-  accepts_nested_attributes_for :review_notes
+  accepts_nested_attributes_for :review_note
 
   default_scope { where(is_archived: false) }
 
