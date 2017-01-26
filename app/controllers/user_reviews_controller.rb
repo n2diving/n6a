@@ -126,8 +126,6 @@ class UserReviewsController < ApplicationController
       high: '%.2f' % ratings.last
     }
 
-    results
-
   end
 
   def highest_kpi_average_by_role(rate_period)
@@ -147,6 +145,8 @@ class UserReviewsController < ApplicationController
     end
 
     results.each_with_index do |k,v|
+      results[k.first].reject! {|x| x == nil}
+      results[k.first].reject! {|x| x == 0}
       results[k.first] = results[k.first].sort_by {|k,v| v.to_f}.reverse.to_h
     end
 
