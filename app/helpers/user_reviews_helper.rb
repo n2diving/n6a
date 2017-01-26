@@ -13,17 +13,17 @@ module UserReviewsHelper
   end
 
   def bonus_totals(user_reviews)
-    bonus_amount = []
+    @bonus_amount = []
     user_reviews.each do |one|
       if !one.review_item.bonus_amount.nil?
         if one.multiplier.nil?
-          bonus_amount << one.review_item.bonus_amount
+          @bonus_amount << one.review_item.bonus_amount
         else
-          bonus_amount << (one.review_item.bonus_amount * one.multiplier)
+          @bonus_amount << (one.review_item.bonus_amount * one.multiplier)
         end
       end
     end
-    bonus_amount
+    @bonus_amount
   end
 
 end
