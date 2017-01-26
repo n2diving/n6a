@@ -223,9 +223,16 @@ class UsersController < ApplicationController
     else
       @user = [User.new]
     end
-    @review_items = ReviewItem.order(:display_name).where(is_team: true).where(is_monthly_bonus: false)
 
-    @bonus_items= ReviewItem.order(:display_name).where(is_team: true).where(is_monthly_bonus: true)
+    @review_items_by_role = ReviewItemsByRole.where(form_role_id: FormRole.unscoped.where(role: 'team').first.id).joins(:review_item).order('review_items.display_name').where(review_items: { is_team: true, is_weekly: false, is_monthly_bonus: false } )
+
+    form_role_id = FormRole.unscoped.where(role: 'team').first.id
+    @bonus_items_by_role = ReviewItemsByRole.where(form_role_id: form_role_id).joins(:review_item).order('review_items.display_name').where(review_items: { is_team: true }).where('review_items.is_weekly = true OR review_items.is_monthly_bonus = true')
+
+    #
+    # @review_items = ReviewItem.order(:display_name).where(is_team: true).where(is_monthly_bonus: false)
+    #
+    # @bonus_items= ReviewItem.order(:display_name).where(is_team: true).where(is_monthly_bonus: true)
 
   end
 

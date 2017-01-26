@@ -21,23 +21,24 @@
       <% end %>
         <% @user.each do |one_user| %>
           <%= fields_for "user_reviews[]", one_user do |review_form| %>
-            <% @review_items.each_with_index do |review_item, i| %>
+            <% @review_items_by_role.each_with_index do |review_item_by_role, i| %>
               <div class="row">
                 <div class="col-xs-12">
                   <%#= review_form.select :rate_period, options_for_rate_period, { prompt: 'select rate period' }, class: "form-control margin-bottom-md" %>
-                  <h4 class="text-primary"><%= review_item.name %></h4>
-                  <p><%= review_item.evaluation_criteria %></p>
-                  <%= hidden_field_tag "user_reviews[#{i}][review_item_id]", value: review_item.id %>
+                  <h4 class="text-primary"><%= "#{review_item_by_role.review_item.display_name}: #{review_item_by_role.short_label}" %></h4>
+
+                  <p><%= review_item_by_role.evaluation_criteria %></p>
+                  <%= hidden_field_tag "user_reviews[#{i}][review_item_id]", value: review_item_by_role.review_item.id %>
                   <%= hidden_field_tag "user_reviews[#{i}][rate_period]", Date.today.end_of_month, class: "rate_period" %>
-                  <%= hidden_field_tag "user_reviews[#{i}][review_items_by_role_id]", FormRole.unscoped.where(role: 'team').first.id %>
+                  <%= hidden_field_tag "user_reviews[#{i}][review_items_by_role_id]", review_item_by_role.id %>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-xs-12">
                   <%= text_area_tag "user_reviews[#{i}][notes]", '', class: "form-control margin-bottom-md", placeholder: "notes", required: true%>
-                  <% if !review_item.scale_min.blank? %>
-                    <%= select_tag "user_reviews[#{i}][rating]", options_for_select(review_item.scale_min..review_item.scale_max), include_blank: "rating", class: "form-control margin-bottom-md", id: "rate_period" %>
+                  <% if !review_item_by_role.review_item.scale_min.blank? %>
+                    <%= select_tag "user_reviews[#{i}][rating]", options_for_select(review_item_by_role.review_item.scale_min..review_item_by_role.review_item.scale_max), include_blank: "rating", class: "form-control margin-bottom-md", id: "rate_period" %>
                   <% end %>
                   <%= hidden_field_tag "user_reviews[#{i}][rated_by_user_id]", current_user.id %>
                   <%= hidden_field_tag "user_reviews[#{i}][is_team]", true %>
@@ -47,16 +48,16 @@
             <hr>
           <% end %>
 
-          <% if @bonus_items.any? %>
-            <% counter = @review_items.count %>
+          <% if @bonus_items_by_role.any? %>
+            <% counter = @review_items_by_role.count %>
 
-            <% @bonus_items.each_with_index do |bonus_item, i| %>
+            <% @bonus_items_by_role.each_with_index do |bonus_item, i| %>
               <%= fields_for "user_reviews[]", one_user do |review_form| %>
                 <div class="row">
                   <div class="col-xs-12">
-                    <h4 class="text-primary"><%= bonus_item.display_name %></h4>
-                    <%= hidden_field_tag "user_reviews[#{i+counter}][review_items_by_role_id]", FormRole.unscoped.where(role: 'team').first.id %>
-                    <%= hidden_field_tag "user_reviews[#{i+counter}][review_item_id]", bonus_item.id %>
+                    <h4 class="text-primary"><%= "#{bonus_item.review_item.display_name}: #{bonus_item.short_label}" %></h4>
+                    <%= hidden_field_tag "user_reviews[#{i+counter}][review_items_by_role_id]", bonus_item.id %>
+                    <%= hidden_field_tag "user_reviews[#{i+counter}][review_item_id]", bonus_item.review_item.id %>
                     <%= hidden_field_tag "user_reviews[#{i+counter}][rate_period]", Date.today.end_of_month, class: "rate_period" %>
                     <%= hidden_field_tag "user_reviews[#{i+counter}][rated_by_user_id]", current_user.id %>
                     <%= check_box_tag "user_reviews[#{i+counter}][checked]",1, false %>

@@ -19,7 +19,7 @@
           <tr>
             <td><%= link_to user_review.user.full_name, user_review.user %></td>
             <td><%= user_review.user.title %></td>
-            <td><%= user_review.review_item.name %></td>
+            <td><%= user_review.review_item.display_name %></td>
             <td class="text-center"><%= user_review.rating %></td>
             <td class="text-center"><%= user_review.rate_period.strftime("%B %Y") %></td>
 

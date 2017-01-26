@@ -43,7 +43,12 @@
             </div>
             <div class="col-xs-12">
               <% if current_user.is_admin || current_user.is_officer? %>
-                <%= select_tag "user_reviews[#{i}][rating]", options_for_select(review_item_by_role.review_item.scale_min..review_item_by_role.review_item.scale_max), include_blank: "rating", class: "form-control margin-bottom-md" %>
+                <% if one_review.review_item.is_monthly_bonus? %>
+                  <%= review_form.check_box :checked, { class: "" }, true, false %>
+                  <%= review_form.label :checked, "awarded this month?", { class: "checkbox-inline" } %>
+                <% else %>
+                     <%= select_tag "user_reviews[#{i}][rating]", options_for_select(review_item_by_role.review_item.scale_min..review_item_by_role.review_item.scale_max), include_blank: "rating", class: "form-control margin-bottom-md" %>
+                  <% end %>
               <% end %>
 
               <%= hidden_field_tag "user_reviews[#{i}][rated_by_user_id]", current_user.id %>

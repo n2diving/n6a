@@ -19,7 +19,7 @@
       </thead>
 
       <tbody>
-      <% rate_period = month.nil? ? (Date.today - 1.month).end_of_month : month.try(:to_date) %>
+      <% rate_period = month.nil? ? Date.today.end_of_month : month.try(:to_date) %>
       <% rate_period_reviews = @user_reviews.where(rate_period: rate_period) %>
       <% if rate_period_reviews.any? %>
         <% @team_list.each do |one_team| %>
