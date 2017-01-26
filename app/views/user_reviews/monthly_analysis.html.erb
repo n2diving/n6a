@@ -101,6 +101,8 @@
       <div class="row margin-bottom-lg">
         <div class="col-xs-12">
           <h3 class="text-primary">lowest averages by role</h3>
+          <% puts 'lowestlevel' %>
+          <% puts @lowest_by_level.inspect %>
           <% if @lowest_by_level.blank? %>
             <h5>No data this month.</h5>
           <% else %>

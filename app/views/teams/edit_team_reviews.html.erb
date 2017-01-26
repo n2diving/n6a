@@ -30,15 +30,11 @@
               <td class="text-center"><%= rate_period.strftime("%B %Y") %></td>
 
               <td class="text-center">
-                <% if current_user.is_admin || current_user.is_officer? %>
+                <%# if current_user.is_admin || current_user.is_officer? %>
                   <%= link_to edit_team_rating_path(one_team.employee_teams.first.user_id, rate_period: rate_period, reviews: (rate_period_reviews.where(user_id: team_user_ids).pluck(:id)) ) do %>
-                    <i class="fa fa-edit text-primary"></i> view team response notes
+                    <i class="fa fa-edit text-primary"></i> edit team review
                   <% end %>
-              <% else %>
-                  <%= link_to edit_team_rating_path(one_team.employee_teams.first.user_id, rate_period: rate_period, reviews: (rate_period_reviews.where(user_id: team_user_ids).pluck(:id)) ) do %>
-                    <i class="fa fa-edit text-primary"></i> add team response notes
-                  <% end %>
-                <% end %>
+                <%# end %>
               </td>
             </tr>
           <% end %>
