@@ -120,7 +120,7 @@
           <% if !reviews2.blank? %>
             <% pros = reviews2.where(review_item_id: one_review_item.id).first.pros %>
             <% cons = reviews2.where(review_item_id: one_review_item.id).first.cons %>
-            <% notes = reviews2.where(review_item_id: one_review_item.id).first.review_note.try(:general_notes) %>
+            <% notes = reviews2.where(review_item_id: one_review_item.id).first.review_noted %>
             <tr>
               <td><%= month.strftime("%B %Y") %></td>
               <td><%= one_review_item.display_name %></td>
