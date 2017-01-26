@@ -139,14 +139,13 @@ class UserReviewsController < ApplicationController
       results[one_role.role] = {}
       items.each do |one_item|
         data = review_list.where(user_reviews: { review_item_id: one_item.id }).where('review_items_by_roles.form_role_id = ?', one_role.id)
-        average = (data.blank? ? 0 : ('%.2f' % (data.sum(:rating) / data.count.to_f).round(2)))
+        average = (data.blank? ? "0.00" : ('%.2f' % (data.sum(:rating) / data.count.to_f).round(2)))
         results[one_role.role][one_item.display_name] = average
       end
     end
 
+
     results.each_with_index do |k,v|
-      results[k.first].reject! {|x| x == nil}
-      results[k.first].reject! {|x| x == 0}
       results[k.first] = results[k.first].sort_by {|k,v| v.to_f}.reverse.to_h
     end
 
