@@ -122,8 +122,8 @@ class UserReviewsController < ApplicationController
     ratings.sort!
 
     results = {
-      low: '%.2f' % ratings.first,
-      high: '%.2f' % ratings.last
+      low: ratings.first.nil? ? "0.00" : ('%.2f' % ratings.first),
+      high: ratings.first.nil? ? "0.00" : ('%.2f' % ratings.last)
     }
 
   end
