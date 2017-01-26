@@ -148,8 +148,10 @@ class UserReviewsController < ApplicationController
     average_5 = ('%.2f' % (kpi_5.sum / kpi_5.count.to_f).round(2))
     kpi_6 = UserReview.where(review_item_id: (ReviewItem.where('display_name ilike ?', "%#{6}%").first), rate_period: rate_period).pluck(:rating)
     average_6 = ('%.2f' % (kpi_6.sum / kpi_6.count.to_f).round(2))
-    results.values.first["kpi-5"] = average_5
-    results.values.first["kpi-6"] = average_6
+    roles.each do |one_role|
+      results[one_role.role]["kpi-5"] = average_5
+      results[one_role.role]["kpi-6"] = average_6
+    end
 
 
     results.each_with_index do |k,v|
@@ -180,8 +182,10 @@ class UserReviewsController < ApplicationController
     average_5 = ('%.2f' % (kpi_5.sum / kpi_5.count.to_f).round(2))
     kpi_6 = UserReview.where(review_item_id: (ReviewItem.where('display_name ilike ?', "%#{6}%").first), rate_period: rate_period).pluck(:rating)
     average_6 = ('%.2f' % (kpi_6.sum / kpi_6.count.to_f).round(2))
-    results.values.first["kpi-5"] = average_5
-    results.values.first["kpi-6"] = average_6
+    roles.each do |one_role|
+      results[one_role.role]["kpi-5"] = average_5
+      results[one_role.role]["kpi-6"] = average_6
+    end
 
 
     results.each_with_index do |k,v|
