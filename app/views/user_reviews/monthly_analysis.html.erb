@@ -89,7 +89,7 @@
             <ul>
               <% @highest_by_level.each do |one_level| %>
                 <li>
-                  <h5><%= one_level[0] %>: <bold><%= one_level[1].first[0] %></bold> (<%= one_level[1].first[1].to_f.nan? ? '0.00' : one_level[1].first[1] %>) </h5>
+                  <h5><%= one_level[0] %>: <bold><%= one_level[1].first[0] %></bold> (<%= (one_level[1].first[1].to_f.nan? ? '0.00' : one_level[1].first[1]) %>) </h5>
                 </li>
               <% end %>
             </ul>
