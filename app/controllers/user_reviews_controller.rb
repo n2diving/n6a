@@ -149,8 +149,8 @@ class UserReviewsController < ApplicationController
     kpi_6 = UserReview.where(review_item_id: (ReviewItem.where('display_name ilike ?', "%#{6}%").first), rate_period: rate_period).pluck(:rating)
     average_6 = ('%.2f' % (kpi_6.sum / kpi_6.count.to_f).round(2))
     roles.each do |one_role|
-      results[one_role.role]["KPI #5"] = average_5
-      results[one_role.role]["KPI #6"] = average_6
+      results[one_role.role]["KPI #5"] = average_5.nan? ? '0.00' : average_5
+      results[one_role.role]["KPI #6"] = average_6.nan? ? '0.00' : average_6
     end
 
 

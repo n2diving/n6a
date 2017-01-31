@@ -43,7 +43,7 @@
             </div>
             <div class="col-xs-12">
               <% if current_user.is_admin || current_user.is_officer? %>
-                <% if one_review.review_item.is_monthly_bonus? %>
+                <% if review_item_by_role.review_item.is_monthly_bonus? %>
                   <%= review_form.check_box :checked, { class: "" }, true, false %>
                   <%= review_form.label :checked, "awarded this month?", { class: "checkbox-inline" } %>
                 <% else %>
