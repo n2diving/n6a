@@ -54,13 +54,22 @@ module TeamsHelper
 
   def team_ranking(team_id, rate_period)
     @results = {}
-    something = nil
+    team_rank_index = nil
     Team.all.each do |one_team|
       @results["#{one_team.id}"] = team_averages(one_team.id, rate_period, rate_period)
     end
-    @results.sort_by {|k,v| v.to_f}.reverse.each_with_index { |(k,v),i| something = i if (k == team_id.to_s) }
-    something + 1
+    @results.sort_by {|k,v| v.to_f}.reverse.each_with_index { |(k,v),i| team_rank_index = i if (k == team_id.to_s) }
+    team_rank_index + 1
+  end
 
+  def team_rank(rate_period)
+    results = {}
+    Team.all.each do |one_team|
+      results["#{one_team.id}"] = team_averages(one_team.id, rate_period, rate_period)
+    end
+    results = results.sort_by {|k,v| v.to_f}.reverse
+
+    answer = results.first.first.to_i
   end
 
 end
