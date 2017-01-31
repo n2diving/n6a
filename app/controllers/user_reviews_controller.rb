@@ -145,14 +145,14 @@ class UserReviewsController < ApplicationController
     end
 
     kpi_5 = UserReview.where(review_item_id: (ReviewItem.where('display_name ilike ?', "%#{5}%").first), rate_period: rate_period).pluck(:rating)
-    if kpi_5 == 0
+    if kpi_5.count == 0
       average_5 = '0.00'
     else
       average_5 = ('%.2f' % (kpi_5.sum / kpi_5.count.to_f).round(2))
     end
 
     kpi_6 = UserReview.where(review_item_id: (ReviewItem.where('display_name ilike ?', "%#{6}%").first), rate_period: rate_period).pluck(:rating)
-    if kpi_6 == 0
+    if kpi_6.count == 0
       average_6 = '0.00'
     else
       average_6 = ('%.2f' % (kpi_6.sum / kpi_6.count.to_f).round(2))
