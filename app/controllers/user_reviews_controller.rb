@@ -133,7 +133,7 @@ class UserReviewsController < ApplicationController
 
     review_list = UserReview.where(rate_period: rate_period).where.not(rating: nil).joins(:review_item, :review_items_by_role)
 
-    items = ReviewItem.where(is_weekly: false, is_monthly_bonus: false)
+    items = ReviewItem.where(is_weekly: false, is_monthly_bonus: false, is_team: false)
     roles = FormRole.no_team.limited
     results = {}
     roles.each do |one_role|
@@ -177,7 +177,7 @@ class UserReviewsController < ApplicationController
 
     review_list = UserReview.where(rate_period: rate_period).where.not(rating: nil).joins(:review_item, :review_items_by_role)
 
-    items = ReviewItem.where(is_weekly: false, is_monthly_bonus: false)
+    items = ReviewItem.where(is_weekly: false, is_monthly_bonus: false, is_team: false)
     roles = FormRole.no_team.limited
     results = {}
     roles.each do |one_role|
