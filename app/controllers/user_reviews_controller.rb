@@ -145,24 +145,24 @@ class UserReviewsController < ApplicationController
       end
     end
 
-    kpi_5 = UserReview.where(review_item_id: (ReviewItem.where('display_name ilike ?', "%#{5}%").first), rate_period: rate_period).pluck(:rating)
-    if (kpi_5.all? {|x| x.nil?})
-      average_5 = '--'
-    else
-      average_5 = ('%.2f' % (kpi_5.sum / kpi_5.count.to_f).round(2))
-    end
-
-    kpi_6 = UserReview.where(review_item_id: (ReviewItem.where('display_name ilike ?', "%#{6}%").first), rate_period: rate_period).pluck(:rating)
-    if (kpi_6.all? {|x| x.nil?})
-      average_6 = '--'
-    else
-      average_6 = ('%.2f' % (kpi_6.sum / kpi_6.count.to_f).round(2))
-    end
-
-    roles.each do |one_role|
-      results[one_role.role]["KPI #5"] = average_5.to_f.nan? ? '0.00' : average_5
-      results[one_role.role]["KPI #6"] = average_6.to_f.nan? ? '0.00' : average_6
-    end
+    # kpi_5 = UserReview.where(review_item_id: (ReviewItem.where('display_name ilike ?', "%#{5}%").first), rate_period: rate_period).pluck(:rating)
+    # if (kpi_5.all? {|x| x.nil?})
+    #   average_5 = '--'
+    # else
+    #   average_5 = ('%.2f' % (kpi_5.sum / kpi_5.count.to_f).round(2))
+    # end
+    #
+    # kpi_6 = UserReview.where(review_item_id: (ReviewItem.where('display_name ilike ?', "%#{6}%").first), rate_period: rate_period).pluck(:rating)
+    # if (kpi_6.all? {|x| x.nil?})
+    #   average_6 = '--'
+    # else
+    #   average_6 = ('%.2f' % (kpi_6.sum / kpi_6.count.to_f).round(2))
+    # end
+    #
+    # roles.each do |one_role|
+    #   results[one_role.role]["KPI #5"] = average_5.to_f.nan? ? '0.00' : average_5
+    #   results[one_role.role]["KPI #6"] = average_6.to_f.nan? ? '0.00' : average_6
+    # end
 
 
     results.each_with_index do |k,v|
@@ -190,24 +190,24 @@ class UserReviewsController < ApplicationController
     end
 
 
-    kpi_5 = UserReview.where(review_item_id: (ReviewItem.where('display_name ilike ?', "%#{5}%").first), rate_period: rate_period).pluck(:rating)
-    if (kpi_5.all? {|x| x.nil?})
-      average_5 = '--'
-    else
-      average_5 = ('%.2f' % (kpi_5.sum / kpi_5.count.to_f).round(2))
-    end
-
-    kpi_6 = UserReview.where(review_item_id: (ReviewItem.where('display_name ilike ?', "%#{6}%").first), rate_period: rate_period).pluck(:rating)
-    if (kpi_6.all? {|x| x.nil?})
-      average_6 = '--'
-    else
-      average_6 = ('%.2f' % (kpi_6.sum / kpi_6.count.to_f).round(2))
-    end
-
-    roles.each do |one_role|
-      results[one_role.role]["KPI #5"] = average_5
-      results[one_role.role]["KPI #6"] = average_6
-    end
+    # kpi_5 = UserReview.where(review_item_id: (ReviewItem.where('display_name ilike ?', "%#{5}%").first), rate_period: rate_period).pluck(:rating)
+    # if (kpi_5.all? {|x| x.nil?})
+    #   average_5 = '--'
+    # else
+    #   average_5 = ('%.2f' % (kpi_5.sum / kpi_5.count.to_f).round(2))
+    # end
+    #
+    # kpi_6 = UserReview.where(review_item_id: (ReviewItem.where('display_name ilike ?', "%#{6}%").first), rate_period: rate_period).pluck(:rating)
+    # if (kpi_6.all? {|x| x.nil?})
+    #   average_6 = '--'
+    # else
+    #   average_6 = ('%.2f' % (kpi_6.sum / kpi_6.count.to_f).round(2))
+    # end
+    #
+    # roles.each do |one_role|
+    #   results[one_role.role]["KPI #5"] = average_5
+    #   results[one_role.role]["KPI #6"] = average_6
+    # end
 
 
     results.each_with_index do |k,v|
