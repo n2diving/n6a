@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user_reviews = @user.user_reviews
-    @non_bonus_user_reviews = @user_reviews.joins(:review_item).where('review_items.is_weekly = false OR review_items.is_monthly_bonus = false').where(checked: true)
+    @non_bonus_user_reviews = @user_reviews.joins(:review_item).where('review_items.is_weekly = false OR review_items.is_monthly_bonus = false')
 
     @rate_periods = UserReview.all.pluck(:rate_period).uniq.sort.map{ |x| x.strftime("%B %Y") }
     @months = I18n.t("date.month_names").drop(0)
