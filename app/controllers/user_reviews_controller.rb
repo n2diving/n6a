@@ -71,7 +71,8 @@ class UserReviewsController < ApplicationController
 
     @group_of_the_month = Team.find(team_rank(month)).team_name
     @team_of_the_month = totm.nil? ? 'No team has been selected for this month.' : totm
-    @producers_of_the_week = User.where(id: UserReview.where(rate_period: month).joins(:review_item).where(review_items: { is_team: false, is_weekly: true}).pluck(:user_id))
+    @producers_of_the_week = User.where(id: UserReview.where(rate_period: month).joins(:review_item).where(review_items: { is_team: false, is_weekly: true}).where(checked: true).pluck(:user_id))
+
     @individual_by_level = individual_averages_by_role(month)
     @team_variance = {
       "average team member" => team_variance(month),
