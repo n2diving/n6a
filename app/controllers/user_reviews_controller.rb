@@ -140,7 +140,7 @@ class UserReviewsController < ApplicationController
       results[one_role.role] = {}
       items.each do |one_item|
         data = review_list.where(user_reviews: { review_item_id: one_item.id }).where('review_items_by_roles.form_role_id = ?', one_role.id)
-        average = (data.blank? ? "0.00" : ('%.2f' % (data.sum(:rating) / data.count.to_f).round(2)))
+        average = (data.blank? ? "--" : ('%.2f' % (data.sum(:rating) / data.count.to_f).round(2)))
         results[one_role.role][one_item.display_name] = average
       end
     end
@@ -184,7 +184,7 @@ class UserReviewsController < ApplicationController
       results[one_role.role] = {}
       items.each do |one_item|
         data = review_list.where(user_reviews: { review_item_id: one_item.id }).where('review_items_by_roles.form_role_id = ?', one_role.id)
-        average = (data.blank? ? "0.00" : ('%.2f' % (data.sum(:rating) / data.count.to_f).round(2)))
+        average = (data.blank? ? "--" : ('%.2f' % (data.sum(:rating) / data.count.to_f).round(2)))
         results[one_role.role][one_item.display_name] = average
       end
     end
