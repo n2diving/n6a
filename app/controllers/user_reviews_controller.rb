@@ -118,8 +118,9 @@ class UserReviewsController < ApplicationController
     ratings = []
     User.all.pluck(:id).each do |one_user_id|
       data = list.where(user_id: one_user_id)
-        ratings << ((data.sum(:rating) / data.count) if !data.blank?)
+        ratings << (((data.sum(:rating) / data.count) + bonus_totals(data).sum) if !data.blank?)
     end
+    raise
 
     ratings.reject! {|x| x == nil}
     ratings.reject! {|x| x == 0}
@@ -129,6 +130,8 @@ class UserReviewsController < ApplicationController
       low: ratings.first.nil? ? "0.00" : ('%.2f' % ratings.first),
       high: ratings.first.nil? ? "0.00" : ('%.2f' % ratings.last)
     }
+
+
 
   end
 
