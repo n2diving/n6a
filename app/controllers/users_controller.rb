@@ -162,6 +162,8 @@ class UsersController < ApplicationController
               cons: params[:user_reviews][one_review][:cons],
               notes: params[:user_reviews][one_review][:notes],
               rating: params[:user_reviews][one_review][:rating],
+              checked: params[:user_reviews][one_review][:checked],
+              multiplier: params[:user_reviews][one_review][:multiplier],
               rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id]
             )
             ReviewNote.create!(
@@ -177,6 +179,8 @@ class UsersController < ApplicationController
               cons: params[:user_reviews][one_review][:cons],
               notes: params[:user_reviews][one_review][:notes],
               rating: params[:user_reviews][one_review][:rating],
+              checked: params[:user_reviews][one_review][:checked],
+              multiplier: params[:user_reviews][one_review][:multiplier],
               rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
               is_team: true,
               notes_allowed: true
