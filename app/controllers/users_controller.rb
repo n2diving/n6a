@@ -140,6 +140,7 @@ class UsersController < ApplicationController
         user_review.update_attributes(
           pros: params[:user_reviews][one_review][:pros],
           cons: params[:user_reviews][one_review][:cons],
+          notes: params[:user_reviews][one_review][:notes],
           rating: params[:user_reviews][one_review][:rating],
           rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
           checked: check,
@@ -231,6 +232,7 @@ class UsersController < ApplicationController
           rate_period: params[:user_reviews][one_review][:rate_period],
           pros: params[:user_reviews][one_review][:pros],
           cons: params[:user_reviews][one_review][:cons],
+          notes: params[:user_reviews][one_review][:notes],
           rating: params[:user_reviews][one_review][:rating],
           rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
           is_team: true,
