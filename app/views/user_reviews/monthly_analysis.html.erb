@@ -71,11 +71,11 @@
             <h5>No data this month.</h5>
           <% else %>
             <ul>
-              <%# @team_variance.each do |one_result| %>
+              <% @team_variance.each do |one_result| %>
                 <li>
-                  <h5><%#= one_result[0] %>: <bold><%#= one_result[1] %></bold></h5>
+                  <h5><%= one_result[0] %>: <bold><%= one_result[1] %></bold></h5>
                 </li>
-              <%# end %>
+              <% end %>
             </ul>
           <% end %>
         </div>
