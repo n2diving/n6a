@@ -126,10 +126,10 @@ class UserReviewsController < ApplicationController
     ratings.reject! {|x| x == 0}
     ratings.sort!
 
-    results = {
-      low: (('%.2f' % ratings.first) unless ratings.blank?),
-      high: (('%.2f' % ratings.last) unless ratings.blank?)
-    }
+    # results = {
+    #   low: (('%.2f' % ratings.first) unless ratings.blank?),
+    #   high: (('%.2f' % ratings.last) unless ratings.blank?)
+    # }
 
 
 
