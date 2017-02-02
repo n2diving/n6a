@@ -132,7 +132,9 @@ class UsersController < ApplicationController
           pros: params[:user_reviews][one_review][:pros],
           cons: params[:user_reviews][one_review][:cons],
           rating: params[:user_reviews][one_review][:rating],
-          rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id]
+          rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
+          checked: params[:user_reviews][one_review][:checked],
+          multiplier: params[:user_reviews][one_review][:multiplier]
         )
       end
       redirect_to users_url, notice: "Employee review has been updated."
@@ -204,7 +206,9 @@ class UsersController < ApplicationController
           cons: params[:user_reviews][one_review][:cons],
           rating: params[:user_reviews][one_review][:rating],
           rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
-          is_team: true
+          is_team: true,
+          checked: params[:user_reviews][one_review][:checked],
+          multiplier: params[:user_reviews][one_review][:multiplier]
         )
       end
       redirect_to user, notice: "Employee rating has been saved."
