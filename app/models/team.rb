@@ -15,6 +15,8 @@ class Team < ApplicationRecord
   has_many :users, through: :employee_teams
   # , dependent: destroy
   has_many :user_reviews, through: :users
+  
+  scope :without_b, -> { where.not(team_name: "TeamB") }
 
 
   def team_lead
