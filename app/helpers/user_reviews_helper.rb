@@ -15,7 +15,7 @@ module UserReviewsHelper
   def bonus_totals(user_reviews)
     @bonus_amount = []
 
-    list = user_reviews.joins(:review_item).where(review_items: { is_team: false}).where(checked: true)
+    list = user_reviews.where(checked: true)
 
     list.each do |one|
       if !one.review_item.bonus_amount.nil?
