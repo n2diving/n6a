@@ -130,13 +130,19 @@ class UsersController < ApplicationController
     @user = User.find(params[:user][:id].to_i)
     begin
       params[:user_reviews].keys.each do |one_review|
+        if !params[:user_reviews][one_review][:multiplier].nil? && (params[:user_reviews][one_review][:multiplier] > 0)
+          check = true
+        else
+          check = (params[:user_reviews][one_review][:checked].nil? ? false : true)
+        end
+
         user_review = UserReview.find(one_review)
         user_review.update_attributes(
           pros: params[:user_reviews][one_review][:pros],
           cons: params[:user_reviews][one_review][:cons],
           rating: params[:user_reviews][one_review][:rating],
           rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
-          checked: params[:user_reviews][one_review][:checked],
+          checked: check,
           multiplier: params[:user_reviews][one_review][:multiplier]
         )
       end
@@ -156,13 +162,19 @@ class UsersController < ApplicationController
       employee_ids.each do |one_user_id|
         params[:user_reviews].keys.each do |one_review|
           user_review = UserReview.where(id: one_review)
+          if !params[:user_reviews][one_review][:multiplier].nil? && (params[:user_reviews][one_review][:multiplier] > 0)
+            check = true
+          else
+            check = (params[:user_reviews][one_review][:checked].nil? ? false : true)
+          end
+
           if user_review.any?
             user_review.first.update_attributes(
               pros: params[:user_reviews][one_review][:pros],
               cons: params[:user_reviews][one_review][:cons],
               notes: params[:user_reviews][one_review][:notes],
               rating: params[:user_reviews][one_review][:rating],
-              checked: params[:user_reviews][one_review][:checked],
+              checked: check,
               multiplier: params[:user_reviews][one_review][:multiplier],
               rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id]
             )
@@ -179,7 +191,7 @@ class UsersController < ApplicationController
               cons: params[:user_reviews][one_review][:cons],
               notes: params[:user_reviews][one_review][:notes],
               rating: params[:user_reviews][one_review][:rating],
-              checked: params[:user_reviews][one_review][:checked],
+              checked: check,
               multiplier: params[:user_reviews][one_review][:multiplier],
               rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
               is_team: true,
@@ -206,6 +218,11 @@ class UsersController < ApplicationController
       user = User.find(params[:id])
 
       params[:user_reviews].keys.each do |one_review|
+        if !params[:user_reviews][one_review][:multiplier].nil? && (params[:user_reviews][one_review][:multiplier] > 0)
+          check = true
+        else
+          check = (params[:user_reviews][one_review][:checked].nil? ? false : true)
+        end
 
         UserReview.create!(
           user_id: user.id,
@@ -217,7 +234,7 @@ class UsersController < ApplicationController
           rating: params[:user_reviews][one_review][:rating],
           rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
           is_team: true,
-          checked: params[:user_reviews][one_review][:checked],
+          checked: check,
           multiplier: params[:user_reviews][one_review][:multiplier]
         )
       end
@@ -261,6 +278,56 @@ class UsersController < ApplicationController
       @teammates = EmployeeTeam.where(team_id: @user.employee_teams.pluck(:team_id).uniq)
     end
 
+    # [2, 4, 6, 8, 21, 28, 35, 37, 41, 42, 46]
+    #
+    # 28:
+    # 3502
+    # 3503
+    # 3504
+    #
+    # 46:
+    # 3505
+    # 3506
+    # 3507
+    #
+    # 35:
+    # 3508
+    # 3509
+    # 3510
+    #
+    # 41:
+    # 3511
+    # 3512
+    # 3513
+    #
+    # 8:
+    # 3514
+    # 3515
+    # 3516
+    #
+    # 3517
+    # 3518
+    # 3519
+    #
+    # 3520
+    # 3521
+    # 3522
+    #
+    # 3523
+    # 3524
+    # 3525
+    #
+    # 3526
+    # 3527
+    # 3528
+    #
+    # 3529
+    # 3530
+    # 3531
+    #
+    # 3532
+    # 3533
+
     month = params[:rate_period].blank? ? (current_month) : params[:rate_period].to_date.end_of_month
 
     # @reviews = UserReview.where(user_id: EmployeeTeam.where(team_id: team.id, user_id: @teammates.pluck(:user_id)), is_team: true, rate_period: month).joins(:review_item).where('review_items.is_team = true').left_outer_joins(:review_note).where(review_notes: { user_review_id: nil })
@@ -295,6 +362,7 @@ class UsersController < ApplicationController
           else
             review_item_id = params[:user_reviews][one_review][:review_item_id]
           end
+          
 
           UserReview.create!(
             user_id: one_user_id,
