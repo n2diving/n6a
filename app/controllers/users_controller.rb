@@ -309,8 +309,8 @@ class UsersController < ApplicationController
   end
 
   def employees_with_pending_reviews
-    @user_reviews = UserReview.order(:rate_period).where(rating: nil).joins(:review_item).where('review_items.is_team is false')
-    @review_items = ReviewItem.order(:name).where(is_team: true, is_weekly: false)
+    @user_reviews = UserReview.order(:rate_period).joins(:review_item).where('review_items.is_team is false')
+    # @review_items = ReviewItem.order(:name).where(is_team: true, is_weekly: false)
   end
 
   private

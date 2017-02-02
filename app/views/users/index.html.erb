@@ -1,3 +1,4 @@
+<% month = '2017-01-31'.to_date %>
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <h1 class="margin-bottom-lg">employees</h1>
@@ -26,14 +27,19 @@
               <td><%= user.teams.blank? ? '' : (link_to user.teams.first.team_name, user.teams.first) %></td>
               <td><%= user.email %></td>
               <td><%= user.title.try(:downcase) %></td>
-              <% if current_user.can_review_user(user.id) %>
+              <% reviews = user.user_reviews.where(rate_period: month).any? %>
+              <% if current_user.can_review_user(user.id) && !reviews %>
                 <td class="text-center">
                   <%= link_to new_employee_rating_path(user.id) , class: "text-primary" do %>
                   <i class="fa fa-plus"></i> new employee review
                   <% end %>
                 </td>
               <% else %>
-                <td></td>
+                <td class="text-center">
+                  <%= link_to edit_employee_rating_path(user, rate_period: month) do %>
+                    <i class="fa fa-edit text-primary"></i> edit employee ratings
+                  <% end %>
+                </td>
               <% end %>
               <% if current_user.is_admin || current_user.is_officer? %>
                 <td class="text-center">
