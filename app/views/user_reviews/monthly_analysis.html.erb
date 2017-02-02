@@ -65,6 +65,8 @@
       <div class="row margin-bottom-lg">
         <div class="col-xs-12">
           <h3 class="text-primary">team performance and variance</h3>
+          <% puts 'teamvariance' %>
+          <% puts @team_variance.inspect %>
           <% if @team_variance.blank? %>
             <h5>No data this month.</h5>
           <% else %>
@@ -101,8 +103,8 @@
       <div class="row margin-bottom-lg">
         <div class="col-xs-12">
           <h3 class="text-primary">lowest averages by role</h3>
-          <% puts 'lowestlevel' %>
-          <% puts @lowest_by_level.inspect %>
+          <%# puts 'lowestlevel' %>
+          <%# puts @lowest_by_level.inspect %>
           <% if @lowest_by_level.blank? %>
             <h5>No data this month.</h5>
           <% else %>
