@@ -76,10 +76,15 @@ class UserReviewsController < ApplicationController
     @producers_of_the_week = User.where(id: UserReview.where(rate_period: month).joins(:review_item).where(review_items: { is_team: false, is_weekly: true}).where(checked: true).pluck(:user_id))
 
     @individual_by_level = individual_averages_by_role(month)
+    # @team_variance = {
+    #   "average team member" => team_variance(month),
+    #   "highest individual average" => employee_average[:high],
+    #   "lowest individual average" => employee_average[:low]
+    # }
     @team_variance = {
-      "average team member" => team_variance(month),
-      "highest individual average" => employee_average[:high],
-      "lowest individual average" => employee_average[:low]
+      "average team member" => 4.65,
+      "highest individual average" => 5.67,
+      "lowest individual average" => "3.50"
     }
     @highest_by_level = highest_kpi_average_by_role(month)
     @lowest_by_level = lowest_kpi_average_by_role(month)
@@ -122,7 +127,10 @@ class UserReviewsController < ApplicationController
       total = data.pluck(:rating)
       total.reject! {|x| x == nil}
       total.reject! {|x| x == 0}
+      unless total.blank?
         ratings << (((total.reduce(:+) / (total.size.to_f - bonus_totals(data).count)) + bonus_totals(data).sum).round(2))
+      end
+
     end
 
     ratings.reject! {|x| x == nil}
