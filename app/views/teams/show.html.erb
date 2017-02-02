@@ -1,4 +1,4 @@
-<% month = params[:rate_period] || (Date.today.end_of_month) %>
+<% month = params[:rate_period] || current_month %>
 <% permission = current_user.is_admin? || current_user.is_officer? || (current_user.id == current_user.teams.first.try(:team_lead)) %>
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
@@ -70,7 +70,7 @@
           <% teammates = teammates(@team.id) %>
           <% if teammates.any? %>
             <% teammates.each do |one_teammember| %>
-              <% rate_period = month.try(:to_date) || (Date.today - 1.month) %>
+              <% rate_period = month.try(:to_date) || (current_month) %>
               <% bonus_totals = one_teammember.bonus_totals(one_teammember.user_reviews, rate_period) %>
               <tr>
                 <% if permission %>

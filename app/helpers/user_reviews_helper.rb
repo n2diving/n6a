@@ -1,7 +1,7 @@
 module UserReviewsHelper
 
   def options_for_rate_period
-    this_month = Date.today.month
+    this_month = ((Date.today.day) < 10 ? (Date.today.month - 1) : Date.today.month)
 
     options = []
     Date::MONTHNAMES.each_with_index do |one_month, i|

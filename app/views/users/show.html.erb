@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <%= render "teams/team_yearly_averages", month: ((Date.today - 1.month).end_of_month), teams: @team_list %>
+    <%= render "teams/team_yearly_averages", month: current_month, teams: @team_list %>
 
     <hr>
 

@@ -2,6 +2,7 @@ class UserReviewsController < ApplicationController
   before_action :set_user_review, only: [:show, :edit, :update, :destroy]
 
   include TeamsHelper
+  include ApplicationHelper
 
   # GET /user_reviews
   # GET /user_reviews.json
@@ -64,7 +65,7 @@ class UserReviewsController < ApplicationController
   end
 
   def monthly_analysis
-    month = params[:rate_period].blank? ? ((Date.today).end_of_month) : params[:rate_period].to_date.end_of_month
+    month = params[:rate_period].blank? ? (current_month) : params[:rate_period].to_date.end_of_month
     totm_user_id = UserReview.where(rate_period: month).joins(:review_item). where(review_items: { is_team: false, is_monthly_bonus: true}).try(:user_id)
     # totm = !totm_user_id.blank? ? EmployeeTeam.where(user_id: totm_user_id).team.team_name : nil
     employee_average = employee_average_high_low(month)

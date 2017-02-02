@@ -10,7 +10,7 @@
         <%= select_tag :form_role_id, options_for_select( FormRole.no_team.collect { |fr| [ fr.role, fr.id ] }, @user.first.form_role_id), include_blank: "select form type", class: "form-control margin-bottom-sm", id: "form_role", required: true %>
       <% end %>
 
-      <%= select_tag :rate_period, options_for_select(options_for_rate_period, Date.today.end_of_month), include_blank: "select rate period", class: "form-control margin-bottom-md", id: "rate_period", required: true %>
+      <%= select_tag :rate_period, options_for_select(options_for_rate_period, current_month), include_blank: "select rate period", class: "form-control margin-bottom-md", id: "rate_period", required: true %>
 
 
     </div>
@@ -31,7 +31,7 @@
               <p><%= review_item_by_role.evaluation_criteria %></p>
               <%= hidden_field_tag "user_reviews[#{i}][review_items_by_role_id]", review_item_by_role.id %>
               <%= hidden_field_tag "user_reviews[#{i}][review_item_id]", review_item_by_role.review_item.id %>
-              <%= hidden_field_tag "user_reviews[#{i}][rate_period]", Date.today.end_of_month, class: "rate_period" %>
+              <%= hidden_field_tag "user_reviews[#{i}][rate_period]", current_month, class: "rate_period" %>
             </div>
           </div>
           <div class="row">
@@ -68,7 +68,7 @@
               <div class="col-xs-12">
                 <%= hidden_field_tag "user_reviews[#{i+counter}][review_items_by_role_id]", bonus_item_by_role.id %>
                 <%= hidden_field_tag "user_reviews[#{i+counter}][review_item_id]", bonus_item_by_role.review_item.id %>
-                <%= hidden_field_tag "user_reviews[#{i+counter}][rate_period]", Date.today.end_of_month, class: "rate_period" %>
+                <%= hidden_field_tag "user_reviews[#{i+counter}][rate_period]", current_month, class: "rate_period" %>
                 <%= hidden_field_tag "user_reviews[#{i+counter}][rated_by_user_id]", current_user.id %>
 
               </div>

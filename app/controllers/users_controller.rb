@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :show, :update, :destroy, :new_employee_rating, :edit_team_rating]
 
+  include ApplicationHelper
+
+
   # GET /users
   # GET /users.json
   def index
@@ -116,7 +119,7 @@ class UsersController < ApplicationController
 
   def edit_employee_rating
     @user = User.find(params[:id])
-    month = params[:rate_period].blank? ? ((Date.today - 1.month).end_of_month) : params[:rate_period].to_date.end_of_month
+    month = params[:rate_period].blank? ? (current_month) : params[:rate_period].to_date.end_of_month
 
     @user_reviews = @user.user_reviews.where(rate_period: month).joins(:review_item).order('review_items.display_name').where('review_items.is_team = false')
 
@@ -251,7 +254,7 @@ class UsersController < ApplicationController
       @teammates = EmployeeTeam.where(team_id: @user.employee_teams.pluck(:team_id).uniq)
     end
 
-    month = params[:rate_period].blank? ? ((Date.today - 1.month).end_of_month) : params[:rate_period].to_date.end_of_month
+    month = params[:rate_period].blank? ? (current_month) : params[:rate_period].to_date.end_of_month
 
     # @reviews = UserReview.where(user_id: EmployeeTeam.where(team_id: team.id, user_id: @teammates.pluck(:user_id)), is_team: true, rate_period: month).joins(:review_item).where('review_items.is_team = true').left_outer_joins(:review_note).where(review_notes: { user_review_id: nil })
 

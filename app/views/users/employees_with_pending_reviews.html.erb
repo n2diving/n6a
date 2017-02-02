@@ -5,7 +5,7 @@
 
     <div class="row margin-bottom-lg">
       <div class="col-xs-12">
-        <%= select_tag :rate_period, options_for_select(options_for_rate_period, month.blank? ? (Date.today.end_of_month) : month.to_date.end_of_month), include_blank: "select rate period", class: "form-control", id: "rate_period" %>
+        <%= select_tag :rate_period, options_for_select(options_for_rate_period, month.blank? ? current_month : month.to_date.end_of_month), include_blank: "select rate period", class: "form-control", id: "rate_period" %>
       </div>
     </div>
 
@@ -20,7 +20,7 @@
       </thead>
 
       <tbody>
-        <% rate_period = month.try(:to_date) || Date.today.end_of_month %>
+        <% rate_period = month.try(:to_date) || current_month %>
         <% rate_period_reviews = @user_reviews.where(rate_period: rate_period) %>
         <% if rate_period_reviews.any? %>
           <% users = rate_period_reviews.pluck(:user_id).uniq %>

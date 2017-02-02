@@ -22,7 +22,7 @@
   <tbody>
   <% if teams.any? %>
     <% teams.each do |one_team| %>
-      <% rate_periods = month.try(:to_date) || (Date.today - 1.month) %>
+      <% rate_periods = month.try(:to_date) || current_month %>
       <tr>
         <% if permission %>
           <td><%= link_to one_team.team_name, one_team %></td>
