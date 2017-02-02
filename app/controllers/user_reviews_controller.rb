@@ -76,12 +76,13 @@ class UserReviewsController < ApplicationController
     @producers_of_the_week = User.where(id: UserReview.where(rate_period: month).joins(:review_item).where(review_items: { is_team: false, is_weekly: true}).where(checked: true).pluck(:user_id))
 
     @individual_by_level = individual_averages_by_role(month)
-    @team_variance = {
-      "average team member" => team_variance(month),
-      "highest individual average" => employee_average[:high],
-      "lowest individual average" => employee_average[:low],
-      "blah" => employee_average_high_low(month)
-    }
+    # @team_variance = {
+    #   "average team member" => team_variance(month),
+    #   "highest individual average" => employee_average[:high],
+    #   "lowest individual average" => employee_average[:low],
+    #   "blah" => employee_average_high_low(month)
+    # }
+    @team_variance = employee_average_high_low(month)
     @highest_by_level = highest_kpi_average_by_role(month)
     @lowest_by_level = lowest_kpi_average_by_role(month)
 
