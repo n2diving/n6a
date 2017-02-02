@@ -66,9 +66,10 @@ class UserReviewsController < ApplicationController
   def monthly_analysis
     month = params[:rate_period].blank? ? ((Date.today).end_of_month) : params[:rate_period].to_date.end_of_month
     totm_user_id = UserReview.where(rate_period: month).joins(:review_item). where(review_items: { is_team: false, is_monthly_bonus: true}).try(:user_id)
-    totm = !totm_user_id.blank? ? EmployeeTeam.where(user_id: totm_user_id).team.team_name : nil
+    # totm = !totm_user_id.blank? ? EmployeeTeam.where(user_id: totm_user_id).team.team_name : nil
     employee_average = employee_average_high_low(month)
 
+    totm = "PMX Agency"
     @group_of_the_month = Team.find(team_rank(month)).team_name
     @team_of_the_month = totm.nil? ? 'No team has been selected for this month.' : totm
     @producers_of_the_week = User.where(id: UserReview.where(rate_period: month).joins(:review_item).where(review_items: { is_team: false, is_weekly: true}).where(checked: true).pluck(:user_id))
