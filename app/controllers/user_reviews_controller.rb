@@ -79,7 +79,7 @@ class UserReviewsController < ApplicationController
     @team_variance = {
       "average team member" => team_variance(month),
       "highest individual average" => employee_average[:high],
-      "lowest individual average" => employee_average[:low].
+      "lowest individual average" => employee_average[:low],
       "blah" => employee_average_high_low(month)
     }
     @highest_by_level = highest_kpi_average_by_role(month)
