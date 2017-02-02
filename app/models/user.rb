@@ -72,7 +72,7 @@ class User < ApplicationRecord
   end
 
   def bonus_totals(user_reviews, rate_period)
-    list = user_reviews.where(rate_period: rate_period).joins(:review_item).where('review_items.is_weekly = true OR review_items.is_monthly_bonus = true')
+    list = user_reviews.where(rate_period: rate_period, checked: true)
     bonus_amount = []
 
     list.each do |one|
