@@ -117,11 +117,14 @@ class UserReviewsController < ApplicationController
   def employee_average_high_low(rate_period)
 
     list = UserReview.where(rate_period: rate_period)
-    users = list.pluck(:user_id)
+    users = list.pluck(:user_id).uniq
     ratings = []
     users.each do |one_user_id|
       data = list.where(user_id: one_user_id)
-        ratings << (((data.sum(:rating) / (data.count - bonus_totals(data).count)) + bonus_totals(data).sum) if !data.blank?)
+      total = data.pluck(:rating)
+      total.reject! {|x| x == nil}
+      total.reject! {|x| x == 0}
+        ratings << (((total.reduce(:+) / (total.size.to_f - bonus_totals(data).count)) + bonus_totals(data).sum).round(2))
     end
 
     ratings.reject! {|x| x == nil}
