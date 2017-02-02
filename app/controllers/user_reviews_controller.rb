@@ -120,7 +120,6 @@ class UserReviewsController < ApplicationController
       data = list.where(user_id: one_user_id)
         ratings << (((data.sum(:rating) / data.count) + bonus_totals(data).sum) if !data.blank?)
     end
-    raise
 
     ratings.reject! {|x| x == nil}
     ratings.reject! {|x| x == 0}
