@@ -130,7 +130,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:user][:id].to_i)
     begin
       params[:user_reviews].keys.each do |one_review|
-        if !params[:user_reviews][one_review][:multiplier].nil? && (params[:user_reviews][one_review][:multiplier] > 0)
+        if !params[:user_reviews][one_review][:multiplier].nil? && (params[:user_reviews][one_review][:multiplier].to_i > 0)
           check = true
         else
           check = (params[:user_reviews][one_review][:checked].nil? ? false : true)
@@ -162,7 +162,7 @@ class UsersController < ApplicationController
       employee_ids.each do |one_user_id|
         params[:user_reviews].keys.each do |one_review|
           user_review = UserReview.where(id: one_review)
-          if !params[:user_reviews][one_review][:multiplier].nil? && (params[:user_reviews][one_review][:multiplier] > 0)
+          if !params[:user_reviews][one_review][:multiplier].nil? && (params[:user_reviews][one_review][:multiplier].to_i > 0)
             check = true
           else
             check = (params[:user_reviews][one_review][:checked].nil? ? false : true)
@@ -218,7 +218,7 @@ class UsersController < ApplicationController
       user = User.find(params[:id])
 
       params[:user_reviews].keys.each do |one_review|
-        if !params[:user_reviews][one_review][:multiplier].nil? && (params[:user_reviews][one_review][:multiplier] > 0)
+        if !params[:user_reviews][one_review][:multiplier].nil? && (params[:user_reviews][one_review][:multiplier].to_i > 0)
           check = true
         else
           check = (params[:user_reviews][one_review][:checked].nil? ? false : true)
@@ -362,7 +362,7 @@ class UsersController < ApplicationController
           else
             review_item_id = params[:user_reviews][one_review][:review_item_id]
           end
-          
+
 
           UserReview.create!(
             user_id: one_user_id,
