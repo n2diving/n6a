@@ -116,7 +116,7 @@ class UserReviewsController < ApplicationController
 
   def employee_average_high_low(rate_period)
 
-    list = UserReview.where(rate_period: rate_period).where.not(rating: nil)
+    list = UserReview.where(rate_period: rate_period)
     ratings = []
     User.all.pluck(:id).each do |one_user_id|
       data = list.where(user_id: one_user_id)
