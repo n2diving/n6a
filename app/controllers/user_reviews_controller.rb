@@ -102,13 +102,14 @@ class UserReviewsController < ApplicationController
 
   def team_variance(rate_period)
     results = []
-    Team.all.each do |one_team|
+    Team.without_ab.each do |one_team|
       unless team_averages(one_team.id, rate_period, rate_period).to_i == 0
         results << team_averages(one_team.id, rate_period, rate_period).to_i
       end
     end
 
     results.blank? ? 0 : ('%.2f' % (results.reduce(&:+) / results.length.to_f).round(2))
+
   end
 
   def employee_average_high_low(rate_period)

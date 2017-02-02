@@ -21,7 +21,7 @@ class TeamsController < ApplicationController
     @team_reviews_pending = @team_reviews.where(rate_period: (Date.today -1.month).end_of_month, is_team: true)
     @user_reviews_pending = @team_reviews.where(rate_period: (Date.today -1.month).end_of_month, is_team: false)
     @rate_periods = UserReview.all.pluck(:rate_period).uniq.sort.map{ |x| x.strftime("%B %Y") }
-    @team_list = Team.without_b.where(id: UserReview.where.not(rating: nil).joins(user: { employee_teams: :team }).pluck(:team_id).uniq)
+    @team_list = Team.without_ab.where(id: UserReview.where.not(rating: nil).joins(user: { employee_teams: :team }).pluck(:team_id).uniq)
 
   end
 
