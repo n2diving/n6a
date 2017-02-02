@@ -45,7 +45,8 @@ table.dataTable.no-footer {
 }
 
 ul {
-  list-style-position: inside;
+  display: inline-block;
+  //list-style-position: inside;
   padding-left: 0;
   & > li {
     margin-left: 0;
