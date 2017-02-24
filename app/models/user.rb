@@ -106,11 +106,7 @@ class User < ApplicationRecord
   end
 
   def can_review_user(user_id)
-    if current_user.is_admin || current_user.is_officer
-      true
-    else
-      EmployeeReviewer.where(reviewer_user_id: self.id, employee_user_id: user_id).any?
-    end
+    EmployeeReviewer.where(reviewer_user_id: self.id, employee_user_id: user_id).any?
   end
 
 end
