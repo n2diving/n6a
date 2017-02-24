@@ -1,4 +1,4 @@
-<% permission = current_user.can_review_user(user.id) || current_user.is_admin || current_user.is_officer? %>
+<% permission = current_user.is_admin || current_user.is_officer? %>
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <h1 class="margin-bottom-lg">employees</h1>
@@ -28,7 +28,7 @@
               <td><%= user.email %></td>
               <td><%= user.title.try(:downcase) %></td>
               <% reviews = user.user_reviews.where(rate_period: current_month).any? %>
-              <% if permission && !reviews %>
+              <% if (permission || current_user.can_review_user(user.id) && !reviews %>
                 <td class="text-center">
                   <%= link_to new_employee_rating_path(user.id) , class: "text-primary" do %>
                   <i class="fa fa-plus"></i> new employee review
