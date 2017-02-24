@@ -11,7 +11,12 @@
 @import "dataTables/jquery.dataTables";
 
 
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+
 body {
+  font-family: 'Raleway', sans-serif;
   //padding-top: 70px; //allow for bootstrap navbar static
 }
 
