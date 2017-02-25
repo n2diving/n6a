@@ -3,18 +3,18 @@
     <div class="row">
       <%= image_tag "N6A_EmbraceThePace_3.jpg", class: "mainpage-logo block" %>
       <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-        <h2 class="margin-bottom-md text-center">log in</h2>
+        <h2 class="margin-bottom-md text-center">Log in</h2>
 
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <%= f.email_field :email, class: "form-control margin-bottom-md", autofocus: true, placeholder: "email" %>
-          <%= f.password_field :password, class: "form-control margin-bottom-md", autocomplete: "off", placeholder: "password" %>
+          <%= f.email_field :email, class: "form-control margin-bottom-md", autofocus: true, placeholder: "Email" %>
+          <%= f.password_field :password, class: "form-control margin-bottom-md", autocomplete: "off", placeholder: "Password" %>
 
           <%# if devise_mapping.rememberable? -%>
             <%#= f.check_box :remember_me %>
             <%#= f.label :remember_me %>
           <%# end -%>
 
-          <%= f.submit "log in", class: "btn btn-primary btn-center" %>
+          <%= f.submit "Log in", class: "btn btn-primary btn-center" %>
         <% end %>
 
         <div class="text-center">
