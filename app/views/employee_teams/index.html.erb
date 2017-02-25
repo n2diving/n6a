@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-    <h1 class="margin-bottom-lg">employee teams</h1>
+    <h1 class="margin-bottom-lg">Employee Groups</h1>
 
     <table class="table table-striped table-hover table-bordered datatable">
       <thead>
         <tr>
-          <th>user</th>
-          <th>team</th>
-          <th>team lead?</th>
+          <th>User</th>
+          <th>Group</th>
+          <th>Group Lead?</th>
           <% if current_user.is_admin || current_user.is_officer %>
             <th class="text-center no-sort">actions</th>
           <% end %>
@@ -38,7 +38,7 @@
     <br>
 
     <%= link_to new_employee_team_path, class: "text-primary" do %>
-      <i class="fa fa-plus"></i> new employee team
+      <i class="fa fa-plus"></i> New Employee Group
     <% end %>
   </div>
 </div>

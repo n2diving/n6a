@@ -1,20 +1,20 @@
 <% permission = current_user.is_admin || current_user.is_officer? %>
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-    <h1 class="margin-bottom-lg">employees</h1>
+    <h1 class="margin-bottom-lg">Employees</h1>
 
     <table class="table table-striped table-hover table-bordered datatable">
       <thead>
         <tr>
-          <th>name</th>
-          <th>team</th>
-          <th>email</th>
-          <th>title</th>
+          <th>Name</th>
+          <th>Group</th>
+          <th>Email</th>
+          <th>Title</th>
           <%# if current_user.id == current_user.teams.first.try(:team_lead) %>
-            <th class="text-center">review</th>
+            <th class="text-center">Review</th>
           <%# end %>
           <% if current_user.is_admin || current_user.is_officer? %>
-            <th class="text-center no-sort">actions</th>
+            <th class="text-center no-sort">Actions</th>
           <% end %>
         </tr>
       </thead>
@@ -26,18 +26,18 @@
               <td><%= link_to user.full_name, user %></td>
               <td><%= user.teams.blank? ? '' : (link_to user.teams.first.team_name, user.teams.first) %></td>
               <td><%= user.email %></td>
-              <td><%= user.title.try(:downcase) %></td>
+              <td><%= user.title %></td>
               <% reviews = user.user_reviews.where(rate_period: current_month).any? %>
               <% if (permission || current_user.can_review_user(user.id)) && !reviews %>
                 <td class="text-center">
                   <%= link_to new_employee_rating_path(user.id) , class: "text-primary" do %>
-                  <i class="fa fa-plus"></i> new employee review
+                  <i class="fa fa-plus"></i> New Employee Review
                   <% end %>
                 </td>
               <% else %>
                 <td class="text-center">
                   <%= link_to edit_employee_rating_path(user, rate_period: current_month) do %>
-                    <i class="fa fa-edit text-primary"></i> edit employee ratings
+                    <i class="fa fa-edit text-primary"></i> Edit Employee Ratings
                   <% end %>
                 </td>
               <% end %>
@@ -64,7 +64,7 @@
     <br>
 
     <%= link_to new_user_path, class: "text-primary margin-bottom-md" do %>
-      <i class="fa fa-plus"></i> new user
+      <i class="fa fa-plus"></i> New User
     <% end %>
   </div>
 </div>

@@ -11,18 +11,18 @@
     </div>
   <% end %>
 
-  <%= f.select :rate_period, options_for_select(options_for_rate_period, current_month), { prompt: 'select rate period' }, class: "form-control margin-bottom-md" %>
-  <%= f.select :review_item_id, ReviewItem.all.order(:name).collect { |r| [ r.display_name, r.id ] }, { include_blank: "select review item" }, class: "form-control margin-bottom-md" %>
-  <%= f.select :user_id, User.all.collect { |u| [ u.full_name, u.id ] }, { include_blank: "employee name" }, class: "form-control margin-bottom-md" %>
-  <%= f.text_area :pros, class: "form-control margin-bottom-md", placeholder: "pros"%>
-  <%= f.text_area :cons, class: "form-control margin-bottom-md", placeholder: "cons"%>
-  <%= f.number_field :rating, class: "form-control margin-bottom-md", placeholder: "rating"%>
+  <%= f.select :rate_period, options_for_select(options_for_rate_period, current_month), { prompt: 'Select Rate Period' }, class: "form-control margin-bottom-md" %>
+  <%= f.select :review_item_id, ReviewItem.all.order(:name).collect { |r| [ r.display_name, r.id ] }, { include_blank: "Select Review Item" }, class: "form-control margin-bottom-md" %>
+  <%= f.select :user_id, User.all.collect { |u| [ u.full_name, u.id ] }, { include_blank: "Employee Name" }, class: "form-control margin-bottom-md" %>
+  <%= f.text_area :pros, class: "form-control margin-bottom-md", placeholder: "Pros"%>
+  <%= f.text_area :cons, class: "form-control margin-bottom-md", placeholder: "Cons"%>
+  <%= f.number_field :rating, class: "form-control margin-bottom-md", placeholder: "Rating"%>
 
   <%= f.check_box :is_team, { class: "" }, true, false %>
-  <%= f.label :is_team, "team rating?", { class: "checkbox-inline" } %>
+  <%= f.label :is_team, "Group Rating?", { class: "checkbox-inline" } %>
   <br>
   <%= f.check_box :notes_allowed, { class: "" }, true, false %>
-  <%= f.label :notes_allowed, "response allowed?", { class: "checkbox-inline" } %>
+  <%= f.label :notes_allowed, "Response Allowed?", { class: "checkbox-inline" } %>
 
   <%= f.hidden_field :rated_by_user_id, value: current_user.id %>
   <%= f.submit "save", class: "btn btn-primary btn-center" %>

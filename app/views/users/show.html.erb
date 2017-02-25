@@ -25,7 +25,7 @@
       <div class="col-xs-6">
         <% results2 = review_team_chart_results(@user) %>
         <% unless results2.blank? %>
-          <div class="lead">Performance Compared to the Team</div>
+          <div class="lead">Performance Compared to the Group</div>
           <%= line_chart results2 %>
           <div class="margin-bottom-lg"></div>
       <% end %>
@@ -39,14 +39,14 @@
     <table class="table table-striped table-hover table-bordered datatable">
       <thead>
       <tr>
-        <th>month</th>
-        <th class="text-center">adjusted average</th>
-        <th class="text-center">average</th>
+        <th>Month</th>
+        <th class="text-center">Adjusted Average</th>
+        <th class="text-center">Average</th>
         <% headers = ReviewItem.where(is_weekly: false, is_monthly_bonus: false).order(:name).pluck(:display_name, :id) %>
         <% headers.each do |criteria| %>
           <th class="text-center"><%= criteria[0] %></th>
         <% end %>
-        <th class="text-center no-sort">bonuses</th>
+        <th class="text-center no-sort">Bonuses</th>
       </tr>
       </thead>
 
@@ -109,9 +109,9 @@
     <table class="table table-striped table-hover table-bordered datatable">
       <thead>
         <tr>
-          <th>month</th>
-          <th>rating criteria</th>
-          <th>notes</th>
+          <th>Month</th>
+          <th>Rating Criteria</th>
+          <th>Notes</th>
         </tr>
       </thead>
 

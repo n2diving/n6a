@@ -1,16 +1,16 @@
 <% team_param = params[:team_id] %>
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-    <h2 class="margin-bottom-md">new team rating</h2>
+    <h2 class="margin-bottom-md">New Group Rating</h2>
 
     <%#= form_for :user, url: team_rating_path, method: :patch do |one_review| %>
     <%= form_tag team_rating_path do %>
 
       <div class="row">
         <div class="col-xs-12">
-          <%= select_tag :team_id, options_for_select(Team.all.collect { |t| [ t.team_name, t.id ] }, params[:team_id]), include_blank: "team name", class: "form-control margin-bottom-sm", required: true, id: "team_id" %>
+          <%= select_tag :team_id, options_for_select(Team.all.collect { |t| [ t.team_name, t.id ] }, params[:team_id]), include_blank: "Group Name", class: "form-control margin-bottom-sm", required: true, id: "team_id" %>
 
-          <%= select_tag :user_review, options_for_select(options_for_rate_period, current_month), include_blank: "select rate period", class: "form-control margin-bottom-md", id: "rate_period" %>
+          <%= select_tag :user_review, options_for_select(options_for_rate_period, current_month), include_blank: "Select Rate Period", class: "form-control margin-bottom-md", id: "rate_period" %>
         </div>
       </div>
 
@@ -36,9 +36,9 @@
 
               <div class="row">
                 <div class="col-xs-12">
-                  <%= text_area_tag "user_reviews[#{i}][notes]", '', class: "form-control margin-bottom-md", placeholder: "notes", required: true%>
+                  <%= text_area_tag "user_reviews[#{i}][notes]", '', class: "form-control margin-bottom-md", placeholder: "Notes", required: true%>
                   <% if !review_item_by_role.review_item.scale_min.blank? %>
-                    <%= select_tag "user_reviews[#{i}][rating]", options_for_select(review_item_by_role.review_item.scale_min..review_item_by_role.review_item.scale_max), include_blank: "rating", class: "form-control margin-bottom-md", id: "rate_period" %>
+                    <%= select_tag "user_reviews[#{i}][rating]", options_for_select(review_item_by_role.review_item.scale_min..review_item_by_role.review_item.scale_max), include_blank: "Rating", class: "form-control margin-bottom-md", id: "rate_period" %>
                   <% end %>
                   <%= hidden_field_tag "user_reviews[#{i}][rated_by_user_id]", current_user.id %>
                   <%= hidden_field_tag "user_reviews[#{i}][is_team]", true %>
@@ -74,7 +74,7 @@
 
         <div class="row">
           <div class="col-xs-12">
-            <%= submit_tag "save", class: "btn btn-primary btn-center" %>
+            <%= submit_tag "Save", class: "btn btn-primary btn-center" %>
           </div>
         </div>
 

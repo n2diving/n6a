@@ -2,7 +2,7 @@
 <% team = @user.try(:teams).first %>
 <% team_lead = current_user.id == current_user.teams.first.try(:team_lead) %>
 <% if team.blank? %>
-  <p>There are no team ratings</p>
+  <p>There are no group ratings</p>
 <% else %>
   <%= form_for @user, url: update_all_team_path do |one_user|  %>
     <%= one_user.hidden_field :team_id, value: team.id %>
@@ -80,7 +80,7 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <%= submit_tag "save", class: "btn btn-primary btn-center" %>
+        <%= submit_tag "Save", class: "btn btn-primary btn-center" %>
       </div>
     </div>
 

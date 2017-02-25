@@ -44,7 +44,7 @@ module UsersHelper
             data: employee_dataset
           },
           {
-            name: "team",
+            name: "group",
             data: team_dataset
           }]
       end

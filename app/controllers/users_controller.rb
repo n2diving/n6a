@@ -101,7 +101,7 @@ class UsersController < ApplicationController
     elsif current_user.id == current_user.teams.first.try(:team_lead)
       @users = User.joins(:employee_teams).where("employee_teams.team_id = ?", current_user.teams.first.id).order(:last_name)
       if !@users.pluck(:id).include? @user.first.id
-        flash[:notice] = "Please select an employee on your team."
+        flash[:notice] = "Please select an employee in your group."
       end
     else
       flash[:alert] = "Sorry you don't have access to this page."
@@ -206,7 +206,7 @@ class UsersController < ApplicationController
         end
       end
 
-      redirect_to team, notice: "Team rating has been saved."
+      redirect_to team, notice: "Group rating has been saved."
     # rescue => e
     #   redirect_to back, notice: e.inspect
     # end
@@ -381,7 +381,7 @@ class UsersController < ApplicationController
         end
       end
 
-      redirect_to team, notice: "Team rating has been saved."
+      redirect_to team, notice: "Group rating has been saved."
     # rescue => e
     #   redirect_to :back, notice: e.inspect
     # end

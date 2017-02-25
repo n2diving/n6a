@@ -11,25 +11,25 @@
     </div>
   <% end %>
 
-  <%= f.text_field :display_name, autofocus: true, class: "form-control margin-bottom-md", placeholder: "name" %>
-  <%= f.number_field :scale_min, class: "form-control margin-bottom-md", placeholder: "scale low end (min)" %>
-  <%= f.number_field :scale_max, class: "form-control margin-bottom-md", placeholder: "scale high end (max)" %>
-  <%= f.date_field :start_date, class: "form-control margin-bottom-md", placeholder: "effective start date" %>
-  <%= f.date_field :end_date, class: "form-control margin-bottom-md", placeholder: "effective end date" %>
+  <%= f.text_field :display_name, autofocus: true, class: "form-control margin-bottom-md", placeholder: "Name" %>
+  <%= f.number_field :scale_min, class: "form-control margin-bottom-md", placeholder: "Scale Low End (min)" %>
+  <%= f.number_field :scale_max, class: "form-control margin-bottom-md", placeholder: "Scale High End (max)" %>
+  <%= f.date_field :start_date, class: "form-control margin-bottom-md", placeholder: "Effective Start Date" %>
+  <%= f.date_field :end_date, class: "form-control margin-bottom-md", placeholder: "Effective End Date" %>
 
   <%= f.check_box :response_allowed, { class: "" }, true, false %>
-  <%= f.label :response_allowed, "response allowed?", { class: "checkbox-inline" } %>
+  <%= f.label :response_allowed, "Response Allowed?", { class: "checkbox-inline" } %>
   <br>
   <%= f.check_box :is_team, { class: "" }, true, false %>
-  <%= f.label :is_team, "team criteria?", { class: "checkbox-inline" } %>
+  <%= f.label :is_team, "Group Criteria?", { class: "checkbox-inline" } %>
   <br>
   <%= f.check_box :is_weekly, { class: "" }, true, false %>
-  <%= f.label :is_weekly, "weekly review item?", { class: "checkbox-inline" } %>
+  <%= f.label :is_weekly, "Weekly Review Item?", { class: "checkbox-inline" } %>
   <br>
   <%= f.check_box :is_monthly_bonus, { class: "" }, true, false %>
-  <%= f.label :is_monthly_bonus, "monthly bonus item?", { class: "checkbox-inline" } %>
+  <%= f.label :is_monthly_bonus, "Monthly Bonus Item?", { class: "checkbox-inline" } %>
   <div class="margin-bottom-md"></div>
-  <%= f.number_field :bonus_amount, class: "form-control margin-bottom-md", placeholder: "bonus amount", step: "0.01" %>
+  <%= f.number_field :bonus_amount, class: "form-control margin-bottom-md", placeholder: "Bonus Amount", step: "0.01" %>
 
 
   <%= f.submit "save", class: "btn btn-primary btn-center" %>

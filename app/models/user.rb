@@ -58,7 +58,7 @@ class User < ApplicationRecord
 
 
   def full_name
-    return self.first_name.downcase + ' ' + self.last_name.downcase
+    return self.first_name.capitalize + ' ' + self.last_name.capitalize
   end
 
   def team_user_review_rows(columns, rate_period)

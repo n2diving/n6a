@@ -1,17 +1,17 @@
 <% permission = current_user.is_admin? || current_user.is_officer? || (current_user.id == current_user.teams.first.try(:team_lead)) %>
-<div class="lead">Team Performance</div>
+<div class="lead">Group Performance</div>
 
 <table class="table table-striped table-hover table-bordered datatable">
   <thead>
   <tr>
-    <th>team</th>
-    <th>month</th>
-    <th class="text-center">ranking</th>
-    <th class="text-center">current month average</th>
-    <th class="text-center">6 month average</th>
-    <th class="text-center">first 6 months average</th>
-    <th class="text-center">last 6 months average</th>
-    <th class="text-center">ytd average</th>
+    <th>Group</th>
+    <th>Month</th>
+    <th class="text-center">Rnking</th>
+    <th class="text-center">Current Month Average</th>
+    <th class="text-center">6 Month Average</th>
+    <th class="text-center">First 6 Months Average</th>
+    <th class="text-center">Last 6 Months Average</th>
+    <th class="text-center">YTD Average</th>
   </tr>
   </thead>
 

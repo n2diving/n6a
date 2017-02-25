@@ -2,19 +2,19 @@
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class="row">
       <div class="col-xs-6">
-        <h1 class="margin-bottom-sm">teams</h1>
+        <h1 class="margin-bottom-sm">Groups</h1>
       </div>
 
       <div class="col-xs-6">
         <% if current_user.is_admin || current_user.is_officer? %>
           <%= link_to new_team_rating_path, class: "text-primary pull-right margin-top-sm" do %>
-            <i class="fa fa-plus"></i> new team review
+            <i class="fa fa-plus"></i> New Group Review
           <% end %>
         <% end %>
         <br>
         <br>
         <%= link_to edit_team_reviews_path, class: "text-info pull-right" do %>
-          <i class="fa fa-edit"></i> team reviews
+          <i class="fa fa-edit"></i> Group Reviews
         <% end %>
 
       </div>
@@ -24,9 +24,9 @@
         <table class="table table-striped table-hover table-bordered datatable">
           <thead>
             <tr>
-              <th>team name</th>
+              <th>Group Name</th>
               <% if current_user.is_admin %>
-                <th class="text-center no-sort">actions</th>
+                <th class="text-center no-sort">Actions</th>
               <% end %>
             </tr>
           </thead>
@@ -54,7 +54,9 @@
         <br>
 
         <%= link_to new_team_path , class: "text-primary" do %>
-          <i class="fa fa-plus"></i> new team
+          <i class="fa fa-plus"></i> New Group
         <% end %>
+      </div>
+    </div>
   </div>
 </div>
