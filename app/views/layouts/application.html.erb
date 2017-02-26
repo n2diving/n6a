@@ -54,18 +54,18 @@
               <!--<li>-->
                 <!--<%#= link_to 'rate employees', employees_with_pending_reviews_path %>-->
               <!--</li>-->
+              <li>
+                <%= link_to 'Birds Eye', all_employees_ratings_path %>
+              </li>
             <% end %>
             <% if current_user.id == 1 %>
               <li>
                 <%= link_to 'User Reviews', user_reviews_path %>
               </li>
             <% end %>
-            <% if (current_user.id == current_user.teams.first.try(:team_lead)) || ((current_user.can_review_users.any?) && !current_user.is_officer?) %>
+            <% if (current_user.id == current_user.teams.first.try(:team_lead)) || ((current_user.can_review_users.any?) && !current_user.is_officer?)  %>
               <li>
                 <%= link_to 'Employees', users_path %>
-              </li>
-              <li>
-                <%= link_to 'Birds Eye', all_employees_ratings_path %>
               </li>
             <% end %>
             <% if current_user.teams.any? %>
