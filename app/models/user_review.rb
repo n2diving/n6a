@@ -61,9 +61,11 @@ class UserReview < ApplicationRecord
     columns.each_with_index do |one_column, i|
       user_review = UserReview.all.where(review_item_id: one_column[1], user_id: user_id, rate_period: rate_period.end_of_month).first
       @review_rows[i] = []
-      @review_rows[i] << (user_review.nil? ? '' : user_review.rating)
+      @review_rows[i] << { rating: (user_review.nil? ? '' : user_review.rating) }
+      @review_rows[i] << { notes: (user_review.nil? ? '' : user_review.combined_notes) }
       # @review_rows[i] << (user_review.nil? ? '' : ( sprintf.try("%.2f", user_review.rating) ))
-    end
+      end
+
     @review_rows
   end
 
@@ -80,6 +82,18 @@ class UserReview < ApplicationRecord
       @review_rows[i] << (user_review.blank? ? 0 : ('%.2f' % (user_review.sum(:rating) / user_review.count.to_f).round(2)))
     end
     @review_rows
+  end
+
+  def combined_notes
+    notes = {}
+    notes[:pros] = self.pros unless self.pros.nil?
+    notes[:cons] = self.cons unless self.cons.nil?
+    notes[:notes] = self.notes unless self.notes.nil?
+    results = ''
+    notes.each_pair do |key,value|
+      results << "#{key.upcase}: #{value}<br>"
+    end
+    results
   end
 
   def overwrite_reviews

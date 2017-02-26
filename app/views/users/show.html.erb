@@ -73,7 +73,10 @@
                 <td></td>
               <% end %>
               <% user_review.user_review_rows(headers, user_review.user.id, one_month.to_datetime.end_of_month).each do |one_row| %>
-                <td class="text-center"><%= one_row[1].first %></td>
+                <td class="text-center">
+                  <div data-toggle="tooltip" data-html="true" title="<%= one_row[1].second[:notes] %>"><%= one_row[1].first[:rating]%>
+                  </div>
+                </td>
               <% end %>
               <td class="text-center">
                 <% if !bonus.blank? %>
@@ -100,65 +103,65 @@
 
 
 
-    <hr>
-    <%# raise %>
-    <% month =  '01/01/2017'.to_date.end_of_month %>
-    <% reviews2 =  @user_reviews.where(rate_period: month) %>
-    <% list = ReviewItem.where(id: reviews2.pluck(:review_item_id)) %>
+    <!--<hr>-->
+    <!--<%# raise %>-->
+    <!--<%# month =  '01/01/2017'.to_date.end_of_month %>-->
+    <!--<%# reviews2 =  @user_reviews.where(rate_period: month) %>-->
+    <!--<%# list = ReviewItem.where(id: reviews2.pluck(:review_item_id)) %>-->
 
-    <table class="table table-striped table-hover table-bordered datatable">
-      <thead>
-        <tr>
-          <th>Month</th>
-          <th>Rating Criteria</th>
-          <th>Notes</th>
-        </tr>
-      </thead>
+    <!--<table class="table table-striped table-hover table-bordered datatable">-->
+      <!--<thead>-->
+        <!--<tr>-->
+          <!--<th>Month</th>-->
+          <!--<th>Rating Criteria</th>-->
+          <!--<th>Notes</th>-->
+        <!--</tr>-->
+      <!--</thead>-->
 
-      <tbody>
-        <% list.each do |one_review_item| %>
-          <% if !reviews2.blank? %>
-            <% pros = reviews2.where(review_item_id: one_review_item.id).first.pros %>
-            <% cons = reviews2.where(review_item_id: one_review_item.id).first.cons %>
-            <% notes = reviews2.where(review_item_id: one_review_item.id).first.notes %>
-            <tr>
-              <td><%= month.strftime("%B %Y") %></td>
-              <td><%= one_review_item.display_name %></td>
-              <td>
-                <ul class="padding-left-sm">
-                  <% if !pros.blank? %>
-                    <li>
-                      <span class="text-primary">PROS:</span>
-                      <%= pros %>
-                    </li>
-                  <% end %>
-                  <% if !cons.blank? %>
-                    <li>
-                      <span class="text-primary">CONS:</span>
-                      <%= cons %>
-                    </li>
-                  <% end %>
-                  <% if !notes.blank? %>
-                    <li>
-                      <span class="text-primary">NOTES:</span>
-                      <%= notes %>
-                    </li>
-                  <% end %>
-                </ul>
-              </td>
-            </tr>
-          <% else %>
-            <tr>
-              <td colspan="15">
-                <em>There is no data to display.</em>
-              </td>
-            </tr>
-          <% end %>
+      <!--<tbody>-->
+        <!--<%# list.each do |one_review_item| %>-->
+          <!--<%# if !reviews2.blank? %>-->
+            <!--<%# pros = reviews2.where(review_item_id: one_review_item.id).first.pros %>-->
+            <!--<%# cons = reviews2.where(review_item_id: one_review_item.id).first.cons %>-->
+            <!--<%# notes = reviews2.where(review_item_id: one_review_item.id).first.notes %>-->
+            <!--<tr>-->
+              <!--<td><%#= month.strftime("%B %Y") %></td>-->
+              <!--<td><%#= one_review_item.display_name %></td>-->
+              <!--<td>-->
+                <!--<ul class="padding-left-sm">-->
+                  <!--<%# if !pros.blank? %>-->
+                    <!--<li>-->
+                      <!--<span class="text-primary">PROS:</span>-->
+                      <!--<%#= pros %>-->
+                    <!--</li>-->
+                  <!--<%# end %>-->
+                  <!--<%# if !cons.blank? %>-->
+                    <!--<li>-->
+                      <!--<span class="text-primary">CONS:</span>-->
+                      <!--<%#= cons %>-->
+                    <!--</li>-->
+                  <!--<%# end %>-->
+                  <!--<%# if !notes.blank? %>-->
+                    <!--<li>-->
+                      <!--<span class="text-primary">NOTES:</span>-->
+                      <!--<%#= notes %>-->
+                    <!--</li>-->
+                  <!--<%# end %>-->
+                <!--</ul>-->
+              <!--</td>-->
+            <!--</tr>-->
+          <!--<%# else %>-->
+            <!--<tr>-->
+              <!--<td colspan="15">-->
+                <!--<em>There is no data to display.</em>-->
+              <!--</td>-->
+            <!--</tr>-->
+          <!--<%# end %>-->
 
-        <% end %>
+        <!--<%# end %>-->
 
-      </tbody>
-    </table>
+      <!--</tbody>-->
+    <!--</table>-->
 
 
 
