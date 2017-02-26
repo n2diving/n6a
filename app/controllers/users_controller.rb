@@ -91,6 +91,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def all_employees_ratings
+    if current_user.is_admin? || current_user.is_officer
+      @users = User.all.order(:last_name)
+    elsif current_user.can_review_users.any?
+      @users = current_user.can_review_users
+    else
+      flash[:error] = "Sorry you don't have permission to view all employees."
+      redirect_to :root
+    end
+  end
+
   def new_employee_rating
     @user = User.where(id: params[:id])
     @user_review = UserReview.new

@@ -64,6 +64,9 @@
               <li>
                 <%= link_to 'Employees', users_path %>
               </li>
+              <li>
+                <%= link_to 'Birds Eye', all_employees_ratings_path %>
+              </li>
             <% end %>
             <% if current_user.teams.any? %>
               <li>

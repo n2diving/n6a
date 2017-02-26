@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   patch   '/team_rating',      to: 'users#team_rating',     as: :team_rating
   post   '/team_rating',      to: 'users#team_rating'
   get   '/employees_with_pending_reviews',            to: 'users#employees_with_pending_reviews',     as: :employees_with_pending_reviews
+  get   '/all_employees_ratings',            to: 'users#all_employees_ratings',     as: :all_employees_ratings
 
 
   get   '/edit_team_reviews',            to: 'teams#edit_team_reviews',     as: :edit_team_reviews
