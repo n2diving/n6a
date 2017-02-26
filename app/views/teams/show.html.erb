@@ -57,6 +57,8 @@
         <tr>
           <th>Employee</th>
           <th>Month</th>
+          <th class="text-center">Adjusted Average</th>
+          <th class="text-center">Average</th>
           <!--<th class="text-center">average</th>-->
           <% headers = ReviewItem.where(is_weekly: false, is_monthly_bonus: false).order(:name).pluck(:display_name, :id) %>
           <% headers.each do |criteria| %>
@@ -71,6 +73,11 @@
           <% if teammates.any? %>
             <% teammates.each do |one_teammember| %>
               <% rate_period = month.try(:to_date) || (current_month) %>
+              <% reviews = one_teammember.user_reviews.where(rate_period: rate_period)%>
+
+              <% average = reviews.pluck(:rating) %>
+              <% average.reject! {|x| x == nil} %>
+              <% average.reject! {|x| x == 0} %>
               <% bonus_totals = one_teammember.bonus_totals(one_teammember.user_reviews, rate_period) %>
               <tr>
                 <% if permission %>
@@ -79,9 +86,19 @@
                   <td><%= one_teammember.full_name %></td>
                 <% end %>
                 <td><%= rate_period.strftime("%B %Y") %></td>
+                <% unless average.blank? %>
+                  <td class="text-center"><%= ((average.reduce(:+) / average.size.to_f) + bonus_totals).round(2) %></td>
+                  <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
+                <% else %>
+                  <td></td>
+                  <td></td>
+                <% end %>
                 <!--<td class="text-center"><%#= (average.reduce(:+) / average.size.to_f).round(2) %></td>-->
                 <% one_teammember.team_user_review_rows(headers, (rate_period)).each do |one_row| %>
-                  <td class="text-center"><%= one_row[1].first %></td>
+                  <td class="text-center">
+                    <div data-toggle="tooltip" data-html="true" title="<%= one_row[1].second[:notes] %>"><%= one_row[1].first[:rating]%>
+                    </div>
+                  </td>
                 <% end %>
                 <td class="text-center">
                   <% if bonus_totals > 0 %>
