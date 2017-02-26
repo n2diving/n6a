@@ -64,7 +64,7 @@
           <%#= user_review.inspect %>
           <% unless user_review.blank? %>
             <tr>
-              <td><%= one_month %></td>
+              <td class="bold"><%= one_month %></td>
               <% unless average.blank? %>
                 <td class="text-center"><%= ((average.reduce(:+) / average.size.to_f) + bonus.sum).round(2) %></td>
                 <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>

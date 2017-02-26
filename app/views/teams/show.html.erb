@@ -81,11 +81,11 @@
               <% bonus_totals = one_teammember.bonus_totals(one_teammember.user_reviews, rate_period) %>
               <tr>
                 <% if permission %>
-                  <td><%= link_to one_teammember.full_name, one_teammember %></td>
+                  <td class="bold"><%= link_to one_teammember.full_name, one_teammember %></td>
                 <% else %>
-                  <td><%= one_teammember.full_name %></td>
+                  <td class="bold"><%= one_teammember.full_name %></td>
                 <% end %>
-                <td><%= rate_period.strftime("%B %Y") %></td>
+                <td class="bold"><%= rate_period.strftime("%B %Y") %></td>
                 <% unless average.blank? %>
                   <td class="text-center"><%= ((average.reduce(:+) / average.size.to_f) + bonus_totals).round(2) %></td>
                   <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
@@ -148,7 +148,7 @@
         <%#= team_review.inspect %>
         <% unless team_review.blank? %>
           <tr>
-            <td><%= one_month %></td>
+            <td class="bold"><%= one_month %></td>
             <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
             <% team_review.team_review_rows(headers2, @team.id, one_month.to_datetime.end_of_month).each do |one_row| %>
               <td class="text-center"><%= one_row[1].first %></td>

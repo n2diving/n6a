@@ -6,7 +6,7 @@
   <tr>
     <th>Group</th>
     <th>Month</th>
-    <th class="text-center">Rnking</th>
+    <th class="text-center">Ranking</th>
     <th class="text-center">Current Month Average</th>
     <th class="text-center">6 Month Average</th>
     <th class="text-center">First 6 Months Average</th>
@@ -25,11 +25,11 @@
       <% rate_periods = month.try(:to_date) || current_month %>
       <tr>
         <% if permission %>
-          <td><%= link_to one_team.team_name, one_team %></td>
+          <td class="bold"><%= link_to one_team.team_name, one_team %></td>
         <% else %>
-          <td><%= one_team.team_name %></td>
+          <td class="bold"><%= one_team.team_name %></td>
         <% end %>
-        <td><%= rate_periods.strftime("%B %Y") %></td>
+        <td class="bold"><%= rate_periods.strftime("%B %Y") %></td>
         <td class="text-center"><%= team_ranking(one_team.id, rate_periods) %></td>
         <td class="text-center"><%= team_averages(one_team.id, rate_periods, rate_periods) %></td>
         <td class="text-center"><%= team_averages(one_team.id, rate_periods, (rate_periods - 6.months)) %></td>
