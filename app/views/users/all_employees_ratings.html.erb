@@ -24,7 +24,7 @@
         <thead>
         <tr>
           <th>Employee</th>
-          <th>Month</th>
+          <th>Group</th>
           <th class="text-center">Adjusted Average</th>
           <th class="text-center">Average</th>
           <!--<th class="text-center">average</th>-->
@@ -33,12 +33,14 @@
             <th class="text-center"><%= criteria[0] %></th>
           <% end %>
           <th class="text-center no-sort">Bonuses</th>
+          <th class="text-center">First 6 Months Average</th>
         </tr>
         </thead>
 
         <tbody>
         <% nope = false %>
         <% @users.each do |one_user| %>
+          <% team = one_user.teams.first %>
           <% rate_period = month.try(:to_date) || (current_month) %>
           <% reviews = one_user.user_reviews.where(rate_period: rate_period)%>
           <% nope = true if reviews.any? %>
@@ -53,8 +55,11 @@
             <% else %>
               <td class="bold"><%= one_user.full_name %></td>
             <% end %>
-            <td class="bold"><%= rate_period.strftime("%B %Y") %></td>
-            <% unless average.blank? %>
+            <% if team.nil? %>
+              <td></td>
+            <% else %>
+              <td class="bold"><%= link_to team.team_name, team, class: "text-info" %></td>
+            <% end %>            <% unless average.blank? %>
               <td class="text-center"><%= ((average.reduce(:+) / average.size.to_f) + bonus_totals).round(2) %></td>
               <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
             <% else %>
@@ -64,10 +69,10 @@
             <!--<td class="text-center"><%#= (average.reduce(:+) / average.size.to_f).round(2) %></td>-->
             <% one_user.team_user_review_rows(headers, (rate_period)).each do |one_row| %>
               <td class="text-center">
-                <div data-toggle="tooltip" data-html="true" title="<%= one_row[1].second[:notes] %>"><%= one_row[1].first[:rating]%>
+                <div data-toggle="tooltip" data-html="true" title="<%= one_row[1].second[:notes] %>" data-sort="<%= one_row[1].first[:rating] %>"><%= one_row[1].first[:rating]%>
                 </div>
               </td>
-            <% end %>
+          <% end %>
             <td class="text-center">
               <% if bonus_totals > 0 %>
                 <%= bonus_totals %>
@@ -77,6 +82,13 @@
                 <!--<i class="fa fa-star text-warning"></i>-->
               <% end %>
             </td>
+            <% jan = Date.today.beginning_of_year %>
+            <% june = jan + 6.months %>
+            <% if team.nil? %>
+              <td></td>
+            <% else %>
+              <td class="text-center"><%= team_averages(team.id, june, jan) %></td>
+            <% end %>
           </tr>
           <% if nope == false %>
             <tr>
