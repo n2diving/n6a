@@ -171,7 +171,6 @@ class UsersController < ApplicationController
     employee_ids = team.employee_teams.pluck(:user_id).uniq
 
     # begin
-      employee_ids.each do |one_user_id|
         params[:user_reviews].keys.each do |one_review|
           user_review = UserReview.where(id: one_review)
           if !params[:user_reviews][one_review][:multiplier].nil? && (params[:user_reviews][one_review][:multiplier].to_i > 0)
@@ -195,27 +194,29 @@ class UsersController < ApplicationController
               general_notes: params[:general_notes]
             )
           else
-            user_review = UserReview.create(
-              user_id: one_user_id,
-              review_item_id: params[:user_reviews][one_review][:review_item_id],
-              rate_period: params[:user_reviews][one_review][:rate_period],
-              pros: params[:user_reviews][one_review][:pros],
-              cons: params[:user_reviews][one_review][:cons],
-              notes: params[:user_reviews][one_review][:notes],
-              rating: params[:user_reviews][one_review][:rating],
-              checked: check,
-              multiplier: params[:user_reviews][one_review][:multiplier],
-              rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
-              is_team: true,
-              notes_allowed: true
+            employee_ids.each do |one_user_id|
+
+              user_review = UserReview.create(
+                user_id: one_user_id,
+                review_item_id: params[:user_reviews][one_review][:review_item_id],
+                rate_period: params[:user_reviews][one_review][:rate_period],
+                pros: params[:user_reviews][one_review][:pros],
+                cons: params[:user_reviews][one_review][:cons],
+                notes: params[:user_reviews][one_review][:notes],
+                rating: params[:user_reviews][one_review][:rating],
+                checked: check,
+                multiplier: params[:user_reviews][one_review][:multiplier],
+                rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
+                is_team: true,
+                notes_allowed: true
               )
-            user_review.review_note.create(
-              general_notes: params[:general_notes]
-            )
+              user_review.review_note.create(
+                general_notes: params[:general_notes]
+              )
+            end
           end
 
         end
-      end
 
       redirect_to team, notice: "Group rating has been saved."
     # rescue => e
