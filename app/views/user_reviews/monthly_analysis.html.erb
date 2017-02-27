@@ -52,68 +52,52 @@
 
           <div class="row margin-bottom-lg">
             <div class="col-xs-4">
-              <h4 class="text-info">Average Individual Ratings by Role</h4>
+              <h4 class="text-info">Average Individual <br>Ratings by Role</h4>
               <% if @individual_by_level.blank? %>
                 <h5>No data this month.</h5>
               <% else %>
-                <ul>
                   <% @individual_by_level.each do |k,v| %>
-                    <li>
                       <h5><%= k %>: <bold><%= v %></bold></h5>
-                    </li>
                   <% end %>
-                </ul>
               <% end %>
             </div>
 
             <div class="col-xs-4">
-              <h4 class="text-info">Group Performance and Variance</h4>
+              <h4 class="text-info">Group Performance <br>and Variance</h4>
               <% puts 'teamvariance' %>
               <% puts @team_variance.inspect %>
               <% if @team_variance.blank? %>
                 <h5>No data this month.</h5>
               <% else %>
-                <ul>
                   <% @team_variance.each do |one_result| %>
-                    <li>
                       <h5><%= one_result[0].titleize %>: <bold><%= one_result[1] %></bold></h5>
-                    </li>
                   <% end %>
-                </ul>
               <% end %>
             </div>
 
 
             <div class="col-xs-4">
-              <h4 class="text-info">Highest Averages by Role</h4>
+              <h4 class="text-info">Highest Averages  <br>by Role</h4>
               <% if @highest_by_level.blank? %>
                 <h5>No data this month.</h5>
               <% else %>
-                <ul>
                   <% @highest_by_level.each do |one_level| %>
-                    <li>
                       <h5><%= one_level[0].titleize %>: <bold><%= one_level[1].first[0] %></bold> (<%= (one_level[1].first[1].to_f.nan? ? '--' : one_level[1].first[1]) %>) </h5>
-                    </li>
                   <% end %>
-                </ul>
               <% end %>
             </div>
 
 
-            <div class="col-xs-4">
-              <h4 class="text-info">Lowest Averages by Role</h4>
+            <div class="col-xs-4 col-xs-offset-4">
+              <h4 class="text-info">Lowest Averages <br>by Role</h4>
               <%# puts 'lowestlevel' %>
               <%# puts @lowest_by_level.inspect %>
               <% if @lowest_by_level.blank? %>
                 <h5>No data this month.</h5>
               <% else %>
-                <ul>
                   <% @lowest_by_level.each do |one_level| %>
-                    <li>
                       <h5><%= one_level[0].titleize %>: <bold><%= one_level[1].first[0] %></bold> (<%= (one_level[1].first[1].to_f.nan? ? '--' : one_level[1].first[1]) %>) </h5>
-                    </li>
                   <% end %>
-                </ul>
               <% end %>
             </div>
         </div>
