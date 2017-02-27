@@ -2,120 +2,131 @@
 <div class="row text-center">
   <div class="col-xs-12">
     <div class="row">
-      <%= image_tag "n6a-logo.png", class: "mainpage-logo block" %>
       <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-        <h2 class="text-center">N6a Monthly Group Analysis</h2>
-
+        <h2 class="text-center margin-bottom-lg">N6a Monthly Group Analysis</h2>
 
         <div class="row margin-bottom-lg">
           <div class="col-xs-12">
             <%= select_tag :rate_period, options_for_select(options_for_rate_period, month), include_blank: "Select Rate Period", class: "form-control", id: "rate_period" %>
           </div>
         </div>
-      </div>
 
-      <div class="row margin-bottom-lg">
-        <div class="col-xs-12">
-          <h3 class="text-primary">Group of the Month</h3>
-          <h5><%= @group_of_the_month %></h5>
-        </div>
-      </div>
+        <hr>
 
-      <div class="row margin-bottom-lg">
-        <div class="col-xs-12">
-          <h3 class="text-primary">Team of the Month</h3>
-          <h5><%= @team_of_the_month %></h5>
-        </div>
-      </div>
+        <div class="row">
+          <div class="col-xs-12 col-md-6 gray-background">
+            <h3>Bonuses</h3>
+            <hr>
 
-      <div class="row margin-bottom-lg">
-        <div class="col-xs-12">
-          <h3 class="text-primary">Producers of the Week</h3>
-          <% if @producers_of_the_week.blank? %>
-            <h5>No weekly producers have been selected for this month.</h5>
-          <% else %>
-            <ul>
-              <% @producers_of_the_week.each do |one_employee| %>
-                <li>
-                  <h5><%= one_employee.full_name %></h5>
-                </li>
+            <div class="row margin-bottom-lg">
+              <div class="col-xs-12">
+                <h3 class="text-primary">Group of the Month</h3>
+                <h4><%= @group_of_the_month %></h4>
+              </div>
+            </div>
+
+            <div class="row margin-bottom-lg">
+              <div class="col-xs-12">
+                <h3 class="text-primary">Team of the Month</h3>
+                <h4><%= @team_of_the_month %></h4>
+              </div>
+            </div>
+
+            <div class="row margin-bottom-lg">
+              <div class="col-xs-12">
+                <h3 class="text-primary">Producers of the Week</h3>
+                <% if @producers_of_the_week.blank? %>
+                  <h4>No weekly producers have been selected for this month.</h4>
+                <% else %>
+                  <ul>
+                    <% @producers_of_the_week.each do |one_employee| %>
+                      <li>
+                        <h4><%= one_employee.full_name %></h4>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+        <div class="col-xs-12 col-md-6 gray-background">
+          <h3>Averages</h3>
+          <hr>
+
+          <div class="row margin-bottom-lg">
+            <div class="col-xs-12">
+              <h3 class="text-info">Average Individual Ratings by Role</h3>
+              <% if @individual_by_level.blank? %>
+                <h4>No data this month.</h4>
+              <% else %>
+                <ul>
+                  <% @individual_by_level.each do |k,v| %>
+                    <li>
+                      <h4><%= k %>: <bold><%= v %></bold></h4>
+                    </li>
+                  <% end %>
+                </ul>
               <% end %>
-            </ul>
-          <% end %>
-        </div>
-      </div>
+            </div>
+          </div>
 
-      <div class="row margin-bottom-lg">
-        <div class="col-xs-12">
-          <h3 class="text-primary">Average Individual Ratings by Role</h3>
-          <% if @individual_by_level.blank? %>
-            <h5>No data this month.</h5>
-          <% else %>
-            <ul>
-              <% @individual_by_level.each do |k,v| %>
-                <li>
-                  <h5><%= k %>: <bold><%= v %></bold></h5>
-                </li>
+          <div class="row margin-bottom-lg">
+            <div class="col-xs-12">
+              <h3 class="text-info">Group Performance and Variance</h3>
+              <% puts 'teamvariance' %>
+              <% puts @team_variance.inspect %>
+              <% if @team_variance.blank? %>
+                <h4>No data this month.</h4>
+              <% else %>
+                <ul>
+                  <% @team_variance.each do |one_result| %>
+                    <li>
+                      <h4><%= one_result[0].titleize %>: <bold><%= one_result[1] %></bold></h4>
+                    </li>
+                  <% end %>
+                </ul>
               <% end %>
-            </ul>
-          <% end %>
-        </div>
-      </div>
+            </div>
+          </div>
 
-      <div class="row margin-bottom-lg">
-        <div class="col-xs-12">
-          <h3 class="text-primary">Group Performance and Variance</h3>
-          <% puts 'teamvariance' %>
-          <% puts @team_variance.inspect %>
-          <% if @team_variance.blank? %>
-            <h5>No data this month.</h5>
-          <% else %>
-            <ul>
-              <% @team_variance.each do |one_result| %>
-                <li>
-                  <h5><%= one_result[0] %>: <bold><%= one_result[1] %></bold></h5>
-                </li>
+
+          <div class="row margin-bottom-lg">
+            <div class="col-xs-12">
+              <h3 class="text-info">Highest Averages by Role</h3>
+              <% if @highest_by_level.blank? %>
+                <h4>No data this month.</h4>
+              <% else %>
+                <ul>
+                  <% @highest_by_level.each do |one_level| %>
+                    <li>
+                      <h4><%= one_level[0].titleize %>: <bold><%= one_level[1].first[0] %></bold> (<%= (one_level[1].first[1].to_f.nan? ? '--' : one_level[1].first[1]) %>) </h4>
+                    </li>
+                  <% end %>
+                </ul>
               <% end %>
-            </ul>
-          <% end %>
-        </div>
-      </div>
+            </div>
+          </div>
 
 
-      <div class="row margin-bottom-lg">
-        <div class="col-xs-12">
-          <h3 class="text-primary">Highest Averages by Role</h3>
-          <% if @highest_by_level.blank? %>
-            <h5>No data this month.</h5>
-          <% else %>
-            <ul>
-              <% @highest_by_level.each do |one_level| %>
-                <li>
-                  <h5><%= one_level[0] %>: <bold><%= one_level[1].first[0] %></bold> (<%= (one_level[1].first[1].to_f.nan? ? '--' : one_level[1].first[1]) %>) </h5>
-                </li>
+          <div class="row margin-bottom-lg">
+            <div class="col-xs-12">
+              <h3 class="text-info">Lowest Averages by Role</h3>
+              <%# puts 'lowestlevel' %>
+              <%# puts @lowest_by_level.inspect %>
+              <% if @lowest_by_level.blank? %>
+                <h4>No data this month.</h4>
+              <% else %>
+                <ul>
+                  <% @lowest_by_level.each do |one_level| %>
+                    <li>
+                      <h4><%= one_level[0].titleize %>: <bold><%= one_level[1].first[0] %></bold> (<%= (one_level[1].first[1].to_f.nan? ? '--' : one_level[1].first[1]) %>) </h4>
+                    </li>
+                  <% end %>
+                </ul>
               <% end %>
-            </ul>
-          <% end %>
-        </div>
-      </div>
-
-
-      <div class="row margin-bottom-lg">
-        <div class="col-xs-12">
-          <h3 class="text-primary">Lowest Averages by Role</h3>
-          <%# puts 'lowestlevel' %>
-          <%# puts @lowest_by_level.inspect %>
-          <% if @lowest_by_level.blank? %>
-            <h5>No data this month.</h5>
-          <% else %>
-            <ul>
-              <% @lowest_by_level.each do |one_level| %>
-                <li>
-                  <h5><%= one_level[0] %>: <bold><%= one_level[1].first[0] %></bold> (<%= (one_level[1].first[1].to_f.nan? ? '--' : one_level[1].first[1]) %>) </h5>
-                </li>
-              <% end %>
-            </ul>
-          <% end %>
+            </div>
+          </div>
         </div>
       </div>
 

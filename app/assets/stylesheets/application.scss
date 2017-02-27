@@ -66,6 +66,14 @@ ul {
   font-weight: 600;
 }
 
+.gray-background {
+  background-color: lighten($gray-lighter, 5%);
+  border: 5px solid white;
+  //&:hover {
+  //  background-color: darken($gray-lighter, 1%);
+  //}
+}
+
 //ul {
 //  list-style: disc outside none;
 //  margin-left: 0;
