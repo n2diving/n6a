@@ -69,7 +69,7 @@
             <!--<td class="text-center"><%#= (average.reduce(:+) / average.size.to_f).round(2) %></td>-->
             <% one_user.team_user_review_rows(headers, (rate_period)).each do |one_row| %>
               <td class="text-center">
-                <div data-toggle="tooltip" data-html="true" title="<%= one_row[1].second[:notes] %>" data-sort="<%= one_row[1].first[:rating] %>"><%= one_row[1].first[:rating]%>
+                <div data-toggle="tooltip" data-html="true" title="<%= one_row[1].second[:notes] %>" data-order="<%= one_row[1].first[:rating] %>"><%= one_row[1].first[:rating]%>
                 </div>
               </td>
           <% end %>
@@ -90,12 +90,12 @@
               <td class="text-center"><%= team_averages(team.id, june, jan) %></td>
             <% end %>
           </tr>
+          <% end %>
           <% if nope == false %>
             <tr>
               <td colspan="15"><em>There are no results to for this rate period.</em></td>
             </tr>
           <% end%>
-        <% end %>
         </tbody>
       </table>
     <% end %>
