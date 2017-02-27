@@ -270,7 +270,7 @@ class UsersController < ApplicationController
       @user = [User.new]
     end
 
-    form_role_id = FormRole.unscoped.where(role: 'team').first.id
+    form_role_id = FormRole.unscoped.where(role: 'Team').first.id
     @review_items_by_role = ReviewItemsByRole.where(form_role_id: form_role_id).joins(:review_item).order('review_items.display_name').where(review_items: { is_team: true, is_weekly: false, is_monthly_bonus: false } )
 
     @bonus_items_by_role = ReviewItemsByRole.where(form_role_id: form_role_id).joins(:review_item).order('review_items.display_name').where(review_items: { is_team: true }).where('review_items.is_weekly = true OR review_items.is_monthly_bonus = true')
