@@ -34,13 +34,9 @@
                 <% if @producers_of_the_week.blank? %>
                   <h4>No weekly producers have been selected for this month.</h4>
                 <% else %>
-                  <ul>
                     <% @producers_of_the_week.each do |one_employee| %>
-                      <li>
                         <h4><%= one_employee.full_name %></h4>
-                      </li>
                     <% end %>
-                  </ul>
                 <% end %>
               </div>
             </div>
