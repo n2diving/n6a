@@ -73,7 +73,8 @@
           <% if teammates.any? %>
             <% teammates.each do |one_teammember| %>
               <% rate_period = month.try(:to_date) || (current_month) %>
-              <% reviews = one_teammember.user_reviews.where(rate_period: rate_period)%>
+              <% reviews = UserReview.where(rate_period: rate_period, user_id: one_teammember.id, team_id: @team.id) %>
+              <%# reviews = one_teammember.user_reviews.where(rate_period: rate_period)%>
 
               <% average = reviews.pluck(:rating) %>
               <% average.reject! {|x| x == nil} %>
