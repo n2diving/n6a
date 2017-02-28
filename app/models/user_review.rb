@@ -19,6 +19,7 @@
 #  is_archived             :boolean          default(FALSE)
 #  checked                 :boolean          default(FALSE)
 #  multiplier              :integer
+#  team_id                 :integer
 #
 # Indexes
 #
