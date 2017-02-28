@@ -10,7 +10,7 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
-    @users = User.all
+    @users = User.without_admin
     # if current_user.is_admin
     #   @users = User.all
     # elsif current_user.teams.first.team_lead

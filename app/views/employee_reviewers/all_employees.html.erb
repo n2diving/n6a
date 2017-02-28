@@ -28,8 +28,8 @@
             </div>
           <% end %>
 
-          <%= f.collection_select :employee_user_id, User.all.order(:first_name), :id, :full_name, { include_blank: "Select Employee" }, class: "form-control margin-bottom-md", autofocus: true %>
-          <%= f.collection_select :reviewer_user_id, User.all.order(:first_name), :id, :full_name, { include_blank: "Select Reviewer" }, class: "form-control margin-bottom-md" %>
+          <%= f.collection_select :employee_user_id, User.without_admin.order(:first_name), :id, :full_name, { include_blank: "Select Employee" }, class: "form-control margin-bottom-md", autofocus: true %>
+          <%= f.collection_select :reviewer_user_id, User.without_admin.order(:first_name), :id, :full_name, { include_blank: "Select Reviewer" }, class: "form-control margin-bottom-md" %>
 
 
           <%= f.submit "Save", class: "btn btn-primary btn-center" %>

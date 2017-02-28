@@ -62,7 +62,7 @@ class EmployeeReviewersController < ApplicationController
   end
 
   def all_employees
-    @employees = User.all.order(:first_name)
+    @employees = User.without_admin.order(:first_name)
   end
 
   private
