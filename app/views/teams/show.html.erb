@@ -79,7 +79,7 @@
               <% average = reviews.pluck(:rating) %>
               <% average.reject! {|x| x == nil} %>
               <% average.reject! {|x| x == 0} %>
-              <% bonus_totals = one_teammember.bonus_totals(one_teammember.user_reviews, rate_period) %>
+              <% bonus_totals = one_teammember.bonus_totals(one_teammember.user_reviews, rate_period, @team.id) %>
               <tr>
                 <% if permission %>
                   <td class="bold"><%= link_to one_teammember.full_name, one_teammember %></td>

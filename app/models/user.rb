@@ -72,8 +72,8 @@ class User < ApplicationRecord
     @review_rows
   end
 
-  def bonus_totals(user_reviews, rate_period)
-    list = user_reviews.where(rate_period: rate_period, checked: true)
+  def bonus_totals(user_reviews, rate_period, team_id)
+    list = user_reviews.where(rate_period: rate_period, checked: true, team_id: team_id)
     bonus_amount = []
 
     list.each do |one|
