@@ -14,6 +14,9 @@
   <%= f.select :rate_period, options_for_select(options_for_rate_period, current_month), { prompt: 'Select Rate Period' }, class: "form-control margin-bottom-md" %>
   <%= f.select :review_item_id, ReviewItem.all.order(:name).collect { |r| [ r.display_name, r.id ] }, { include_blank: "Select Review Item" }, class: "form-control margin-bottom-md" %>
   <%= f.select :user_id, User.all.collect { |u| [ u.full_name, u.id ] }, { include_blank: "Employee Name" }, class: "form-control margin-bottom-md" %>
+  <% if current_user.is_admin %>
+    <%= f.select :team_id, Team.all.collect { |t| [ t.team_name, t.id ] }, { include_blank: "Team Name" }, class: "form-control margin-bottom-md" %>
+  <% end %>
   <%= f.text_area :pros, class: "form-control margin-bottom-md", placeholder: "Pros"%>
   <%= f.text_area :cons, class: "form-control margin-bottom-md", placeholder: "Cons"%>
   <%= f.number_field :rating, class: "form-control margin-bottom-md", placeholder: "Rating"%>
