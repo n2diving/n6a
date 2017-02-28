@@ -207,7 +207,8 @@ class UsersController < ApplicationController
               multiplier: params[:user_reviews][one_review][:multiplier],
               rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
               is_team: true,
-              notes_allowed: true
+              notes_allowed: true,
+              team_id: team.id
               )
             user_review.review_note.create(
               general_notes: params[:general_notes]
@@ -228,6 +229,7 @@ class UsersController < ApplicationController
     # begin
 
       user = User.find(params[:id])
+      team = EmployeeTeam.where(user_id: user.id).first.try(:team_id)
 
       params[:user_reviews].keys.each do |one_review|
         if !params[:user_reviews][one_review][:multiplier].nil? && (params[:user_reviews][one_review][:multiplier].to_i > 0)
@@ -248,7 +250,8 @@ class UsersController < ApplicationController
           rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
           is_team: true,
           checked: check,
-          multiplier: params[:user_reviews][one_review][:multiplier]
+          multiplier: params[:user_reviews][one_review][:multiplier],
+          team_id: team
         )
       end
       redirect_to user, notice: "Employee rating has been saved."
@@ -387,7 +390,8 @@ class UsersController < ApplicationController
             rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
             is_team: true,
             notes_allowed: true,
-            checked: (params[:user_reviews][one_review][:checked].nil? ? false : true)
+            checked: (params[:user_reviews][one_review][:checked].nil? ? false : true),
+            team_id: team.id
           )
         end
       end

@@ -10,6 +10,7 @@
           <th>Review Criteria</th>
           <th class="text-center">Rating</th>
           <th class="text-center">Rate Period</th>
+          <th class="text-center">Team</th>
           <th class="text-center no-sort">Actions</th>
         </tr>
       </thead>
@@ -22,6 +23,7 @@
             <td><%= user_review.review_item.display_name %></td>
             <td class="text-center"><%= user_review.rating %></td>
             <td class="text-center"><%= user_review.rate_period.strftime("%B %Y") %></td>
+            <td class="text-center"><%= Team.where(EmployeeTeam.where(user_id: one.user_id).first.try(:team_name)) %></td>
 
             <td class="text-center">
               <%= link_to edit_user_review_path(user_review), class: "margin-right-sm" do %>
