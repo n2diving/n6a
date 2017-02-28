@@ -56,7 +56,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :user_reviews
   #, reject_if: proc { |a| a["notes"].blank? && a["pros"].blank? }
 
-  scope :without_admin, -> { where.not(id: 1) }
+  scope :without_admin, -> { where.not(id: [1, 6, 41, 48, 39, 38]) }
 
 
 
