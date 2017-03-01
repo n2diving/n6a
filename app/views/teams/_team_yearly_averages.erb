@@ -34,7 +34,7 @@
         <td class="text-center"><%= team_ranking(one_team.id, rate_periods) %></td>
         <% bonus = bonus_totals(UserReview.where(rate_period: rate_periods, team_id: one_team.id)) %>
         <% current_month_average = team_averages(one_team.id, rate_periods, rate_periods) %>
-        <td class="text-center"><%= '%.2f' % (current_month_average.to_i + bonus.sum) %></td>
+        <td class="text-center"><%= current_month_average.to_i + bonus.sum.zero? ? 0 : '%.2f' % (current_month_average.to_i + bonus.sum) %></td>
         <td class="text-center"><%= current_month_average %></td>
         <td class="text-center"><%= team_averages(one_team.id, rate_periods, (rate_periods - 6.months)) %></td>
 
