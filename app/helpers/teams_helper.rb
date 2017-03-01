@@ -48,7 +48,7 @@ module TeamsHelper
 
     rate_period_ending = rate_period_end.end_of_month
 
-    review_list = UserReview.where('rate_period between ? AND ?', rate_period_ending, rate_period_start).where.not(rating: nil).joins(user: { employee_teams: :team }).where('employee_teams.team_id = ?', team_id)
+    review_list = UserReview.where('rate_period between ? AND ?', rate_period_ending, rate_period_start).where.not(rating: nil).where(team_id: team_id)
 
     # {rate_period: rate_period_start, rate_end: rate_period_end, list: review_list.pluck(:rate_period).uniq.sort, count: review_list.count }
     review_list.blank? ? 0 : ('%.2f' % ((review_list.sum(:rating) / review_list.count.to_f).round(2)))
