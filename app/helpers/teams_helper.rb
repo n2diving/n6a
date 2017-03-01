@@ -56,18 +56,19 @@ module TeamsHelper
 
   def team_adjusted_averages(team_id, rate_period)
     reviews = UserReview.where(rate_period: rate_period, team_id: team_id)
-    average = reviews.pluck(:rating)
-    average.reject! {|x| x == nil}
-    average.reject! {|x| x == 0}
-    bonus = bonus_totals(reviews)
+    reviews.pluck(:user_id).each do |one_user|
+      average = reviews.where(user_id: one_user).pluck(:rating)
+      average.reject! {|x| x == nil}
+      average.reject! {|x| x == 0}
+      bonus = bonus_totals(reviews)
 
-    totals = []
-    unless average.blank?
-      totals << ((average.reduce(:+) / average.size.to_f) + bonus.sum).round(2)
+      totals = []
+      unless average.blank?
+        totals << ((average.reduce(:+) / average.size.to_f) + bonus.sum).round(2)
+      end
     end
 
-    puts totals
-    # totals.blank? ? 0 : ('%.2f' % (totals.reduce(:+)/totals.size.to_f))
+    totals.blank? ? 0 : ('%.2f' % (totals.reduce(:+)/totals.size.to_f))
   end
 
   def team_ranking(team_id, rate_period)
