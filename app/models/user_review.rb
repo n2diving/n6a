@@ -92,7 +92,7 @@ class UserReview < ApplicationRecord
     notes[:notes] = self.notes unless self.notes.nil?
     results = ''
     notes.each_with_index do |(key,value),i|
-      results << "<strong>#{key.upcase}:</strong> #{value}<br>"
+      results << "<div class='text-left'><strong>#{key.upcase}:</strong> #{value}<br></div>"
       results << "<br>" if (key != notes.keys.last)
     end
     results
