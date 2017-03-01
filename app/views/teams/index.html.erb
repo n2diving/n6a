@@ -34,7 +34,7 @@
           <tbody>
             <% @teams.each do |team| %>
             <% puts team.team_name %>
-            <% puts team_adjusted_averages(team.id, '2017-02-28'.to_date) %>
+            <% team_adjusted_averages(team.id, '2017-02-28'.to_date) %>
               <tr>
                 <td><%= link_to team.team_name, team %></td>
 
