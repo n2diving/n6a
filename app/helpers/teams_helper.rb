@@ -54,6 +54,22 @@ module TeamsHelper
     review_list.blank? ? 0 : ('%.2f' % ((review_list.sum(:rating) / review_list.count.to_f).round(2)))
   end
 
+  def team_adjusted_averages(team_id, rate_period)
+    reviews = UserReview.where(rate_period: rate_period, team_id: team_id)
+    average = reviews.pluck(:rating)
+    average.reject! {|x| x == nil}
+    average.reject! {|x| x == 0}
+    bonus = bonus_totals(reviews)
+
+    totals = []
+    unless average.blank?
+      totals << ((average.reduce(:+) / average.size.to_f) + bonus.sum).round(2)
+    end
+
+    totals.blank? ? 0 : ('%.2f' % (totals.sum/totals.count))
+
+  end
+
   def team_ranking(team_id, rate_period)
     @results = {}
     team_rank_index = nil
