@@ -67,8 +67,8 @@ module TeamsHelper
         totals << ((average.reduce(:+) / average.size.to_f) + bonus.sum).round(2)
       end
     end
-    # puts totals
-    totals.blank? ? 0 : ('%.2f' % (totals.reduce(:+)/totals.size.to_f))
+    puts totals
+    # totals.blank? ? 0 : ('%.2f' % (totals.reduce(:+)/totals.size.to_f))
   end
 
   def team_ranking(team_id, rate_period)
