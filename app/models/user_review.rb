@@ -91,8 +91,9 @@ class UserReview < ApplicationRecord
     notes[:cons] = self.cons unless self.cons.nil?
     notes[:notes] = self.notes unless self.notes.nil?
     results = ''
-    notes.each_pair do |key,value|
-      results << "#{key.upcase}: #{value}<br>"
+    notes.each_with_index do |(key,value),i|
+      results << "<strong>#{key.upcase}:</strong> #{value}<br>"
+      results << "<br>" if (key != notes.keys.last)
     end
     results
   end
