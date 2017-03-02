@@ -44,7 +44,7 @@ module TeamsHelper
     list = User.where(id: [user_ids])
     results = []
     list.each do |one_user|
-      if one_user.month_team(month).id == team_id
+      if one_user.month_team(month).try(:id) == team_id
         results << one_user
       end
     end
