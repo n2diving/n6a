@@ -170,8 +170,18 @@ class UsersController < ApplicationController
 
     employee_ids = team.employee_teams.pluck(:user_id).uniq
 
+
+    users = User.where(id: employee_ids)
+    current_month_teammates = []
+    users.each do |one|
+      if one.current_team == team
+        current_month_teammates << one
+      end
+    end
+
+
     # begin
-      employee_ids.each do |one_user_id|
+    current_month_teammates.each do |one_user|
         params[:user_reviews].keys.each do |one_review|
           user_review = UserReview.where(id: one_review)
           if !params[:user_reviews][one_review][:multiplier].nil? && (params[:user_reviews][one_review][:multiplier].to_i > 0)
@@ -196,7 +206,7 @@ class UsersController < ApplicationController
             )
           else
             user_review = UserReview.create(
-              user_id: one_user_id,
+              user_id: one_user.id,
               review_item_id: params[:user_reviews][one_review][:review_item_id],
               rate_period: params[:user_reviews][one_review][:rate_period],
               pros: params[:user_reviews][one_review][:pros],
@@ -229,7 +239,7 @@ class UsersController < ApplicationController
     # begin
 
       user = User.find(params[:id])
-      team = EmployeeTeam.where(user_id: user.id).first.try(:team_id)
+      team = user.current_team
 
       params[:user_reviews].keys.each do |one_review|
         if !params[:user_reviews][one_review][:multiplier].nil? && (params[:user_reviews][one_review][:multiplier].to_i > 0)
@@ -251,7 +261,7 @@ class UsersController < ApplicationController
           is_team: true,
           checked: check,
           multiplier: params[:user_reviews][one_review][:multiplier],
-          team_id: team
+          team_id: team.id
         )
       end
       redirect_to user, notice: "Employee rating has been saved."
@@ -319,8 +329,17 @@ class UsersController < ApplicationController
 
     employee_ids = team.employee_teams.pluck(:user_id).uniq
 
+    users = User.where(id: employee_ids)
+    current_month_teammates = []
+    users.each do |one|
+      if one.current_team == team
+        current_month_teammates << one
+      end
+    end
+
+
     # begin
-      employee_ids.each do |one_user_id|
+      current_month_teammates.each do |one_user|
         params[:user_reviews].keys.each do |one_review|
 
           if params[:user_reviews][one_review][:review_item_id].include?(">")
@@ -331,7 +350,7 @@ class UsersController < ApplicationController
 
 
           UserReview.create!(
-            user_id: one_user_id,
+            user_id: one_user.id,
             review_item_id: review_item_id,
             review_items_by_role_id: params[:user_reviews][one_review][:review_items_by_role_id],
             rate_period: params[:user_reviews][one_review][:rate_period],
