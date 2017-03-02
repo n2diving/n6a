@@ -115,7 +115,7 @@ class User < ApplicationRecord
   end
 
   def current_team
-    EmployeeTeam.where(user_id: self.id).where(end_date: nil).where('? >= start_date', Date.today).first.team
+    EmployeeTeam.where(user_id: self.id).where(end_date: nil).where('? >= start_date', Date.today).first.try(:team)
   end
 
   def month_team(date)
