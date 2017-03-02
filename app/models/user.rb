@@ -122,7 +122,7 @@ class User < ApplicationRecord
 
     list = EmployeeTeam.where(user_id: self.id)
     team = nil
-    
+
     if list.count > 1
       list_1 = list.where(end_date: nil).where('start_date > ?', date).pluck(:team_id)
       list_2 = list.where('? BETWEEN start_date AND end_date', date).pluck(:team_id)
@@ -136,7 +136,7 @@ class User < ApplicationRecord
 
       team = Team.where(id: current_team.first).first
     else
-      team = Team.where(id: list.first.team_id)
+      team = Team.where(id: list.first.team_id).first
     end
 
     team

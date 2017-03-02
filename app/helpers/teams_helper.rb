@@ -39,9 +39,15 @@ module TeamsHelper
     @results.sort_by! { |results| results[:name] }
   end
 
-  def teammates(team_id)
+  def teammates(team_id, month)
     user_ids = EmployeeTeam.where(team_id: team_id).pluck(:user_id)
-    User.where(id: [user_ids])
+    list = User.where(id: [user_ids])
+    results = []
+    list.each do |one_user|
+      if one_user.month_team(month).id == team_id
+        results << one_user
+      end
+    end
   end
 
   def team_averages(team_id, rate_period_start, rate_period_end)

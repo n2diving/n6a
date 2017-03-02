@@ -69,7 +69,7 @@
         </thead>
 
         <tbody>
-          <% teammates = teammates(@team.id) %>
+          <% teammates = teammates(@team.id, month) %>
           <% if teammates.any? %>
             <% teammates.each do |one_teammember| %>
               <% rate_period = month.try(:to_date) || (current_month) %>
