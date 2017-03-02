@@ -40,7 +40,7 @@ module TeamsHelper
   end
 
   def teammates(team_id)
-    user_ids = EmployeeTeam.where(team_id: team_id, end_date: nil).where('start_date > ?', Date.today).pluck(:user_id)
+    user_ids = EmployeeTeam.where(team_id: team_id).pluck(:user_id)
     User.where(id: [user_ids])
   end
 
