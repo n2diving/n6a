@@ -69,6 +69,6 @@ class EmployeeTeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_team_params
-      params.require(:employee_team).permit(:user_id, :team_lead, :team_id)
+      params.require(:employee_team).permit(:user_id, :team_lead, :team_id, :start_date, :end_date)
     end
 end

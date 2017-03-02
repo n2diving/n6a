@@ -1,5 +1,5 @@
 <% month = params[:rate_period] || current_month %>
-<% permission = current_user.is_admin? || current_user.is_officer? || (current_user.id == current_user.teams.first.try(:team_lead)) %>
+<% permission = current_user.is_admin? || current_user.is_officer? || (current_user.id == current_user.current_team.try(:team_lead)) %>
 
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
@@ -40,8 +40,8 @@
         <tbody>
         <% nope = false %>
         <% @users.each do |one_user| %>
-          <% team = one_user.teams.first %>
           <% rate_period = month.try(:to_date) || (current_month) %>
+          <% team = one_user.month_team(rate_period) %>
           <% reviews = one_user.user_reviews.where(rate_period: rate_period)%>
           <% nope = true if reviews.any? %>
 

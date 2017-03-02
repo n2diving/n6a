@@ -1,4 +1,4 @@
-<% permission = current_user.is_admin? || current_user.is_officer? || (current_user.id == current_user.teams.first.try(:team_lead)) %>
+<% permission = current_user.is_admin? || current_user.is_officer? || (current_user.id == current_user.current_team.try(:team_lead)) %>
 <div class="lead">Group Performance</div>
 
 <table class="table table-striped table-hover table-bordered datatable">

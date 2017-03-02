@@ -56,6 +56,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :user_reviews
   #, reject_if: proc { |a| a["notes"].blank? && a["pros"].blank? }
 
+  default_scope { order(first_name: :asc) }
   scope :without_admin, -> { where.not(id: [1, 6, 41, 48, 39, 38]) }
 
 
@@ -111,6 +112,23 @@ class User < ApplicationRecord
 
   def can_review_user(user_id)
     EmployeeReviewer.where(reviewer_user_id: self.id, employee_user_id: user_id).any?
+  end
+
+  def current_team
+    EmployeeTeam.where(user_id: self.id).where(end_date: nil).where('? >= start_date', Date.today).first.team
+  end
+
+  def month_team(date)
+    list = EmployeeTeam.where(user_id: self.id).where('? >= start_date', date)
+
+    list.each do |one|
+      if one.end_date.nil?
+        
+      end
+
+    end
+
+    .where('end_date is null OR end_date > ? ', date).first.team
   end
 
 end

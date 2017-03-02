@@ -20,7 +20,7 @@ module UsersHelper
   end
 
   def review_team_chart_results(user)
-    team = user.teams.first
+    team = user.current_team
     rate_periods = UserReview.all.pluck(:rate_period).uniq.sort
 
     team_dataset = []

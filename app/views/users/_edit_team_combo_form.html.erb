@@ -1,6 +1,6 @@
 <% permission = (current_user.is_admin) || (current_user.is_officer) %>
 <% team = @user.try(:teams).first %>
-<% team_lead = current_user.id == current_user.teams.first.try(:team_lead) %>
+<% team_lead = current_user.id == current_user.current_team.try(:team_lead) %>
 <% if team.blank? %>
   <p>There are no group ratings</p>
 <% else %>

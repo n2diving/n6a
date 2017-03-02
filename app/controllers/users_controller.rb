@@ -109,8 +109,8 @@ class UsersController < ApplicationController
       @users = User.without_admin.order(:last_name)
     elsif current_user.can_review_users.any?
       @users = current_user.can_review_users
-    elsif current_user.id == current_user.teams.first.try(:team_lead)
-      @users = User.joins(:employee_teams).where("employee_teams.team_id = ?", current_user.teams.first.id).order(:last_name)
+    elsif current_user.id == current_user.current_team.try(:team_lead)
+      @users = User.joins(:employee_teams).where("employee_teams.team_id = ?", current_user.current_team.id).order(:last_name)
       if !@users.pluck(:id).include? @user.first.id
         flash[:notice] = "Please select an employee in your group."
       end
@@ -289,60 +289,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     @reviews = UserReview.where(id: params[:reviews])
-    team = @user.teams.first
+    team = @reviews.pluck(:team_id).uniq.first
     if team
-      @teammates = EmployeeTeam.where(team_id: @user.employee_teams.pluck(:team_id).uniq)
+      @teammates = EmployeeTeam.where(team_id: @reviews.pluck(:team_id).uniq)
     end
-
-    # [2, 4, 6, 8, 21, 28, 35, 37, 41, 42, 46]
-    #
-    # 28:
-    # 3502
-    # 3503
-    # 3504
-    #
-    # 46:
-    # 3505
-    # 3506
-    # 3507
-    #
-    # 35:
-    # 3508
-    # 3509
-    # 3510
-    #
-    # 41:
-    # 3511
-    # 3512
-    # 3513
-    #
-    # 8:
-    # 3514
-    # 3515
-    # 3516
-    #
-    # 3517
-    # 3518
-    # 3519
-    #
-    # 3520
-    # 3521
-    # 3522
-    #
-    # 3523
-    # 3524
-    # 3525
-    #
-    # 3526
-    # 3527
-    # 3528
-    #
-    # 3529
-    # 3530
-    # 3531
-    #
-    # 3532
-    # 3533
 
     month = params[:rate_period].blank? ? (current_month) : params[:rate_period].to_date.end_of_month
 

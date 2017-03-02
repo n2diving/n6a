@@ -63,14 +63,14 @@
                 <%= link_to 'User Reviews', user_reviews_path %>
               </li>
             <% end %>
-            <% if (current_user.id == current_user.teams.first.try(:team_lead)) || ((current_user.can_review_users.any?) && !current_user.is_officer?)  %>
+            <% if (current_user.id == current_user.current_team.try(:team_lead)) || ((current_user.can_review_users.any?) && !current_user.is_officer?)  %>
               <li>
                 <%= link_to 'Employees', users_path %>
               </li>
             <% end %>
             <% if current_user.teams.any? %>
               <li>
-                <%= link_to 'My Group', team_path(current_user.teams.first) %>
+                <%= link_to 'My Group', team_path(current_user.current_team) %>
               </li>
             <% end %>
             <li>

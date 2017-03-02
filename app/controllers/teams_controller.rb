@@ -89,7 +89,7 @@ class TeamsController < ApplicationController
     #   redirect_to :root
     # end
 
-    if current_user.is_admin || current_user.is_officer? || (current_user.id == current_user.teams.first.try(:team_lead))
+    if current_user.is_admin || current_user.is_officer? || (current_user.id == current_user.current_team.try(:team_lead))
       @user_reviews = UserReview.joins(:review_item).where('review_items.is_team = true')
     else
       flash[:notice] = "Sorry you don't have access to this page."

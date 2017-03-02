@@ -17,6 +17,22 @@
     <%= f.check_box :team_lead, { class: "" }, true, false %>
     <%= f.label :team_lead, "Group Lead?", { class: "checkbox-inline" } %>
 
+    <br>
+    <br>
+
+    <%= f.label :start_date, "Effective Start Date" %>
+    <br>
+    <%= f.date_select :start_date, order: [:month, :day, :year] %>
+
+    <br>
+    <br>
+
+    <% if current_user.id == 1 || current_user.is_admin %>
+      <%= f.label :end_date, "End Date" %>
+      <br>
+      <%= f.date_select :end_date, order: [:month, :day, :year], prompt: { day: 'Select day', month: 'Select month', year: 'Select year' } %>
+    <% end %>
+
     <%= f.submit "save", class: "btn btn-primary btn-center" %>
 
 <% end %>
