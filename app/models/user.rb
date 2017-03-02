@@ -119,24 +119,27 @@ class User < ApplicationRecord
   end
 
   def month_team(date)
-    list = EmployeeTeam.where(user_id: self.id)
 
+    list = EmployeeTeam.where(user_id: self.id)
+    team = nil
+    
     if list.count > 1
       list_1 = list.where(end_date: nil).where('start_date > ?', date).pluck(:team_id)
       list_2 = list.where('? BETWEEN start_date AND end_date', date).pluck(:team_id)
 
-      current_team = []
-      if list_2.nil?
+      current_team = nil
+      if list_2.blank?
         current_team = list_1
       else
         current_team = list_2
       end
 
-      Team.where(id: current_team.first).first
+      team = Team.where(id: current_team.first).first
     else
-      Team.where(id: list.first.team_id)
+      team = Team.where(id: list.first.team_id)
     end
 
+    team
 
   end
 
