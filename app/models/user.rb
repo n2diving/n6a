@@ -123,12 +123,11 @@ class User < ApplicationRecord
 
     list.each do |one|
       if one.end_date.nil?
-        
+
       end
 
     end
 
-    .where('end_date is null OR end_date > ? ', date).first.team
   end
 
 end
