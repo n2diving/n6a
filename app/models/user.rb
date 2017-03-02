@@ -136,7 +136,7 @@ class User < ApplicationRecord
 
       team = Team.where(id: current_team.first).first
     else
-      team = Team.where(id: list.first.team_id).first
+      team = Team.where(id: list.first.try(:team_id)).first
     end
 
     team
