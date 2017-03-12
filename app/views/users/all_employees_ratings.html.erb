@@ -34,7 +34,8 @@
             <th class="text-center"><%= criteria[0] %></th>
           <% end %>
           <th class="text-center no-sort">Bonuses</th>
-          <th class="text-center">First 6 Months Average</th>
+          <th class="text-center">1st 6 Month Adjusted Average</th>
+          <th class="text-center">2nd 6 Month Adjusted Average</th>
         </tr>
         </thead>
 
@@ -87,10 +88,14 @@
             </td>
             <% jan = Date.today.beginning_of_year %>
             <% june = jan + 6.months %>
+            <% july = jan + 7.months %>
+            <% dec = Date.today.end_of_year %>
             <% if team.nil? %>
+              <td></td>
               <td></td>
             <% else %>
               <td class="text-center"><%= team_averages(team.id, june, jan) %></td>
+              <td class="text-center"><%= team_averages(team.id, dec, july) %></td>
             <% end %>
           </tr>
           <% end %>
