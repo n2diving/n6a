@@ -100,6 +100,11 @@ class UsersController < ApplicationController
       flash[:error] = "Sorry you don't have permission to view all employees."
       redirect_to :root
     end
+
+    if (params[:is_current] == nil) || (params[:is_current] == 'true')
+      @users = @users.current
+    end
+
   end
 
   def new_employee_rating

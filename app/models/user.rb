@@ -58,6 +58,7 @@ class User < ApplicationRecord
 
   default_scope { order(first_name: :asc) }
   scope :without_admin, -> { where.not(id: [1, 6, 41, 48, 39, 38]) }
+  scope :current, -> { where(is_current: true) }
 
 
 

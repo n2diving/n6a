@@ -23,6 +23,9 @@
 
   <%= f.collection_select :form_role_id, FormRole.no_team.order(:role), :id, :role, { include_blank: "select form type" }, class: "form-control margin-bottom-md", autofocus: true %>
 
+  <%= f.check_box :is_current, { class: "" }, true, false %>
+  <%= f.label :is_current, "Current Employee?", { class: "checkbox-inline" } %>
+  <br>
 
   <%= f.submit "save", class: "btn btn-primary btn-center" %>
 
