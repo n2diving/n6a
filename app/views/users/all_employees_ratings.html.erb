@@ -61,7 +61,8 @@
               <td></td>
             <% else %>
               <td class="bold"><%= link_to team.team_name, team, class: "text-info" %></td>
-            <% end %>            <% unless average.blank? %>
+            <% end %>
+            <% unless average.blank? %>
               <td class="text-center"><%= ((average.reduce(:+) / average.size.to_f) + bonus_totals).round(2) %></td>
               <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
             <% else %>

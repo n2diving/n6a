@@ -92,7 +92,7 @@ module TeamsHelper
   def team_rank(rate_period)
     results = {}
     Team.without_ab.each do |one_team|
-      results["#{one_team.id}"] = team_averages(one_team.id, rate_period, rate_period)
+      results["#{one_team.id}"] = team_adjusted_averages(one_team.id, rate_period)
     end
     results = results.sort_by {|k,v| v.to_f}.reverse
 
