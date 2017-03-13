@@ -15,7 +15,7 @@
         <% @team_of_the_months.each do |team_of_the_month| %>
           <tr>
             <td><%= team_of_the_month.name %></td>
-            <td><%= team_of_the_month.rate_period %></td>
+            <td><%= team_of_the_month.rate_period.strftime("%B %Y") %></td>
             <td class="text-center">
               <%= link_to edit_team_of_the_month_path(team_of_the_month), class: "margin-right-sm" do %>
                 <i class="fa fa-cog text-primary"></i>
@@ -32,7 +32,7 @@
     <div class="margin-bottom-xl"></div>
 
     <%= link_to new_team_of_the_month_path , class: "text-primary" do %>
-      <i class="fa fa-plus"></i> New Team Of The Mont
+      <i class="fa fa-plus"></i> New Team Of The Month
     <% end %>
   </div>
 </div>
