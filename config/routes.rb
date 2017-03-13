@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :team_of_the_months
   resources :employee_reviewers
   resources :review_items_by_roles
   resources :review_items

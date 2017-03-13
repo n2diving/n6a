@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+        <h2>Editing Team Of The Month</h2>
+        <%= render 'form', team_of_the_month: @team_of_the_month %>
+      </div>
+
+      <%= link_to 'Show', @team_of_the_month %> |
+      <%= link_to 'Back', team_of_the_months_path %>
+    </div>
+  </div>
+</div>

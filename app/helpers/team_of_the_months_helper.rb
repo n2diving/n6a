@@ -1,0 +1,2 @@
+module TeamOfTheMonthsHelper
+end

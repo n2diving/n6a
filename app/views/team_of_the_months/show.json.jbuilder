@@ -1,0 +1,1 @@
+json.partial! "team_of_the_months/team_of_the_month", team_of_the_month: @team_of_the_month

@@ -1,0 +1,20 @@
+<%= form_for(team_of_the_month) do |f| %>
+  <% if team_of_the_month.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(team_of_the_month.errors.count, "error") %> prohibited this team_of_the_month from being saved:</h2>
+
+      <ul>
+      <% team_of_the_month.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name, autofocus: true, class: "form-control margin-bottom-md", placeholder: "Team Name"%>
+
+    <%= f.date_select :rate_period, class: "form-control" %>
+
+    <%= f.submit "save", class: "btn btn-primary btn-center" %>
+<% end %>

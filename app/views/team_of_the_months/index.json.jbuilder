@@ -1,0 +1,1 @@
+json.array! @team_of_the_months, partial: 'team_of_the_months/team_of_the_month', as: :team_of_the_month

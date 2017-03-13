@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @team_of_the_month.name %>
+</p>
+
+<p>
+  <strong>Rate period:</strong>
+  <%= @team_of_the_month.rate_period %>
+</p>
+
+<%= link_to 'Edit', edit_team_of_the_month_path(@team_of_the_month) %> |
+<%= link_to 'Back', team_of_the_months_path %>
