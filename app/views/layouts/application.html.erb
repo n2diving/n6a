@@ -55,7 +55,7 @@
                 <!--<%#= link_to 'rate employees', employees_with_pending_reviews_path %>-->
               <!--</li>-->
               <li>
-                <%= link_to 'Birds Eye', all_employees_ratings_path %>
+                <%= link_to 'Birds Eye', all_employees_ratings_path(is_current: 'false') %>
               </li>
             <% end %>
             <% if current_user.id == 1 %>

@@ -50,4 +50,28 @@ class Team < ApplicationRecord
     (ratings.reduce(&:+) / ratings.count) if !ratings.blank?
   end
 
+  def teammates_by_month(date)
+    list = EmployeeTeam.where(team_id: self.id)
+    users = nil
+
+    if list.count > 1
+      list_1 = list.where(end_date: nil).where('start_date > ?', date).pluck(:user_id)
+      list_2 = list.where('? BETWEEN start_date AND end_date', date).pluck(:user_id)
+
+      current_teammates = nil
+      if list_2.blank?
+        current_teammates = list_1
+      else
+        current_teammates = list_2
+      end
+
+      users = User.where(id: current_teammates)
+    else
+      users = User.where(id: list.pluck(:user_id))
+    end
+
+    users
+
+  end
+
 end

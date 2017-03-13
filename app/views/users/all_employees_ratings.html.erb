@@ -21,11 +21,11 @@
             <%= select_tag :rate_period, options_for_select(options_for_rate_period, month), include_blank: "Select Rate Period", class: "form-control", id: "rate_period" %>
           </div>
         </div>
+        <div class="col-xs-12">
+          <%= select_tag :user_id, options_from_collection_for_select(User.without_admin, :id, :full_name, params[:user_id]), include_blank: "Select User", class: "form-control margin-bottom-md", multiple: true %>
+          <%= select_tag :team_id, options_from_collection_for_select(Team.all, :id, :team_name, params[:team_id]), include_blank: "Select Group", class: "form-control margin-bottom-md", multiple: true %>
+        </div>
         <hr class="margin-top-lg">
-        <% value = checked ? 'false' : 'true' %>
-        <%= hidden_field_tag :is_current, value %>
-        <%= check_box_tag :is_current, !value, checked %>
-        <%= label_tag :is_current, "Current Employee?", { class: "checkbox-inline" } %>
         <%= submit_tag 'Search', name: nil %>
       <% end %>
 
@@ -120,14 +120,14 @@
   </div>
 </div>
 
-<script>
-  $(function(){
-    $('select#rate_period').on('change', function () {
-      var url = $(this).val();
-      if (url) {
-        window.location = "?utf8=✓&rate_period="+url.split('%')[0];
-      }
-      return false;
-    });
-  });
-</script>
+<!--<script>-->
+  <!--$(function(){-->
+    <!--$('select#rate_period').on('change', function () {-->
+      <!--var url = $(this).val();-->
+      <!--if (url) {-->
+        <!--window.location = "?utf8=✓&rate_period="+url.split('%')[0];-->
+      <!--}-->
+      <!--return false;-->
+    <!--});-->
+  <!--});-->
+<!--</script>-->

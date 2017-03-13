@@ -92,17 +92,31 @@ class UsersController < ApplicationController
   end
 
   def all_employees_ratings
-    if current_user.is_admin? || current_user.is_officer
-      @users = User.without_admin.order(:last_name)
-    elsif current_user.can_review_users.any?
-      @users = current_user.can_review_users
-    else
-      flash[:error] = "Sorry you don't have permission to view all employees."
-      redirect_to :root
-    end
+    @users = User.without_admin.order(:last_name)
 
-    if (params[:is_current] == nil) || (params[:is_current] == 'true')
-      @users = @users.current
+    # if current_user.is_admin? || current_user.is_officer
+    #   @users = User.without_admin.order(:last_name)
+    # elsif current_user.can_review_users.any?
+    #   @users = current_user.can_review_users
+    # else
+    #   flash[:error] = "Sorry you don't have permission to view all employees."
+    #   redirect_to :root
+    # end
+
+    # if (params[:is_current] == nil) || (params[:is_current] == 'true')
+    #   @users = @users.current
+    # end
+
+
+    teams = params[:team_id]
+    teammates = []
+    @users = @users.where(id: params[:user_id]) if params[:user_id]
+    if !teams.blank?
+      teams.each do |one_team|
+        team = Team.find(one_team)
+        teammates << team.teammates_by_month(params[:rate_period]).pluck(:id)
+      end
+      @users = @users.where(id: teammates)
     end
 
   end
