@@ -13,6 +13,7 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
+//= require bootstrap-select
 //= require toastr
 //= require jquery_ujs
 //= require dataTables/jquery.dataTables
@@ -51,4 +52,6 @@ $( document ).on('turbolinks:load', function() {
   $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
   });
+
+  $('.selectpicker').selectpicker();
 });

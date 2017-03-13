@@ -55,7 +55,7 @@ class Team < ApplicationRecord
     users = nil
 
     if list.count > 1
-      list_1 = list.where(end_date: nil).where('start_date > ?', date).pluck(:user_id)
+      list_1 = list.where(end_date: nil).where('start_date < ?', date).pluck(:user_id)
       list_2 = list.where('? BETWEEN start_date AND end_date', date).pluck(:user_id)
 
       current_teammates = nil
