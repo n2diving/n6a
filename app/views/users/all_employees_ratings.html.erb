@@ -14,22 +14,31 @@
 
 
     <% if permission %>
-
+      <h3>Search Criteria</h3>
       <%= form_tag(all_employees_ratings_path, method: :get) do %>
         <div class="row margin-bottom-lg">
-          <div class="col-xs-12">
+          <div class="col-xs-12 margin-bottom-sm">
             <%= select_tag :rate_period, options_for_select(options_for_rate_period, month), include_blank: "Select Rate Period", class: "form-control", id: "rate_period" %>
           </div>
+          <div class="col-xs-12 margin-bottom-sm">
+            <%= select_tag :user_id, options_from_collection_for_select(User.without_admin, :id, :full_name, params[:user_id]), title: "Select User", class: "form-control margin-bottom-md selectpicker", multiple: true, size: 1 %>
+          </div>
+          <div class="col-xs-12 margin-bottom-sm">
+            <%= select_tag :team_id, options_from_collection_for_select(Team.all, :id, :team_name, params[:team_id]), title: "Select Group", class: "form-control margin-bottom-md selectpicker", multiple: true, size: 1 %>
+          </div>
+          <div class="col-xs-12 margin-bottom-sm">
+            <%= select_tag :form_role_id, options_from_collection_for_select(FormRole.no_team, :id, :role, params[:form_role_id]), title: "Select Form Role", class: "form-control margin-bottom-md selectpicker", multiple: true, size: 1 %>
+          </div>
+          <div class="col-xs-12">
+            <div class="pull-right">
+              <%= link_to 'Clear', all_employees_ratings_path(params: {}), id: 'clear', name: nil, class: 'btn btn-warning' %>
+              <%= submit_tag 'Search', name: nil, class: 'btn btn-primary' %>
+            </div>
+          </div>
         </div>
-        <div class="col-xs-12">
-          <%= select_tag :user_id, options_from_collection_for_select(User.without_admin, :id, :full_name, params[:user_id]), include_blank: "Select User", class: "form-control margin-bottom-md selectpicker", multiple: true, size: 1 %>
-          <%= select_tag :team_id, options_from_collection_for_select(Team.all, :id, :team_name, params[:team_id]), include_blank: "Select Group", class: "form-control margin-bottom-md selectpicker", multiple: true, size: 1 %>
-          <%= select_tag :form_role_id, options_from_collection_for_select(FormRole.no_team, :id, :role, params[:form_role_id]), include_blank: "Select Form Role", class: "form-control margin-bottom-md selectpicker", multiple: true, size: 1 %>
-        </div>
-        <hr class="margin-top-lg">
-        <%= submit_tag 'Search', name: nil %>
       <% end %>
 
+      <hr class="margin-top-lg">
       <!--<div class="lead">All Employee Performance</div>-->
       <table class="table table-striped table-hover table-bordered datatable">
         <thead>
@@ -132,3 +141,9 @@
     <!--});-->
   <!--});-->
 <!--</script>-->
+
+<script>
+  $(document).ready(function(){
+    $('.selectpicker').selectpicker();
+  });_
+</script>
