@@ -112,6 +112,7 @@ class UsersController < ApplicationController
 
     teammates = []
     @users = @users.where(id: params[:user_id]) if params[:user_id]
+    @users = @users.where(form_role_id: params[:form_role_id]) if params[:form_role_id]
     if !teams.blank?
 
       teams.each do |one_team|

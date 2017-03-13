@@ -24,6 +24,7 @@
         <div class="col-xs-12">
           <%= select_tag :user_id, options_from_collection_for_select(User.without_admin, :id, :full_name, params[:user_id]), include_blank: "Select User", class: "form-control margin-bottom-md selectpicker", multiple: true, size: 1 %>
           <%= select_tag :team_id, options_from_collection_for_select(Team.all, :id, :team_name, params[:team_id]), include_blank: "Select Group", class: "form-control margin-bottom-md selectpicker", multiple: true, size: 1 %>
+          <%= select_tag :form_role_id, options_from_collection_for_select(FormRole.no_team, :id, :role, params[:form_role_id]), include_blank: "Select Form Role", class: "form-control margin-bottom-md selectpicker", multiple: true, size: 1 %>
         </div>
         <hr class="margin-top-lg">
         <%= submit_tag 'Search', name: nil %>
