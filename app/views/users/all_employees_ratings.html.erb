@@ -1,6 +1,7 @@
 <% month = params[:rate_period] || current_month %>
 <% permission = current_user.is_admin? || current_user.is_officer? || (current_user.id == current_user.current_team.try(:team_lead)) %>
 <% checked = (params[:is_current] == nil) || (params[:is_current] == "true") %>
+<% adj_average = (params[:adj_average] == "true") ? 4.6 : nil %>
 
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
@@ -28,6 +29,10 @@
           </div>
           <div class="col-xs-12 margin-bottom-sm">
             <%= select_tag :form_role_id, options_from_collection_for_select(FormRole.no_team, :id, :role, params[:form_role_id]), title: "Select Form Role", class: "form-control margin-bottom-md selectpicker", multiple: true, size: 1 %>
+          </div>
+          <div class="col-xs-12 margin-bottom-sm">
+            <%= check_box_tag :adj_average, 'true', params[:adj_average] %>
+            <%= label_tag :adj_average, "Adjusted Average Over 4.6", class: 'checkbox-inline' %>
           </div>
           <div class="col-xs-12">
             <div class="pull-right">
@@ -71,59 +76,62 @@
           <% average.reject! {|x| x == nil} %>
           <% average.reject! {|x| x == 0} %>
           <% bonus_totals = one_user.bonus_totals(one_user.user_reviews, rate_period, team.try(:id)) %>
-          <tr>
-            <% if permission %>
-              <td class="bold"><%= link_to one_user.full_name, one_user %></td>
-            <% else %>
-              <td class="bold"><%= one_user.full_name %></td>
-            <% end %>
-            <td class="bold"><%= FormRole.where(id: one_user.form_role_id).first.try(:role) %></td>
-            <% if team.nil? %>
-              <td></td>
-            <% else %>
-              <td class="bold"><%= link_to team.team_name, team, class: "text-info" %></td>
-            <% end %>
-            <% unless average.blank? %>
-              <td class="text-center"><%= ((average.reduce(:+) / average.size.to_f) + bonus_totals).round(2) %></td>
-              <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
-            <% else %>
-              <td></td>
-              <td></td>
-            <% end %>
-            <!--<td class="text-center"><%#= (average.reduce(:+) / average.size.to_f).round(2) %></td>-->
-            <% one_user.team_user_review_rows(headers, rate_period, team.try(:id)).each do |one_row| %>
-              <td class="text-center" data-sort="<%= one_row[1].first[:rating].to_i %>">
-                <div data-toggle="tooltip" data-html="true" title="<%= one_row[1].second[:notes] %>"><%= one_row[1].first[:rating]%>
-                </div>
-              </td>
-          <% end %>
-            <td class="text-center">
-              <% if bonus_totals > 0 %>
-                <%= bonus_totals %>
-                <!--<i class="fa fa-trophy text-primary" data-toggle="tooltip" title="Hooray!"></i>-->
-                <!--<i class="fa fa-shield text-info"></i>-->
-                <!--<i class="fa fa-certificate text-success"></i>-->
-                <!--<i class="fa fa-star text-warning"></i>-->
+          <% adjusted_average = (((average.reduce(:+) / average.size.to_f) + bonus_totals).round(2)) if !average.blank? %>
+          <% if ((adjusted_average && (adjusted_average >= adj_average unless adj_average.nil?)) || (adj_average.nil? && (adjusted_average.nil? || adjusted_average > 0))) %>
+            <tr>
+              <% if permission %>
+                <td class="bold"><%= link_to one_user.full_name, one_user %></td>
+              <% else %>
+                <td class="bold"><%= one_user.full_name %></td>
               <% end %>
-            </td>
-            <% jan = Date.today.beginning_of_year %>
-            <% june = jan + 6.months %>
-            <% july = jan + 7.months %>
-            <% dec = Date.today.end_of_year %>
-            <% if team.nil? %>
-              <td></td>
-              <td></td>
-            <% else %>
-              <td class="text-center"><%= team_averages(team.id, june, jan) %></td>
-              <td class="text-center"><%= team_averages(team.id, dec, july) %></td>
+              <td class="bold"><%= FormRole.where(id: one_user.form_role_id).first.try(:role) %></td>
+              <% if team.nil? %>
+                <td></td>
+              <% else %>
+                <td class="bold"><%= link_to team.team_name, team, class: "text-info" %></td>
+              <% end %>
+              <% unless average.blank? %>
+                <td class="text-center"><%= adjusted_average %></td>
+                <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
+              <% else %>
+                <td></td>
+                <td></td>
+              <% end %>
+              <!--<td class="text-center"><%#= (average.reduce(:+) / average.size.to_f).round(2) %></td>-->
+              <% one_user.team_user_review_rows(headers, rate_period, team.try(:id)).each do |one_row| %>
+                <td class="text-center" data-sort="<%= one_row[1].first[:rating].to_i %>">
+                  <div data-toggle="tooltip" data-html="true" title="<%= one_row[1].second[:notes] %>"><%= one_row[1].first[:rating]%>
+                  </div>
+                </td>
             <% end %>
-          </tr>
+              <td class="text-center">
+                <% if bonus_totals > 0 %>
+                  <%= bonus_totals %>
+                  <!--<i class="fa fa-trophy text-primary" data-toggle="tooltip" title="Hooray!"></i>-->
+                  <!--<i class="fa fa-shield text-info"></i>-->
+                  <!--<i class="fa fa-certificate text-success"></i>-->
+                  <!--<i class="fa fa-star text-warning"></i>-->
+                <% end %>
+              </td>
+              <% jan = Date.today.beginning_of_year %>
+              <% june = jan + 6.months %>
+              <% july = jan + 7.months %>
+              <% dec = Date.today.end_of_year %>
+              <% if team.nil? %>
+                <td></td>
+                <td></td>
+              <% else %>
+                <td class="text-center"><%= team_averages(team.id, june, jan) %></td>
+                <td class="text-center"><%= team_averages(team.id, dec, july) %></td>
+              <% end %>
+            </tr>
           <% end %>
+        <% end%>
           <% if nope == false %>
             <tr>
               <td colspan="15"><em>There are no results to for this rate period.</em></td>
             </tr>
-          <% end%>
+          <% end %>
         </tbody>
       </table>
     <% end %>
