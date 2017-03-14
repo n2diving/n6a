@@ -24,7 +24,7 @@
           <% @users.each do |user| %>
             <tr>
               <td><%= link_to user.full_name, user %></td>
-              <td><%= user.teams.blank? ? '' : (link_to user.current_team.try(:team_name), user.current_team) %></td>
+              <td><%= user.current_team.nil? ? '' : (link_to user.current_team.try(:team_name), user.current_team) %></td>
               <td><%= user.email %></td>
               <td><%= user.title %></td>
               <% reviews = user.user_reviews.where(rate_period: current_month).any? %>
