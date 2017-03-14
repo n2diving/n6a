@@ -69,8 +69,8 @@ class UserReviewsController < ApplicationController
     totm_user_id = UserReview.where(rate_period: month).joins(:review_item). where(review_items: { is_team: false, is_monthly_bonus: true}).try(:user_id)
     # totm = !totm_user_id.blank? ? EmployeeTeam.where(user_id: totm_user_id).team.team_name : nil
     employee_average = employee_average_high_low(month)
-
-    totm = "WayUP"
+    totm = TeamOfTheMonth.where(rate_period: month).first.try(:name)
+    # totm = "WayUP"
     # totm = "PMX Agency" january
     @group_of_the_month = Team.find(team_rank(month)).team_name
     @team_of_the_month = totm.nil? ? 'No team has been selected for this month.' : totm
