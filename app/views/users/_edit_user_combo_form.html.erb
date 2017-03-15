@@ -49,7 +49,7 @@
               </div>
               <div class="col-xs-12">
                 <% if permission %>
-                  <%= review_form.select :rating, ((one_review.review_item.scale_min..one_review.review_item.scale_max).step(0.5)), { include_blank: "#{ one_review.review_item.is_weekly? ? 'how many weekly awards this month' : 'rating' }" }, class: "form-control margin-bottom-sm", required: true  %>
+                  <%= review_form.select :rating, ((one_review.review_item.scale_min..one_review.review_item.scale_max).step(0.5).to_set), { include_blank: "#{ one_review.review_item.is_weekly? ? 'how many weekly awards this month' : 'rating' }" }, class: "form-control margin-bottom-sm", required: true  %>
                 <% end %>
               </div>
             <% end %>

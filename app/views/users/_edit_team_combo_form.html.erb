@@ -50,7 +50,7 @@
                     <%= review_form.check_box :checked, { class: "" }, true, false %>
                     <%= review_form.label :checked, "awarded this month?", { class: "checkbox-inline" } %>
                   <% else %>
-                    <%= review_form.select :rating, ((one_review.review_item.scale_min..one_review.review_item.scale_max).step(0.5)), { include_blank: "rating" }, class: "form-control margin-bottom-sm" %>
+                    <%= review_form.select :rating, ((one_review.review_item.scale_min..one_review.review_item.scale_max).step(0.5).to_set), { include_blank: "rating" }, class: "form-control margin-bottom-sm" %>
                   <% end %>
                 <% end %>
 

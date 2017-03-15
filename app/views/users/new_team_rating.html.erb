@@ -38,7 +38,7 @@
                 <div class="col-xs-12">
                   <%= text_area_tag "user_reviews[#{i}][notes]", '', class: "form-control margin-bottom-md", placeholder: "Notes", required: true%>
                   <% if !review_item_by_role.review_item.scale_min.blank? %>
-                    <%= select_tag "user_reviews[#{i}][rating]", options_for_select((review_item_by_role.review_item.scale_min..review_item_by_role.review_item.scale_max).step(0.5)), include_blank: "Rating", class: "form-control margin-bottom-md", id: "rate_period" %>
+                    <%= select_tag "user_reviews[#{i}][rating]", options_for_select((review_item_by_role.review_item.scale_min..review_item_by_role.review_item.scale_max).step(0.5).to_set), include_blank: "Rating", class: "form-control margin-bottom-md", id: "rate_period" %>
                   <% end %>
                   <%= hidden_field_tag "user_reviews[#{i}][rated_by_user_id]", current_user.id %>
                   <%= hidden_field_tag "user_reviews[#{i}][is_team]", true %>
