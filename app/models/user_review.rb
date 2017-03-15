@@ -5,7 +5,7 @@
 #  id                      :integer          not null, primary key
 #  review_item_id          :integer
 #  user_id                 :integer
-#  rating                  :integer
+#  rating                  :decimal(3, 1)
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  rated_by_user_id        :integer

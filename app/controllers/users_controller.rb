@@ -152,13 +152,12 @@ class UsersController < ApplicationController
     month = params[:rate_period].blank? ? (current_month) : params[:rate_period].to_date.end_of_month
 
     @user_reviews = @user.user_reviews.where(rate_period: month).joins(:review_item).order('review_items.display_name').where('review_items.is_team = false')
-
-
   end
 
   def update_all
+
     @user = User.find(params[:user][:id].to_i)
-    begin
+    # begin
       params[:user_reviews].keys.each do |one_review|
         if !params[:user_reviews][one_review][:multiplier].nil? && (params[:user_reviews][one_review][:multiplier].to_i > 0)
           check = true
@@ -166,21 +165,23 @@ class UsersController < ApplicationController
           check = (params[:user_reviews][one_review][:checked].nil? ? false : true)
         end
 
+        rating_value = params[:user_reviews][one_review][:rating].nil? ? nil : params[:user_reviews][one_review][:rating]
+
         user_review = UserReview.find(one_review)
         user_review.update_attributes(
           pros: params[:user_reviews][one_review][:pros],
           cons: params[:user_reviews][one_review][:cons],
           notes: params[:user_reviews][one_review][:notes],
-          rating: params[:user_reviews][one_review][:rating],
+          rating: rating_value,
           rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
           checked: check,
           multiplier: params[:user_reviews][one_review][:multiplier]
         )
       end
       redirect_to users_url, notice: "Employee review has been updated."
-    rescue => e
-      redirect_to :back, notice: e.inspect
-    end
+    # rescue => e
+    #   redirect_to :back, notice: e.inspect
+    # end
   end
 
   def update_all_team
@@ -209,12 +210,13 @@ class UsersController < ApplicationController
             check = (params[:user_reviews][one_review][:checked].nil? ? false : true)
           end
 
+          rating_value = params[:user_reviews][one_review][:rating].nil? ? nil : params[:user_reviews][one_review][:rating]
           if user_review.any?
             user_review.first.update_attributes(
               pros: params[:user_reviews][one_review][:pros],
               cons: params[:user_reviews][one_review][:cons],
               notes: params[:user_reviews][one_review][:notes],
-              rating: params[:user_reviews][one_review][:rating],
+              rating: rating_value,
               checked: check,
               multiplier: params[:user_reviews][one_review][:multiplier],
               rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id]
@@ -231,7 +233,7 @@ class UsersController < ApplicationController
               pros: params[:user_reviews][one_review][:pros],
               cons: params[:user_reviews][one_review][:cons],
               notes: params[:user_reviews][one_review][:notes],
-              rating: params[:user_reviews][one_review][:rating],
+              rating: rating_value,
               checked: check,
               multiplier: params[:user_reviews][one_review][:multiplier],
               rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
@@ -256,7 +258,6 @@ class UsersController < ApplicationController
 
   def employee_rating
     # begin
-
       user = User.find(params[:id])
       team = user.current_team
 
@@ -267,6 +268,9 @@ class UsersController < ApplicationController
           check = (params[:user_reviews][one_review][:checked].nil? ? false : true)
         end
 
+        rating_value = params[:user_reviews][one_review][:rating].nil? ? nil : params[:user_reviews][one_review][:rating]
+
+
         UserReview.create!(
           user_id: user.id,
           review_item_id: params[:user_reviews][one_review][:review_item_id],
@@ -275,9 +279,9 @@ class UsersController < ApplicationController
           pros: params[:user_reviews][one_review][:pros],
           cons: params[:user_reviews][one_review][:cons],
           notes: params[:user_reviews][one_review][:notes],
-          rating: params[:user_reviews][one_review][:rating],
+          rating: rating_value,
           rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
-          is_team: true,
+          is_team: false,
           checked: check,
           multiplier: params[:user_reviews][one_review][:multiplier],
           team_id: team.id
@@ -367,6 +371,7 @@ class UsersController < ApplicationController
             review_item_id = params[:user_reviews][one_review][:review_item_id]
           end
 
+          rating_value = params[:user_reviews][one_review][:rating].nil? ? nil : params[:user_reviews][one_review][:rating]
 
           UserReview.create!(
             user_id: one_user.id,
@@ -374,7 +379,7 @@ class UsersController < ApplicationController
             review_items_by_role_id: params[:user_reviews][one_review][:review_items_by_role_id],
             rate_period: params[:user_reviews][one_review][:rate_period],
             notes: params[:user_reviews][one_review][:notes],
-            rating: params[:user_reviews][one_review][:rating],
+            rating: rating_value,
             rated_by_user_id: params[:user_reviews][one_review][:rated_by_user_id],
             is_team: true,
             notes_allowed: true,

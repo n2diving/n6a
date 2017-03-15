@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170313074121) do
+ActiveRecord::Schema.define(version: 20170315043658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,19 +95,19 @@ ActiveRecord::Schema.define(version: 20170313074121) do
   create_table "user_reviews", force: :cascade do |t|
     t.integer  "review_item_id"
     t.integer  "user_id"
-    t.integer  "rating"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.decimal  "rating",                  precision: 3, scale: 1
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.integer  "rated_by_user_id"
-    t.boolean  "notes_allowed",           default: false
+    t.boolean  "notes_allowed",                                   default: false
     t.date     "rate_period"
-    t.boolean  "is_team",                 default: false
+    t.boolean  "is_team",                                         default: false
     t.text     "pros"
     t.text     "cons"
     t.text     "notes"
     t.integer  "review_items_by_role_id"
-    t.boolean  "is_archived",             default: false
-    t.boolean  "checked",                 default: false
+    t.boolean  "is_archived",                                     default: false
+    t.boolean  "checked",                                         default: false
     t.integer  "multiplier"
     t.integer  "team_id"
     t.index ["review_item_id"], name: "index_user_reviews_on_review_item_id", using: :btree
