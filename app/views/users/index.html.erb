@@ -27,7 +27,7 @@
               <td><%= user.current_team.nil? ? '' : (link_to user.current_team.try(:team_name), user.current_team) %></td>
               <td><%= user.email %></td>
               <td><%= user.title %></td>
-              <% reviews = user.user_reviews.where(rate_period: current_month).any? %>
+              <% reviews = user.user_reviews.where(rate_period: current_month, is_team: false).any? %>
               <% if (permission || current_user.can_review_user(user.id)) && !reviews %>
                 <td class="text-center">
                   <%= link_to new_employee_rating_path(user.id) , class: "text-primary" do %>
