@@ -14,7 +14,7 @@
     <%= f.label :name %>
     <%= f.text_field :name, autofocus: true, class: "form-control margin-bottom-md", placeholder: "Team Name"%>
 
-    <%= f.date_select :rate_period, class: "form-control" %>
+    <%= f.date_select :rate_period, { discard_day: true, order: [:month, :year] }, class: "form-control"  %>
 
     <%= f.submit "save", class: "btn btn-primary btn-center" %>
 <% end %>

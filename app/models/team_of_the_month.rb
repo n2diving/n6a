@@ -1,4 +1,11 @@
 class TeamOfTheMonth < ApplicationRecord
+
+  before_save :normalize_date
+
+  def normalize_date
+    self.rate_period = self.rate_period.end_of_month
+  end
+
 end
 
 # == Schema Information
