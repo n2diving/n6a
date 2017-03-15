@@ -52,6 +52,4 @@ $( document ).on('turbolinks:load', function() {
   $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
   });
-
-  $('.selectpicker').selectpicker();
 });
