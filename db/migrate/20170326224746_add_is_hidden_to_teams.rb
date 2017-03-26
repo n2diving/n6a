@@ -1,5 +1,5 @@
 class AddIsHiddenToTeams < ActiveRecord::Migration[5.0]
   def change
-    add_column :teams, :is_hidden, :boolean
+    add_column :teams, :is_hidden, :boolean, default: false
   end
 end

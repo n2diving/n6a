@@ -19,7 +19,7 @@ module TeamsHelper
   def team_review_other_teams_chart_results
     @results = []
     rate_periods = UserReview.all.pluck(:rate_period).uniq.sort
-    @teams = Team.without_ab_operations
+    @teams = Team.unhidden
 
 
     @teams.each do |one_team|
@@ -81,7 +81,7 @@ module TeamsHelper
   def team_ranking(team_id, rate_period)
     @results = {}
     team_rank_index = nil
-    Team.without_ab_operations.each do |one_team|
+    Team.unhidden.each do |one_team|
       team_avg = team_adjusted_averages(one_team.id, rate_period)
       @results["#{one_team.id}"] = team_avg
     end
@@ -91,7 +91,7 @@ module TeamsHelper
 
   def team_rank(rate_period)
     results = {}
-    Team.without_ab_operations.each do |one_team|
+    Team.unhidden.each do |one_team|
       results["#{one_team.id}"] = team_adjusted_averages(one_team.id, rate_period)
     end
     results = results.sort_by {|k,v| v.to_f}.reverse

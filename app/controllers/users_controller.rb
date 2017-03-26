@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
     @rate_periods = UserReview.all.pluck(:rate_period).uniq.sort.map{ |x| x.strftime("%B %Y") }
     @months = I18n.t("date.month_names").drop(0)
-    @team_list = Team.without_ab_operations.where(id: UserReview.joins(user: { employee_teams: :team }).pluck(:team_id).uniq)
+    @team_list = Team.unhidden.where(id: UserReview.joins(user: { employee_teams: :team }).pluck(:team_id).uniq)
   end
 
   # GET /users/new

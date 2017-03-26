@@ -88,9 +88,9 @@ ActiveRecord::Schema.define(version: 20170326224746) do
     t.string   "team_name"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean  "is_hidden"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "is_hidden",  default: false
   end
 
   create_table "user_reviews", force: :cascade do |t|

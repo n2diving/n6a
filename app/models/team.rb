@@ -8,7 +8,7 @@
 #  end_date   :datetime
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  is_hidden  :boolean
+#  is_hidden  :boolean          default(FALSE)
 #
 
 class Team < ApplicationRecord
