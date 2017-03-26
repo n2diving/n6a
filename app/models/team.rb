@@ -8,6 +8,7 @@
 #  end_date   :datetime
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  is_hidden  :boolean
 #
 
 class Team < ApplicationRecord
@@ -17,6 +18,7 @@ class Team < ApplicationRecord
   has_many :user_reviews, through: :users
 
   scope :without_ab_operations, -> { where.not(team_name: ["teamA", "TeamB", "Operations"]) }
+  scope :unhidden, -> { where(is_hidden: false) }
 
 
   def team_lead

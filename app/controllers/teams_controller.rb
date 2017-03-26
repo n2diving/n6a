@@ -124,6 +124,6 @@ class TeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:team_name, :start_date, :end_date)
+      params.require(:team).permit(:team_name, :start_date, :end_date, :is_hidden)
     end
 end
