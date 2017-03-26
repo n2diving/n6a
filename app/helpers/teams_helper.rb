@@ -19,7 +19,7 @@ module TeamsHelper
   def team_review_other_teams_chart_results
     @results = []
     rate_periods = UserReview.all.pluck(:rate_period).uniq.sort
-    @teams = Team.all
+    @teams = Team.without_ab_operations
 
 
     @teams.each do |one_team|
