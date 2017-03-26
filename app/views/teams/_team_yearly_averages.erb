@@ -7,12 +7,12 @@
     <th>Group</th>
     <th>Month</th>
     <th class="text-center">Ranking</th>
-    <th class="text-center">Adjusted Month Average</th>
-    <th class="text-center">Current Month Average</th>
-    <th class="text-center">6 Month Average</th>
-    <th class="text-center">First 6 Months Average</th>
-    <th class="text-center">Last 6 Months Average</th>
-    <th class="text-center">YTD Average</th>
+    <th class="text-center"><strong>Group Adjusted Monthly Average</strong></th>
+    <th class="text-center">Group Monthly Average</th>
+    <!--<th class="text-center">6 Month Average</th>-->
+    <!--<th class="text-center">First 6 Months Average</th>-->
+    <!--<th class="text-center">Last 6 Months Average</th>-->
+    <th class="text-center">YTD Group Adjusted Average</th>
   </tr>
   </thead>
 
@@ -32,13 +32,13 @@
         <% end %>
         <td class="bold"><%= rate_periods.strftime("%B %Y") %></td>
         <td class="text-center"><%= team_ranking(one_team.id, rate_periods) %></td>
-        <td class="text-center"><%= team_adjusted_averages(one_team.id, rate_periods) %></td>
+        <td class="text-center"><strong><%= team_adjusted_averages(one_team.id, rate_periods) %></strong></td>
         <td class="text-center"><%= team_averages(one_team.id, rate_periods, rate_periods) %></td>
-        <td class="text-center"><%= team_averages(one_team.id, rate_periods, (rate_periods - 6.months)) %></td>
+        <!--<td class="text-center"><%#= team_averages(one_team.id, rate_periods, (rate_periods - 6.months)) %></td>-->
 
-        <td class="text-center"><%= team_averages(one_team.id, june, jan) %></td>
+        <!--<td class="text-center"><%#= team_averages(one_team.id, june, jan) %></td>-->
 
-        <td class="text-center"><%= team_averages(one_team.id, dec, july) %></td>
+        <!--<td class="text-center"><%#= team_averages(one_team.id, dec, july) %></td>-->
 
         <td class="text-center"><%= team_averages(one_team.id, rate_periods, (rate_periods.beginning_of_year)) %></td>
       </tr>

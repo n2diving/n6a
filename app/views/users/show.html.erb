@@ -32,15 +32,13 @@
       </div>
     </div>
 
-    <%= render "teams/team_yearly_averages", month: current_month, teams: @team_list %>
-
-    <hr>
+    <div class="lead">Individual Performance</div>
 
     <table class="table table-striped table-hover table-bordered datatable">
       <thead>
       <tr>
         <th>Month</th>
-        <th class="text-center">Adjusted Average</th>
+        <th class="text-center"><strong>Adjusted Average</strong></th>
         <th class="text-center">Average</th>
         <% headers = ReviewItem.where(is_weekly: false, is_monthly_bonus: false).order(:name).pluck(:display_name, :id) %>
         <% headers.each do |criteria| %>
@@ -66,7 +64,7 @@
             <tr>
               <td class="bold"><%= one_month %></td>
               <% unless average.blank? %>
-                <td class="text-center"><%= ((average.reduce(:+) / average.size.to_f) + bonus.sum).round(2) %></td>
+                <td class="text-center"><strong><%= ((average.reduce(:+) / average.size.to_f) + bonus.sum).round(2) %></strong></td>
                 <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
               <% else %>
                 <td></td>
@@ -98,8 +96,9 @@
       </tbody>
     </table>
 
+    <hr>
 
-
+    <%= render "teams/team_yearly_averages", month: current_month, teams: @team_list %>
 
 
 

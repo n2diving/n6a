@@ -1,3 +1,4 @@
+<% permission = current_user.is_admin || current_user.is_officer? %>
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class="row">
@@ -6,7 +7,7 @@
       </div>
 
       <div class="col-xs-6">
-        <% if current_user.is_admin || current_user.is_officer? %>
+        <% if permission %>
           <%= link_to new_team_rating_path, class: "text-primary pull-right margin-top-sm" do %>
             <i class="fa fa-plus"></i> New Group Review
           <% end %>
@@ -36,7 +37,7 @@
               <tr>
                 <td><%= link_to team.team_name, team %></td>
 
-                <% if current_user.is_admin %>
+                <% if permission %>
                   <td class="text-center">
                     <%= link_to edit_team_path(team), class: "margin-right-sm" do %>
                       <i class="fa fa-cog text-primary"></i>

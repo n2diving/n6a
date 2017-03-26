@@ -125,17 +125,17 @@
 
     <hr class="margin-top-lg">
 
-    <div class="lead">Group Averages per Month</div>
+    <div class="lead">Group KPI Performance by Month</div>
     <table class="table table-striped table-hover table-bordered datatable">
       <thead>
       <tr>
         <th>Month</th>
-        <th class="text-center">Average</th>
+        <!--<th class="text-center">Average</th>-->
         <% headers2 = ReviewItem.where(is_weekly: false, is_monthly_bonus: false).order(:name).pluck(:display_name, :id) %>
         <% headers2.each do |criteria| %>
           <th class="text-center"><%= criteria[0] %></th>
         <% end %>
-        <th class="text-center no-sort">Bonuses</th>
+        <!--<th class="text-center no-sort">Bonuses</th>-->
       </tr>
       </thead>
 
@@ -152,19 +152,19 @@
         <% unless team_review.blank? %>
           <tr>
             <td class="bold"><%= one_month %></td>
-            <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
+            <!--<td class="text-center"><%#= (average.reduce(:+) / average.size.to_f).round(2) %></td>-->
             <% team_review.team_review_rows(headers2, @team.id, one_month.to_datetime.end_of_month).each do |one_row| %>
               <td class="text-center"><%= one_row[1].first %></td>
             <% end %>
-            <td class="text-center">
-              <% if !bonus.blank? %>
+            <!--<td class="text-center">-->
+              <% if false #!bonus.blank? %>
                 <%= bonus.sum %>
                 <!--<i class="fa fa-trophy text-primary" data-toggle="tooltip" title="Hooray!"></i>-->
                 <!--<i class="fa fa-shield text-info"></i>-->
                 <!--<i class="fa fa-certificate text-success"></i>-->
                 <!--<i class="fa fa-star text-warning"></i>-->
               <% end %>
-            </td>
+            <!--</td>-->
           </tr>
         <% end %>
       <% end%>
