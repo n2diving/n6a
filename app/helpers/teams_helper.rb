@@ -86,7 +86,7 @@ module TeamsHelper
       @results["#{one_team.id}"] = team_avg
     end
     @results.sort_by {|k,v| v.to_f}.reverse.each_with_index { |(k,v),i| team_rank_index = i if (k == team_id.to_s) }
-    team_rank_index + 1
+    team_rank_index + 1 unless team_rank_index.nil?
   end
 
   def team_rank(rate_period)
