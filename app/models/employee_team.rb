@@ -51,10 +51,11 @@ class EmployeeTeam < ApplicationRecord
 
   def check_team_reviews
     month = self.start_date.end_of_month
-    team_reviews = UserReview.where(team_id: self.team_id, rate_period: month, is_team: true)
-    user_reviews = UserReview.where(rate_period: month, user_id: self.user_id)
-
     new_team_id = self.team_id
+    user = self.user_id
+
+    team_reviews = UserReview.where(team_id: new_team_id, rate_period: month, is_team: true)
+    user_reviews = UserReview.where(rate_period: month, user_id: user)
 
     if user_reviews.any?
       user_reviews.each do |one_review|
@@ -67,7 +68,7 @@ class EmployeeTeam < ApplicationRecord
       team_reviews.each do |one_review|
         UserReview.create(
           review_item_id: one_review.review_item_id,
-          user_id: self.user_id,
+          user_id: user,
           rating: one_review.rating,
           rated_by_user_id: one_review.rated_by_user_id,
           notes_allowed: one_review.notes_allowed,
