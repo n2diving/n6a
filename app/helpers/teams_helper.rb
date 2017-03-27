@@ -60,6 +60,33 @@ module TeamsHelper
     review_list.blank? ? 0 : ('%.2f' % ((review_list.sum(:rating) / review_list.count.to_f).round(2)))
   end
 
+  def team_adjusted_averages_by_range(team_id, rate_period_start, rate_period_end)
+
+    rate_period_ending = rate_period_end.end_of_month
+
+    review_list = UserReview.where('rate_period between ? AND ?', rate_period_ending, rate_period_start).where.not(rating: nil).where(team_id: team_id)
+
+    # {rate_period: rate_period_start, rate_end: rate_period_end, list: review_list.pluck(:rate_period).uniq.sort, count: review_list.count }
+    # review_list.blank? ? 0 : ('%.2f' % ((review_list.sum(:rating) / review_list.count.to_f).round(2)))
+
+
+
+    totals = []
+    review_list.pluck(:user_id).uniq.each do |one_user|
+      user_reviews = review_list.where(user_id: one_user)
+      average = user_reviews.pluck(:rating)
+      average.reject! {|x| x == nil}
+      average.reject! {|x| x == 0}
+      bonus = bonus_totals(user_reviews)
+
+      unless average.blank?
+        totals << ((average.reduce(:+) / average.size.to_f) + bonus.sum).round(2)
+      end
+    end
+    # puts totals
+    totals.blank? ? 0 : ('%.2f' % (totals.reduce(:+)/totals.size.to_f))
+  end
+
   def team_adjusted_averages(team_id, rate_period)
     reviews = UserReview.where(rate_period: rate_period, team_id: team_id)
     totals = []
