@@ -19,8 +19,8 @@
       <tbody>
         <% @employee_teams.each do |employee_team| %>
           <tr>
-            <td><%= employee_team.user.full_name %></td>
-            <td><%= employee_team.team.team_name %></td>
+            <td><%= link_to employee_team.user.full_name, employee_team.user %></td>
+            <td><%= employee_team.team.team_name.nil? ? '' : (link_to employee_team.team.try(:team_name), employee_team.team) %></td>
             <td><%= employee_team.team_lead ? 'yes' : 'no' %></td>
             <% if employee_team.end_date.nil? %>
               <td colspan="2" class="text-center">Current</td>
