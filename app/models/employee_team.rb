@@ -67,7 +67,7 @@ class EmployeeTeam < ApplicationRecord
       end
     end
 
-    if team_reviews.any
+    if team_reviews.any?
       team_reviews.each do |one_review|
         UserReview.create(
           review_item_id: one_review.review_item_id,
