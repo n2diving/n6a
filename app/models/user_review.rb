@@ -73,14 +73,14 @@ class UserReview < ApplicationRecord
   def team_review_rows(columns, team_id, rate_period)
     @review_rows = {}
     team = Team.find(team_id)
-    teammates = team.users.pluck(:id)
+    teammates = team.teammates_by_month(rate_period)
 
     columns.each_with_index do |one_column, i|
       user_review = UserReview.all.where(review_item_id: one_column[1], user_id: teammates, rate_period: rate_period.end_of_month)
 
 
       @review_rows[i] = []
-      @review_rows[i] << (user_review.blank? ? 0 : ('%.2f' % (user_review.sum(:rating) / user_review.count).round(2)))
+      @review_rows[i] << (user_review.blank? ? 0 : ('%.2f' % (user_review.sum(:rating) / user_review.count.to_f).round(2)))
     end
     @review_rows
   end
