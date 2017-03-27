@@ -80,7 +80,7 @@ class UserReview < ApplicationRecord
 
 
       @review_rows[i] = []
-      @review_rows[i] << (user_review.blank? ? 0 : ('%.2f' % (user_review.sum(:rating) / user_review.count.to_f).round(2)))
+      @review_rows[i] << (user_review.blank? ? 0 : ('%.2f' % (user_review.sum(:rating) / user_review.count).round(2)))
     end
     @review_rows
   end
