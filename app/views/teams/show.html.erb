@@ -30,14 +30,14 @@
         <div class="lead">Group Average Performance</div>
         <%= line_chart review_chart_results(@team_reviews) %>
       </div>
-      <% unless @team.is_hidden %>
+      <%# unless @team.is_hidden %>
         <div class="col-xs-6">
           <%#= team_review_other_teams_chart_results %>
           <!--<hr>-->
           <div class="lead">Group Competitive Performance</div>
           <%= line_chart team_review_other_teams_chart_results %>
         </div>
-      <% end %>
+      <%# end %>
     </div>
 
     <hr class="margin-bottom-lg">
@@ -92,8 +92,10 @@
                   <% end %>
                   <td class="bold"><%= rate_period.strftime("%B %Y") %></td>
                   <% unless average.blank? %>
-                    <td class="text-center"><%= ((average.reduce(:+) / average.size.to_f) + bonus_totals).round(2) %></td>
-                    <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
+                    <% adjusted_average = ((average.reduce(:+) / average.size.to_f) + bonus_totals).round(2) %>
+                    <% unadjusted_average = (average.reduce(:+) / average.size.to_f).round(2) %>
+                    <td class="text-center"><%= '%.2f' % adjusted_average %></td>
+                    <td class="text-center"><%= '%.2f' % unadjusted_average %></td>
                   <% else %>
                     <td></td>
                     <td></td>
@@ -101,7 +103,7 @@
                   <!--<td class="text-center"><%#= (average.reduce(:+) / average.size.to_f).round(2) %></td>-->
                   <% one_teammember.team_user_review_rows(headers, rate_period, @team.id).each do |one_row| %>
                     <td class="text-center">
-                      <div data-toggle="tooltip" data-html="true" title="<%= one_row[1].second[:notes] %>"><%= one_row[1].first[:rating]%>
+                      <div data-toggle="tooltip" data-html="true" title="<%= one_row[1].second[:notes] %>"><%= (one_row[1].first[:rating].nil? || one_row[1].first[:rating].empty?) ? nil : ('%.2f' % one_row[1].first[:rating])%>
                       </div>
                     </td>
                   <% end %>

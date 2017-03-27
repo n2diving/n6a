@@ -104,7 +104,7 @@ class User < ApplicationRecord
         ratings << one_user_review.rating
       end
     end
-    (ratings.reduce(&:+) / ratings.count) if !ratings.blank?
+    ('%.2f' % (ratings.reduce(&:+) / ratings.count)) if !ratings.blank?
   end
 
   def can_review_users

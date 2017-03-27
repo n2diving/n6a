@@ -64,15 +64,17 @@
             <tr>
               <td class="bold"><%= one_month %></td>
               <% unless average.blank? %>
-                <td class="text-center"><strong><%= ((average.reduce(:+) / average.size.to_f) + bonus.sum).round(2) %></strong></td>
-                <td class="text-center"><%= (average.reduce(:+) / average.size.to_f).round(2) %></td>
+                <% adjusted_average = ((average.reduce(:+) / average.size.to_f) + bonus.sum).round(2) %>
+                <% unadjusted_average = (average.reduce(:+) / average.size.to_f).round(2) %>
+                <td class="text-center"><%= '%.2f' % adjusted_average %></td>
+                <td class="text-center"><%= '%.2f' % unadjusted_average %></td>
               <% else %>
                 <td></td>
                 <td></td>
               <% end %>
               <% user_review.user_review_rows(headers, user_review.user.id, one_month.to_datetime.end_of_month).each do |one_row| %>
                 <td class="text-center">
-                  <div data-toggle="tooltip" data-html="true" title="<%= one_row[1].second[:notes] %>"><%= one_row[1].first[:rating]%>
+                  <div data-toggle="tooltip" data-html="true" title="<%= one_row[1].second[:notes] %>"><%= (one_row[1].first[:rating].nil? || one_row[1].first[:rating].empty?)  ? nil : ('%.2f' % one_row[1].first[:rating])%>
                   </div>
                 </td>
               <% end %>

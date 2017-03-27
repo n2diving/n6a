@@ -11,7 +11,7 @@ module UsersHelper
       if reviews.any?
         reviews.each do |one_review|
           name = one_review.review_item.display_name
-          dataset << [one_review.rate_period.strftime("%B %Y"), one_review.rating]
+          dataset << [one_review.rate_period.strftime("%B %Y"), one_review.rating.nil? ? '0.00' : ('%.2f' % one_review.rating)]
         end
         @results << { name: name, data: dataset }
       end
