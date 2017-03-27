@@ -8,6 +8,8 @@
           <th>User</th>
           <th>Group</th>
           <th>Group Lead?</th>
+          <th>Start Date</th>
+          <th>End Date</th>
           <% if current_user.is_admin || current_user.is_officer %>
             <th class="text-center no-sort">actions</th>
           <% end %>
@@ -20,6 +22,12 @@
             <td><%= employee_team.user.full_name %></td>
             <td><%= employee_team.team.team_name %></td>
             <td><%= employee_team.team_lead ? 'yes' : 'no' %></td>
+            <% if employee_team.end_date.nil? %>
+              <td colspan="2" class="text-center">Current</td>
+            <% else %>
+              <td><%= employee_team.start_date.strftime('%B %Y') %></td>
+              <td><%= employee_team.end_date.strftime('%B %Y') %></td>
+            <% end %>
             <% if true # current_user.is_admin || current_user.is_officer %>
               <td class="text-center">
                 <%= link_to edit_employee_team_path(employee_team), class: "margin-right-sm" do %>
