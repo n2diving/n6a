@@ -85,8 +85,7 @@ class EmployeeTeam < ApplicationRecord
       end
     else
       UserReview.where(user_id: user, rate_period: month, is_team: true).each do |one_review|
-        one_review.is_archived = true
-        one_review.save
+        one_review.delete
       end
 
     end
