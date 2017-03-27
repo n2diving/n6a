@@ -129,7 +129,7 @@ class UserReviewsController < ApplicationController
       total.reject! {|x| x == nil}
       total.reject! {|x| x == 0}
       unless total.blank?
-        ratings << (((total.reduce(:+) + bonus_totals(data).sum) / (total.size.to_f - bonus_totals(data).count)).round(2))
+        ratings << (((total.reduce(:+) + bonus_totals(data).sum) / (total.size.to_f - bonus_totals(data.where(checked: true)).count)).round(2))
       end
 
     end
