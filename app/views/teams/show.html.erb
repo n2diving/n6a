@@ -24,7 +24,7 @@
     </div>
 
     <div class="row margin-bottom-lg">
-      <div class="col-xs-6 <%= 'col-xs-offset-3' if @team.is_hidden %>">
+      <div class="col-xs-6 <%#= 'col-xs-offset-3' if @team.is_hidden %>">
         <%#= review_chart_results(@team_reviews) %>
         <!--<hr>-->
         <div class="lead">Group Average Performance</div>
@@ -48,9 +48,9 @@
       </div>
     </div>
 
-    <% unless @team.is_hidden %>
+    <%# unless @team.is_hidden %>
       <%= render "teams/team_yearly_averages", month: month, teams: @team_list %>
-    <% end %>
+    <%# end %>
 
     <% if permission %>
       <hr class="margin-top-lg">
