@@ -83,6 +83,11 @@ class EmployeeTeam < ApplicationRecord
           team_id: one_review.team_id
         )
       end
+    else
+      UserReview.where(user_id: user, rate_period: month, is_team: true).each do |one_review|
+        one_review.is_archived = true
+        one_review.save
+      end
 
     end
   end
