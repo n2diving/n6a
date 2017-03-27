@@ -54,6 +54,15 @@ class EmployeeTeam < ApplicationRecord
     team_reviews = UserReview.where(team_id: self.team_id, rate_period: month, is_team: true)
     user_reviews = UserReview.where(rate_period: month, user_id: self.user_id)
 
+    new_team_id = self.team_id
+
+    if user_reviews.any?
+      user_reviews.each do |one_review|
+        one_review.team_id = new_team_id
+        one_review.save
+      end
+    end
+
     if team_reviews.any?
       team_reviews.each do |one_review|
         UserReview.create(
@@ -72,13 +81,6 @@ class EmployeeTeam < ApplicationRecord
           multiplier: one_review.multiplier,
           team_id: one_review.team_id
         )
-      end
-
-      if user_reviews.any?
-        user_reviews.each do |one_review|
-          one_review.team_id = self.team_id
-          one_review.save
-        end
       end
 
     end
