@@ -48,10 +48,6 @@
       </div>
     </div>
 
-    <%# unless @team.is_hidden %>
-      <%= render "teams/team_yearly_averages", month: month, teams: @team_list %>
-    <%# end %>
-
     <% if permission %>
       <hr class="margin-top-lg">
       <div class="lead"><%= @team.team_name %> Performance</div>
@@ -127,6 +123,12 @@
         </tbody>
       </table>
     <% end %>
+
+    <hr class="margin-top-lg">
+    
+    <%# unless @team.is_hidden %>
+    <%= render "teams/team_yearly_averages", month: month, teams: @team_list %>
+    <%# end %>
 
     <hr class="margin-top-lg">
 
