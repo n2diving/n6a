@@ -67,6 +67,11 @@ ul {
   font-weight: 600;
 }
 
+.extra-bold {
+  font-weight: 600;
+  font-size: 15px;
+}
+
 .gray-background {
   background-color: lighten($gray-lighter, 5%);
   border: 5px solid white;

@@ -41,7 +41,7 @@
         <% group_adjusted_monthly_average += gama.to_f unless gama.nil? %>
 
         <% gma = team_adjusted_averages(one_team.id, rate_periods) %>
-        <td class="text-center"><strong><%= gma %></strong></td>
+        <td class="text-center extra-bold"><%= gma %></td>
         <% group_monthly_average += gma.to_f unless gma.nil? %>
 
         <% ytdgaa = team_averages(one_team.id, rate_periods, rate_periods) %>
