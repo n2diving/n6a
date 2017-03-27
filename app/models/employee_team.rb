@@ -61,10 +61,13 @@ class EmployeeTeam < ApplicationRecord
       user_reviews.each do |one_review|
         one_review.team_id = new_team_id
         one_review.save
+        if (one_review.is_team == true)
+          one_review.delete
+        end
       end
     end
 
-    if team_reviews.any?
+    if team_reviews.any
       team_reviews.each do |one_review|
         UserReview.create(
           review_item_id: one_review.review_item_id,
@@ -83,11 +86,6 @@ class EmployeeTeam < ApplicationRecord
           team_id: one_review.team_id
         )
       end
-    else
-      UserReview.where(user_id: user, rate_period: month, is_team: true).each do |one_review|
-        one_review.delete
-      end
-
     end
   end
 
