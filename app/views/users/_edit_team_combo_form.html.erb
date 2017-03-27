@@ -1,5 +1,5 @@
 <% permission = (current_user.is_admin) || (current_user.is_officer) %>
-<% team = @user.try(:teams).first %>
+<% team = Team.where(id: @user_reviews.first.try(:team_id)).first %>
 <% team_lead = current_user.id == current_user.current_team.try(:team_lead) %>
 <% if team.blank? %>
   <p>There are no group ratings</p>
