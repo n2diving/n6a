@@ -28,7 +28,7 @@ class EmployeeTeam < ApplicationRecord
 
   # validates_uniqueness_of :team_lead, { scope: :team_id }
 
-  after_create :verify_end_date
+  after_create :verify_end_date, :check_team_reviews
 
   def is_team_lead(user_id)
     self.where(user_id: user_id, team_lead: true).first
@@ -45,6 +45,31 @@ class EmployeeTeam < ApplicationRecord
           one.end_date = new_end
           one.save
         end
+      end
+    end
+  end
+
+  def check_team_reviews
+    team_reviews = UserReview.where(team_id: self.team_id, rate_period: self.start_date.end_of_month, is_team: true)
+
+    if team_reviews.any?
+      team_reviews.each do |one_review|
+        UserReview.create(
+          review_item_id: one_review.review_item_id,
+          user_id: self.user_id,
+          rating: one_review.rating,
+          rated_by_user_id: one_review.rated_by_user_id,
+          notes_allowed: one_review.notes_allowed,
+          rate_period: one_review.rate_period,
+          is_team: one_review.is_team,
+          pros: one_review.pros,
+          cons: one_review.cons,
+          notes: one_review.notes,
+          review_items_by_role_id: one_review.review_items_by_role_id,
+          checked: one_review.checked,
+          multiplier: one_review.multiplier,
+          team_id: one_review.team_id
+        )
       end
     end
   end

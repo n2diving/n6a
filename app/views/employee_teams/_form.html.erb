@@ -12,7 +12,7 @@
   <% end %>
 
     <%= f.collection_select :user_id, User.without_admin, :id, :full_name, { include_blank: "Select User" }, class: "form-control margin-bottom-md", autofocus: true %>
-    <%= f.collection_select :team_id, Team.all, :id, :team_name, { include_blank: "Select Group" }, class: "form-control margin-bottom-md" %>
+    <%= f.collection_select :team_id, Team.all.order(:team_name), :id, :team_name, { include_blank: "Select Group" }, class: "form-control margin-bottom-md" %>
 
     <%= f.check_box :team_lead, { class: "" }, true, false %>
     <%= f.label :team_lead, "Group Lead?", { class: "checkbox-inline" } %>
