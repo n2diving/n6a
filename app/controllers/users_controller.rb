@@ -124,12 +124,12 @@ class UsersController < ApplicationController
   def new_employee_rating
     @user = User.where(id: params[:id])
     @user_review = UserReview.new
-    if current_user.is_admin?
-      @users = User.without_admin.order(:last_name)
+    if (current_user.is_admin? || current_user.is_officer)
+      @users = User.without_admin.reorder(:last_name)
     elsif current_user.can_review_users.any?
       @users = current_user.can_review_users
     elsif current_user.id == current_user.current_team.try(:team_lead)
-      @users = User.joins(:employee_teams).where("employee_teams.team_id = ?", current_user.current_team.id).order(:last_name)
+      @users = User.joins(:employee_teams).where("employee_teams.team_id = ?", current_user.current_team.id).reorder(:last_name)
       if !@users.pluck(:id).include? @user.first.id
         flash[:notice] = "Please select an employee in your group."
       end
