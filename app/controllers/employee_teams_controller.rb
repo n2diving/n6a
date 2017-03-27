@@ -4,7 +4,7 @@ class EmployeeTeamsController < ApplicationController
   # GET /employee_teams
   # GET /employee_teams.json
   def index
-    @employee_teams = EmployeeTeam.all.order(start_date: :asc).joins(:user).order('users.first_name')
+    @employee_teams = EmployeeTeam.all.joins(:user).order('users.first_name').order(start_date: :asc)
   end
 
   # GET /employee_teams/1
