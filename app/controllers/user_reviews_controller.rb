@@ -110,7 +110,7 @@ class UserReviewsController < ApplicationController
     results = []
     Team.unhidden.each do |one_team|
       unless team_averages(one_team.id, rate_period, rate_period).to_i == 0
-        results << team_averages(one_team.id, rate_period, rate_period)
+        results << team_averages(one_team.id, rate_period, rate_period).to_f
       end
     end
 
