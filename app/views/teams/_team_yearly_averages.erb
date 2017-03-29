@@ -7,8 +7,8 @@
     <th>Group</th>
     <th>Month</th>
     <th class="text-center">Ranking</th>
-    <th class="text-center"><strong>Group Adjusted Monthly Average</strong></th>
     <th class="text-center">Group Monthly Average</th>
+    <th class="text-center"><strong>Group Adjusted Monthly Average</strong></th>
     <!--<th class="text-center">6 Month Average</th>-->
     <!--<th class="text-center">First 6 Months Average</th>-->
     <!--<th class="text-center">Last 6 Months Average</th>-->
@@ -40,13 +40,14 @@
         <td class="text-center"><%= gama %></td>
         <% group_adjusted_monthly_average += gama.to_f unless gama.nil? %>
 
+        <% ytdgaa = team_averages(one_team.id, rate_periods, rate_periods) %>
+        <td class="text-center"><%= ytdgaa %></td>
+        <% ytd_group_adjusted_average += ytdgaa.to_f unless ytdgaa.nil? %>
+
         <% gma = team_adjusted_averages(one_team.id, rate_periods) %>
         <td class="text-center extra-bold"><%= gma %></td>
         <% group_monthly_average += gma.to_f unless gma.nil? %>
 
-        <% ytdgaa = team_averages(one_team.id, rate_periods, rate_periods) %>
-        <td class="text-center"><%= ytdgaa %></td>
-        <% ytd_group_adjusted_average += ytdgaa.to_f unless ytdgaa.nil? %>
         <!--<td class="text-center"><%#= team_averages(one_team.id, rate_periods, (rate_periods - 6.months)) %></td>-->
 
         <!--<td class="text-center"><%#= team_averages(one_team.id, june, jan) %></td>-->
@@ -56,12 +57,6 @@
         <td class="text-center"><%= team_adjusted_averages_by_range(one_team.id, rate_periods, (rate_periods.beginning_of_year)) %></td>
       </tr>
     <% end%>
-      <tr>
-        <td colspan="3" class="bold">Totals:</td>
-        <td class="text-center"><%= ('%.2f' % (group_adjusted_monthly_average/teams.count)) if !group_adjusted_monthly_average.zero? %></td>
-        <td class="text-center"><%= ('%.2f' % (group_monthly_average/teams.count)) if !group_monthly_average.zero?  %></td>
-        <td class="text-center"><%= ('%.2f' % (ytd_group_adjusted_average/teams.count)) if !ytd_group_adjusted_average.zero? %></td>
-      </tr>
   <% else %>
     <tr>
       <td colspan="15"><em>There are no results to display at this time.</em></td>

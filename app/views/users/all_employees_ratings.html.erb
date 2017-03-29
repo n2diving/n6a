@@ -22,7 +22,7 @@
             <%= select_tag :rate_period, options_for_select(options_for_rate_period, month), include_blank: "Select Rate Period", class: "form-control", id: "rate_period" %>
           </div>
           <div class="col-xs-12 margin-bottom-sm">
-            <%= select_tag :user_id, options_from_collection_for_select(User.without_admin, :id, :full_name, params[:user_id]), title: "Select User", class: "form-control margin-bottom-md selectpicker", multiple: true, size: 1 %>
+            <%= select_tag :user_id, options_from_collection_for_select(User.without_admin, :id, :full_name, params[:user_id]), title: "Select User", class: "form-control margin-bottom-md selectpicker", multiple: true, size: 1, data: { 'actions-box' => "true" } %>
           </div>
           <div class="col-xs-12 margin-bottom-sm">
             <%= select_tag :team_id, options_from_collection_for_select(Team.all, :id, :team_name, params[:team_id]), title: "Select Group", class: "form-control margin-bottom-md selectpicker", multiple: true, size: 1 %>
