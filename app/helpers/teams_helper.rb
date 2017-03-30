@@ -126,4 +126,15 @@ module TeamsHelper
     answer = results.first.first.to_i
   end
 
+  def team_rank_ytd(team_id, start_month, end_month)
+    @results = {}
+    team_rank_index = nil
+    Team.unhidden.each do |one_team|
+      team_avg = team_adjusted_averages_by_range(one_team.id, start_month, end_month)
+      @results["#{one_team.id}"] = team_avg
+    end
+    @results.sort_by {|k,v| v.to_f}.reverse.each_with_index { |(k,v),i| team_rank_index = i if (k == team_id.to_s) }
+    (team_rank_index + 1) unless team_rank_index.nil?
+  end
+
 end

@@ -13,6 +13,7 @@
     <!--<th class="text-center">First 6 Months Average</th>-->
     <!--<th class="text-center">Last 6 Months Average</th>-->
     <th class="text-center">YTD Group Adjusted Average</th>
+    <th class="text-center">YTD Rank</th>
   </tr>
   </thead>
 
@@ -55,6 +56,7 @@
         <!--<td class="text-center"><%#= team_averages(one_team.id, dec, july) %></td>-->
 
         <td class="text-center"><%= team_adjusted_averages_by_range(one_team.id, rate_periods, (rate_periods.beginning_of_year)) %></td>
+        <td class="text-center"><%=team_rank_ytd(one_team.id, (rate_periods.beginning_of_year), rate_periods) %></td>
       </tr>
     <% end%>
   <% else %>
