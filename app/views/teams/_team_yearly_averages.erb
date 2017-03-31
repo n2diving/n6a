@@ -6,14 +6,14 @@
   <tr>
     <th>Group</th>
     <th>Month</th>
-    <th class="text-center">Ranking</th>
     <th class="text-center">Group Monthly Average</th>
     <th class="text-center"><strong>Group Adjusted Monthly Average</strong></th>
+    <th class="text-center">Ranking</th>
     <!--<th class="text-center">6 Month Average</th>-->
     <!--<th class="text-center">First 6 Months Average</th>-->
     <!--<th class="text-center">Last 6 Months Average</th>-->
-    <th class="text-center">YTD Rank</th>
     <th class="text-center">YTD Group Adjusted Average</th>
+    <th class="text-center">YTD Rank</th>
   </tr>
   </thead>
 
@@ -37,9 +37,6 @@
         <td class="bold"><%= rate_periods.strftime("%B %Y") %></td>
 
 
-        <% gama = team_ranking(one_team.id, rate_periods) %>
-        <td class="text-center"><%= gama %></td>
-        <% group_adjusted_monthly_average += gama.to_f unless gama.nil? %>
 
         <% ytdgaa = team_averages(one_team.id, rate_periods, rate_periods) %>
         <td class="text-center"><%= ytdgaa %></td>
@@ -49,6 +46,9 @@
         <td class="text-center extra-bold"><%= gma %></td>
         <% group_monthly_average += gma.to_f unless gma.nil? %>
 
+        <% gama = team_ranking(one_team.id, rate_periods) %>
+        <td class="text-center"><%= gama %></td>
+        <% group_adjusted_monthly_average += gama.to_f unless gama.nil? %>
         <!--<td class="text-center"><%#= team_averages(one_team.id, rate_periods, (rate_periods - 6.months)) %></td>-->
 
         <!--<td class="text-center"><%#= team_averages(one_team.id, june, jan) %></td>-->
